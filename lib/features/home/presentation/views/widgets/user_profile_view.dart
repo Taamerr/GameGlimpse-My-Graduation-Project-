@@ -104,7 +104,10 @@ class UserProfileView extends StatelessWidget {
                 text: 'Edit Profile',
                 width: MediaQuery.of(context).size.width,
                 onPressed: () async {
-                  GoRouter.of(context).push(AppRouter.kEditProfile);
+                  GoRouter.of(context).push(AppRouter.kEditProfile).then(
+                        (value) =>
+                            cubit.changeBottomNavIndex(cubit.currentIndex),
+                      );
                 },
                 fontSize: 16,
                 fontWeight: FontWeight.w600,

@@ -8,7 +8,7 @@ import 'package:gp_app/core/constants/constants.dart';
 import 'package:gp_app/core/utils/icons/icon_broken.dart';
 import 'package:gp_app/core/widgets/custom_button.dart';
 import 'package:gp_app/core/widgets/custom_text_form_field.dart';
-import 'package:gp_app/features/home/presentation/view_model/home_cubit/home_cubit.dart';
+import 'package:gp_app/features/home/presentation/view_model/edit_profile_cubit/edit_profile_cubit.dart';
 import 'package:gp_app/features/home/presentation/views/widgets/edit_profile_app_bar.dart';
 
 class EditProfileBody extends StatelessWidget {
@@ -20,12 +20,12 @@ class EditProfileBody extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 28.0),
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        child: BlocConsumer<HomeCubit, HomeState>(
+        child: BlocConsumer<EditProfileCubit, EditProfileState>(
           listener: (context, state) {
             // TODO: implement listener
           },
           builder: (context, state) {
-            var cubit = HomeCubit.get(context);
+            var cubit = EditProfileCubit.get(context);
             var nameController = TextEditingController();
             var bioController = TextEditingController();
             nameController.text = Constants.userModel!.name;
@@ -33,6 +33,11 @@ class EditProfileBody extends StatelessWidget {
             return Column(
               children: [
                 const EditProfileAppBar(),
+                state is EditProfileUpdateDataLoadingState
+                    ? const LinearProgressIndicator(
+                        color: TAppColors.kBlue,
+                      )
+                    : const SizedBox(),
                 const SizedBox(
                   height: 24,
                 ),
@@ -136,12 +141,8 @@ class EditProfileBody extends StatelessWidget {
                   controller: nameController,
                   fillColor: TAppColors.kBlack1,
                   textColor: TAppColors.kWhite,
-                  onChanged: (String data) {},
-                  validator: (String? data) {
-                    if (data!.isEmpty) {
-                      return 'This field is required';
-                    }
-                    return null;
+                  onChanged: (String data) {
+                    nameController.text = data;
                   },
                 ),
                 const SizedBox(
@@ -153,10 +154,12 @@ class EditProfileBody extends StatelessWidget {
                   prefixIcon: const Icon(FontAwesomeIcons.addressCard),
                   fillColor: TAppColors.kBlack1,
                   textColor: TAppColors.kWhite,
-                  onChanged: (String data) {},
                   keyboardType: TextInputType.multiline,
                   maxLines: 3,
                   minLines: 1,
+                  onChanged: (String data) {
+                    bioController.text = data;
+                  },
                 ),
                 const SizedBox(
                   height: 35.0,
@@ -169,7 +172,18 @@ class EditProfileBody extends StatelessWidget {
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
                   height: 48,
-                  onPressed: () {},
+                  onPressed: () {
+                    String image = cubit.imageUrl == null
+                        ? Constants.userModel!.image
+                        : cubit.imageUrl!;
+                    cubit.updateUserData(
+                      image: image,
+                      name: nameController.text,
+                      bio: bioController.text,
+                      uId: Constants.userModel!.uId,
+                      email: Constants.userModel!.email,
+                    );
+                  },
                 ),
               ],
             );

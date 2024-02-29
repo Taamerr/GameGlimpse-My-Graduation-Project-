@@ -1,3 +1,5 @@
+import 'package:gp_app/core/constants/constants.dart';
+
 class UserModel {
   final String name;
   final String email;
@@ -19,7 +21,7 @@ class UserModel {
       email: json['email'],
       uId: json['uId'],
       bio: json['bio'],
-      image: json['image'],
+      image: json['image'] == '' ? Constants.defaultImage : json['image'],
     );
   }
 

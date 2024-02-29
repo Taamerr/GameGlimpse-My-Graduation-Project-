@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../../../core/utils/icons/custom_icons.dart';
-import '../../../data/repos/home_repo.dart';
+import '../../../data/repos/home_repo/home_repo.dart';
 import '../../views/matches_view.dart';
 import '../../views/profile_view.dart';
 import '../../views/standings_view.dart';
@@ -65,31 +62,4 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeSignOutSuccessState());
     });
   }
-
-  File? profileImage;
-  ImagePicker picker = ImagePicker();
-  Future<void> getProfileImage() async {
-    emit(HomePickImageLoadingState());
-    var result = await homeRepo.getProfileImage(picker: picker);
-    result.fold((failure) {
-      emit(HomePickImageFailureState(errMessage: failure));
-    }, (file) {
-      profileImage = file;
-      emit(HomePickImageSuccessState());
-    });
-  }
-
-  String? imageUrl;
-  Future<void> uploadProfileImage() async {
-    emit(HomeUploadImageLoadingState());
-    var result = await homeRepo.uploadProfileImage(profileImage: profileImage!);
-    result.fold((failure) {
-      emit(HomeUploadImageFailureState(errMessage: failure));
-    }, (downloadUrl) {
-      imageUrl = downloadUrl;
-      emit(HomeUploadImageSuccessState());
-    });
-  }
-
-  
 }

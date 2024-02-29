@@ -12,7 +12,7 @@ class EditProfileAppBar extends StatelessWidget {
       children: [
         IconButton(
           onPressed: () {
-            GoRouter.of(context).pop();
+            GoRouter.of(context).pop(context);
           },
           icon: const Icon(
             IconBroken.Arrow___Left_2,

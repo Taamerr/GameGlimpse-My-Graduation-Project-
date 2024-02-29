@@ -26,23 +26,3 @@ final class HomeSignOutFailureState extends HomeState {
 
   HomeSignOutFailureState({required this.errMessage});
 }
-
-final class HomePickImageLoadingState extends HomeState {}
-
-final class HomePickImageSuccessState extends HomeState {}
-
-final class HomePickImageFailureState extends HomeState {
-  final String errMessage;
-
-  HomePickImageFailureState({required this.errMessage});
-}
-
-final class HomeUploadImageLoadingState extends HomeState {}
-
-final class HomeUploadImageSuccessState extends HomeState {}
-
-final class HomeUploadImageFailureState extends HomeState {
-  final String errMessage;
-
-  HomeUploadImageFailureState({required this.errMessage});
-}

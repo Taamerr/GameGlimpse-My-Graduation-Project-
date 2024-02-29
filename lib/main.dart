@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_app/features/home/data/repos/home_repo_impl.dart';
+import 'package:gp_app/features/home/data/repos/home_repo/home_repo_impl.dart';
 import 'package:gp_app/features/home/presentation/view_model/home_cubit/home_cubit.dart';
 import 'core/utils/cache_helper.dart';
 
