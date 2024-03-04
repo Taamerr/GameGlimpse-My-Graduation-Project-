@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 class ApiService {
-  final _baseUrl = 'https://v3.football.api-sports.io/';
+  final _baseUrl = 'https://api.sportmonks.com/v3/';
   final Dio _dio;
   ApiService({
     required Dio dio,

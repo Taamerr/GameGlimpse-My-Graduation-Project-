@@ -32,24 +32,19 @@ class _SplashViewBodyState extends State<SplashViewBody> {
         CircleAvatar(
           radius: width / 3.5,
           backgroundColor: Colors.blue[300],
-          child: Animate(
-            effects: const [
-              FadeEffect(),
-            ],
-            child: Container(
-              decoration: BoxDecoration(
-                color: TAppColors.kScaffoldColor,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: TAppColors.kBlue,
-                  width: 2.0,
+          child: Container(
+            decoration: BoxDecoration(
+              color: TAppColors.kScaffoldColor,
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: TAppColors.kBlue,
+                width: 2.0,
+              ),
+              image: const DecorationImage(
+                image: AssetImage(
+                  TAppAssets.appLogo,
                 ),
-                image: const DecorationImage(
-                  image: AssetImage(
-                    TAppAssets.appLogo,
-                  ),
-                  fit: BoxFit.contain,
-                ),
+                fit: BoxFit.contain,
               ),
             ),
           ),

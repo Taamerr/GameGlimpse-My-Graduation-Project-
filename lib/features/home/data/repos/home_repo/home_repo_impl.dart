@@ -9,8 +9,7 @@ import 'package:gp_app/core/error/failures.dart';
 import 'package:gp_app/core/utils/api_services.dart';
 import 'package:gp_app/core/utils/cache_helper.dart';
 import 'package:gp_app/features/auth/data/models/user_model.dart';
-import 'package:gp_app/features/home/data/models/fixture_model/fixtures_model.dart';
-import 'package:gp_app/features/home/data/models/standings_model/standings_model.dart';
+import 'package:gp_app/features/home/data/models/fixtures_model/fixtures_model.dart';
 import 'package:gp_app/features/home/data/repos/home_repo/home_repo.dart';
 
 class HomeRepoImpl implements HomeRepo {
@@ -20,58 +19,27 @@ class HomeRepoImpl implements HomeRepo {
   ApiService apiService;
   @override
   Future<Either<Failure, FixturesModel>> fetchFixuresMatches({
-    required String league,
-    required String season,
-    required String date,
-    required String rapidApiKey,
+    required int perPage,
+    required String startDate,
+    required String endDate,
   }) async {
     try {
       var result = await apiService.get(
-        endPoint: 'fixtures',
+        endPoint:
+            'football/fixtures/between/$startDate/$endDate',
         headers: {
-          'x-rapidapi-host': 'v3.football.api-sports.io',
-          'x-rapidapi-key': rapidApiKey,
+          'authorization': Constants.apiKey,
         },
         queryParameters: {
-          'league': league,
-          'season': season,
-          'date': date,
+          'include':
+              'league:name,image_path;state:short_name;participants:name,short_code,image_path;scores;',
           'timezone': 'Africa/Cairo',
-          'status':'NS-PST-FT-HT-TBD',
+          'per_page': perPage,
         },
       );
-      FixturesModel fixtureModel = FixturesModel.fromJson(result);
-      return right(fixtureModel);
+      FixturesModel fixturesModel = FixturesModel.fromJson(result);
+      return right(fixturesModel);
     } catch (e) {
-      if (e is DioException) {
-        return left(ServerFailure.fromDioException(e));
-      }
-      return left(ServerFailure(e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, StandingsModel>> fetchStandingsLeagues({
-    required String league,
-    required String season,
-    required String rapidApiKey,
-  }) async {
-    try {
-      var result = await apiService.get(
-        endPoint: 'standings',
-        headers: {
-          'x-rapidapi-host': 'v3.football.api-sports.io',
-          'x-rapidapi-key': rapidApiKey,
-        },
-        queryParameters: {
-          'league': league,
-          'season': season,
-        },
-      );
-      StandingsModel standingsModel = StandingsModel.fromJson(result);
-      return right(standingsModel);
-    } catch (e) {
-      print(e.toString());
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));
       }

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:gp_app/core/constants/constants.dart';
+import '../../../../core/constants/constants.dart';
 import '../../../../core/utils/cache_helper.dart';
 
 import '../models/user_model.dart';
@@ -109,8 +109,7 @@ class AuthRepoImpl implements AuthRepo {
     required String name,
     required String email,
     required String uId,
-    String image =
-        Constants.defaultImage,
+    String image = Constants.defaultImage,
   }) async {
     try {
       UserModel user = UserModel(

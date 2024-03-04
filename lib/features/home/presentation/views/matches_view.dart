@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_app/core/constants/colors.dart';
-import 'package:gp_app/features/home/data/models/matches_model/matches_model.dart';
-import 'package:gp_app/features/home/presentation/view_model/home_cubit/home_cubit.dart';
-import 'package:gp_app/features/home/presentation/views/widgets/custom_league_matches.dart';
-import 'package:gp_app/features/home/presentation/views/widgets/custom_matches_app_bar.dart';
+
+import '../../../../core/constants/colors.dart';
+import '../../data/models/fixtures_model/match_data.dart';
+import '../view_model/home_cubit/home_cubit.dart';
+import 'widgets/custom_league_matches.dart';
+import 'widgets/custom_matches_app_bar.dart';
 
 class MatchesView extends StatelessWidget {
   const MatchesView({super.key});
@@ -17,18 +18,21 @@ class MatchesView extends StatelessWidget {
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
         return Padding(
-          padding: const EdgeInsets.only(left: 28.0, right: 28.0, top: 16.0),
+          padding: const EdgeInsets.only(
+            left: 12.0,
+            right: 12.0,
+            top: 12.0,
+          ),
           child: DefaultTabController(
-            length: 3,
+            length: 4,
             initialIndex: 1,
             child: NestedScrollView(
-              physics: const BouncingScrollPhysics(),
               headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   //headerSilverBuilder only accepts slivers
                   child: Column(
                     children: [
-                      CustomMatchesAppBar(),
+                      const CustomMatchesAppBar(),
                       TabBar(
                         padding: EdgeInsets.zero,
                         isScrollable: false,
@@ -43,19 +47,24 @@ class MatchesView extends StatelessWidget {
                         splashBorderRadius: BorderRadius.zero,
                         indicatorSize: TabBarIndicatorSize.label,
                         tabs: [
-                          Tab(
+                          const Tab(
                             child: Text(
                               'Tomorrow',
                             ),
                           ),
-                          Tab(
+                          const Tab(
                             child: Text(
                               'Today',
                             ),
                           ),
-                          Tab(
+                          const Tab(
                             child: Text(
                               'Yesterday',
+                            ),
+                          ),
+                          Tab(
+                            child: Text(
+                              cubit.tabBarDate,
                             ),
                           ),
                         ],
@@ -64,19 +73,28 @@ class MatchesView extends StatelessWidget {
                   ),
                 ),
               ],
-              body: TabBarView(
-                children: [
-                  LiveScoreWidgetTree(
-                    matches: cubit.tomorrowMatchesList,
-                  ),
-                  LiveScoreWidgetTree(
-                    matches: cubit.todayMatchesList,
-                  ),
-                  LiveScoreWidgetTree(
-                    matches: cubit.yesterdayMatchesList,
-                  ),
-                ],
-              ),
+              body: state is HomeGetMatchesLoadingState
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: TAppColors.kBlue,
+                      ),
+                    )
+                  : TabBarView(
+                      children: [
+                        LiveScoreWidgetTree(
+                          matches: cubit.tomorrowMatches,
+                        ),
+                        LiveScoreWidgetTree(
+                          matches: cubit.todayMatches,
+                        ),
+                        LiveScoreWidgetTree(
+                          matches: cubit.yesterdayMatches,
+                        ),
+                        LiveScoreWidgetTree(
+                          matches: cubit.towDaysBeforeMatches,
+                        ),
+                      ],
+                    ),
             ),
           ),
         );
@@ -92,12 +110,13 @@ class LiveScoreWidgetTree extends StatelessWidget {
     required this.matches,
   });
 
-  final List<MatchesModel> matches;
+  final List<List<MatchData>> matches;
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      physics: const AlwaysScrollableScrollPhysics(),
       slivers: <Widget>[
         const SliverToBoxAdapter(
           child: SizedBox(
@@ -106,9 +125,9 @@ class LiveScoreWidgetTree extends StatelessWidget {
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            (context, index) => matches[index].fixturesModel.results! > 0
+            (context, index) => matches[index].isNotEmpty
                 ? CustomLeagueMatches(
-                    matchesModel: matches[index],
+                    matchModelList: matches[index],
                   )
                 : const SizedBox(),
             childCount: matches.length,

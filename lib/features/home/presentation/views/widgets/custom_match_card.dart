@@ -1,19 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:gp_app/core/constants/colors.dart';
-import 'package:gp_app/features/home/data/models/fixture_model/response.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../data/models/fixtures_model/match_data.dart';
 import 'package:intl/intl.dart';
 
 class CustomMatchCard extends StatelessWidget {
   const CustomMatchCard({
     super.key,
-    required this.response,
+    required this.matchModel,
   });
-  final Response response;
+  final MatchData matchModel;
 
   @override
   Widget build(BuildContext context) {
-    num timestampInSeconds = response.fixture!.timestamp!;
+    num timestampInSeconds = matchModel.startingAtTimestamp!;
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(
         (timestampInSeconds * 1000).toInt(),
         isUtc: true);
@@ -24,8 +24,42 @@ class CustomMatchCard extends StatelessWidget {
 
     String time = parts[0];
     String amPm = parts[1];
-    int goalHome = response.goals!.home ?? 0;
-    int goalAway = response.goals!.away ?? 0;
+    int goalHome = 0;
+    int goalAway = 0;
+    String homeName = '';
+    String awayName = '';
+    if (matchModel.participants!.first.meta!.location == 'home') {
+      if (matchModel.participants!.first.name!.length > 20) {
+        homeName = matchModel.participants!.first.shortCode!;
+      } else {
+        homeName = matchModel.participants!.first.name!;
+      }
+      if (matchModel.participants!.last.name!.length > 20) {
+        awayName = matchModel.participants!.last.shortCode!;
+      } else {
+        awayName = matchModel.participants!.last.name!;
+      }
+    } else if (matchModel.participants!.first.meta!.location == 'away') {
+      if (matchModel.participants!.first.name!.length > 20) {
+        awayName = matchModel.participants!.first.shortCode!;
+      } else {
+        awayName = matchModel.participants!.first.name!;
+      }
+      if (matchModel.participants!.last.name!.length > 20) {
+        homeName = matchModel.participants!.last.shortCode!;
+      } else {
+        homeName = matchModel.participants!.last.name!;
+      }
+    }
+    for (var score in matchModel.scores!) {
+      if (score.description == 'CURRENT' &&
+          score.score!.participant == 'home') {
+        goalHome = score.score!.goals!;
+      } else if (score.description == 'CURRENT' &&
+          score.score!.participant == 'away') {
+        goalAway = score.score!.goals!;
+      }
+    }
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: GestureDetector(
@@ -50,7 +84,7 @@ class CustomMatchCard extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        response.teams!.home!.name!,
+                        homeName,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: const TextStyle(
@@ -69,14 +103,18 @@ class CustomMatchCard extends StatelessWidget {
                         CachedNetworkImage(
                           height: 36.0,
                           width: 36.0,
-                          imageUrl: response.teams!.home!.logo!,
+                          imageUrl:
+                              matchModel.participants!.first.meta!.location ==
+                                      'home'
+                                  ? matchModel.participants!.first.imagePath!
+                                  : matchModel.participants!.last.imagePath!,
                           errorWidget: (context, url, error) => const Icon(
                             Icons.error,
                             color: Colors.white,
                           ),
                         ),
                         const SizedBox(
-                          width: 5.0,
+                          width: 15.0,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -100,12 +138,16 @@ class CustomMatchCard extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(
-                          width: 5.0,
+                          width: 15.0,
                         ),
                         CachedNetworkImage(
                           height: 36.0,
                           width: 36.0,
-                          imageUrl: response.teams!.away!.logo!,
+                          imageUrl:
+                              matchModel.participants!.first.meta!.location ==
+                                      'away'
+                                  ? matchModel.participants!.first.imagePath!
+                                  : matchModel.participants!.last.imagePath!,
                           errorWidget: (context, url, error) => const Icon(
                             Icons.error,
                             color: Colors.white,
@@ -118,7 +160,7 @@ class CustomMatchCard extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        response.teams!.away!.name!,
+                        awayName,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: const TextStyle(
@@ -163,7 +205,7 @@ class CustomMatchCard extends StatelessWidget {
                       endIndent: 5,
                     ),
                     Text(
-                      response.fixture!.status!.short!,
+                      matchModel.state!.shortName!,
                       style: const TextStyle(
                         color: TAppColors.kWhite,
                         fontWeight: FontWeight.w600,

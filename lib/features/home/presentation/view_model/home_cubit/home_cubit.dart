@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gp_app/core/constants/api_keys.dart';
-import 'package:gp_app/core/utils/icons/icon_broken.dart';
-import 'package:gp_app/features/home/data/models/matches_model/matches_model.dart';
+import '../../../../../core/utils/icons/icon_broken.dart';
+import '../../../data/models/fixtures_model/match_data.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../core/utils/icons/custom_icons.dart';
 import '../../../data/repos/home_repo/home_repo.dart';
@@ -69,102 +69,151 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  List<MatchesModel> todayMatchesList = [];
-  List<MatchesModel> tomorrowMatchesList = [];
-  List<MatchesModel> yesterdayMatchesList = [];
-  Future<void> getLeagueMatches({
-    required String league,
-    required String season,
-    required String date,
-    required String rapidApiKey,
-    required String datePref,
-  }) async {
+  String tabBarDate = '';
+  String today = '';
+  String tomorrow = '';
+  String yesterday = '';
+  String towDaysBefore = '';
+  void getDate() {
+    DateTime tempToday = DateTime.now();
+    DateTime tempTomorrow = tempToday.add(const Duration(days: 1));
+    DateTime tempYesterday = tempToday.subtract(const Duration(days: 1));
+    DateTime tempTwoDaysBefore = tempToday.subtract(const Duration(days: 2));
+    today =
+        "${tempToday.year.toString().padLeft(4, '0')}-${tempToday.month.toString().padLeft(2, '0')}-${tempToday.day.toString().padLeft(2, '0')}";
+    tomorrow =
+        "${tempTomorrow.year.toString().padLeft(4, '0')}-${tempTomorrow.month.toString().padLeft(2, '0')}-${tempTomorrow.day.toString().padLeft(2, '0')}";
+    yesterday =
+        "${tempYesterday.year.toString().padLeft(4, '0')}-${tempYesterday.month.toString().padLeft(2, '0')}-${tempYesterday.day.toString().padLeft(2, '0')}";
+    towDaysBefore =
+        "${tempTwoDaysBefore.year.toString().padLeft(4, '0')}-${tempTwoDaysBefore.month.toString().padLeft(2, '0')}-${tempTwoDaysBefore.day.toString().padLeft(2, '0')}";
+    tabBarDate = DateFormat('MMMM d').format(tempTwoDaysBefore);
+  }
+
+  List<List<MatchData>> todayMatches = [];
+  List<List<MatchData>> tomorrowMatches = [];
+  List<List<MatchData>> yesterdayMatches = [];
+  List<List<MatchData>> towDaysBeforeMatches = [];
+
+  Future<void> getAllMatches() async {
     emit(HomeGetMatchesLoadingState());
+    todayMatches = [];
+    tomorrowMatches = [];
+    yesterdayMatches = [];
+    towDaysBeforeMatches = [];
     var result = await homeRepo.fetchFixuresMatches(
-      league: league,
-      season: season,
-      date: date,
-      rapidApiKey: rapidApiKey,
+      startDate: towDaysBefore,
+      endDate: tomorrow,
+      perPage: 50,
     );
     result.fold((failure) {
       print('failure = ${failure.errMessage}');
       emit(HomeGetMatchesFailureState(errMessage: failure.errMessage));
     }, (fixturesModel) {
-      MatchesModel matchesModel = MatchesModel(
-        fixturesModel: fixturesModel,
-        rapidApiKey: rapidApiKey,
-      );
-      if (datePref == 't') {
-        todayMatchesList.add(matchesModel);
-      } else if (datePref == 'to') {
-        tomorrowMatchesList.add(matchesModel);
-      } else {
-        yesterdayMatchesList.add(matchesModel);
+      if (fixturesModel.data != null) {
+        classifyLeague(
+          matches: fixturesModel.data!,
+          date: today,
+        );
+        classifyLeague(
+          matches: fixturesModel.data!,
+          date: tomorrow,
+        );
+        classifyLeague(
+          matches: fixturesModel.data!,
+          date: yesterday,
+        );
+        classifyLeague(
+          matches: fixturesModel.data!,
+          date: towDaysBefore,
+        );
       }
       emit(HomeGetMatchesSuccessState());
     });
   }
 
-  List<String> competitionId = [
-    '39', // Premier League
-    '140', // La Liga
-    '78', // Bundesliga
-    '135', // Serie A
-    '61', // Ligue 1
-    '48', // League Cup
-    '45', // FA Cup
-    '143', // Copa del Rey
-    '81', // DFB Pokal
-    '137', // Coppa Italia
-    '65', // Coupe de la Ligue
-    '66', // Coupe de France
-    '2', // Champions League
-    '3', // Europa League
-    '4', // Euro
-    '5', // Nations League
-  ];
-  List<String> apiKeys = [
-    ApiKeys.key1,
-    ApiKeys.key2,
-    ApiKeys.key3,
-    ApiKeys.key4,
-    ApiKeys.key5,
-  ];
-  Future<void> getAllMatches({
+  void classifyLeague({
+    required List<MatchData> matches,
     required String date,
-    required String datePref,
-  }) async {
-    emit(HomeGetAllLeaguesMatchesLoadingState());
-    int y = 0;
-    for (int i = 0; i < 5; i++) {
-      await getLeagueMatches(
-        datePref: datePref,
-        date: date,
-        league: competitionId[i],
-        rapidApiKey: apiKeys[y],
-        season: '2023',
-      );
-      if (i % 2 != 0 && i > 0) {
-        y++;
+  }) {
+    List<MatchData> englandOne = [];
+    List<MatchData> englandTwo = [];
+    List<MatchData> englandThree = [];
+    List<MatchData> europeOne = [];
+    List<MatchData> europeTwo = [];
+    List<MatchData> europeThree = [];
+    List<MatchData> franceOne = [];
+    List<MatchData> franceTwo = [];
+    List<MatchData> franceThree = [];
+    List<MatchData> germanyOne = [];
+    List<MatchData> germanyTwo = [];
+    List<MatchData> italyOne = [];
+    List<MatchData> italyTwo = [];
+    List<MatchData> spainOne = [];
+    List<MatchData> spainTwo = [];
+    for (var match in matches) {
+      String matchDate = match.startingAt!.split(' ')[0];
+      if (matchDate == date) {
+        if (match.leagueId == 8) {
+          englandOne.add(match);
+        } else if (match.leagueId == 24) {
+          englandTwo.add(match);
+        } else if (match.leagueId == 27) {
+          englandThree.add(match);
+        } else if (match.leagueId == 2) {
+          europeOne.add(match);
+        } else if (match.leagueId == 1326) {
+          europeTwo.add(match);
+        } else if (match.leagueId == 5) {
+          europeThree.add(match);
+        } else if (match.leagueId == 301) {
+          franceOne.add(match);
+        } else if (match.leagueId == 307) {
+          franceTwo.add(match);
+        } else if (match.leagueId == 310) {
+          franceThree.add(match);
+        } else if (match.leagueId == 82) {
+          germanyOne.add(match);
+        } else if (match.leagueId == 109) {
+          germanyTwo.add(match);
+        } else if (match.leagueId == 384) {
+          italyOne.add(match);
+        } else if (match.leagueId == 390) {
+          italyTwo.add(match);
+        } else if (match.leagueId == 564) {
+          spainOne.add(match);
+        } else if (match.leagueId == 570) {
+          spainTwo.add(match);
+        }
       }
     }
-    emit(HomeGetAllLeaguesMatchesSuccessState());
-  }
 
-  Future<void> getThreeDaysMatches() async {
-    emit(HomeGetAllMatchesDataLoadingState());
-    DateTime now = DateTime.now();
-    String formattedToday =
-        '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
-    DateTime yesterday = now.subtract(const Duration(days: 1));
-    String formattedYesterday =
-        '${yesterday.year}-${yesterday.month.toString().padLeft(2, '0')}-${yesterday.day.toString().padLeft(2, '0')}';
-    DateTime tomorrow = now.add(const Duration(days: 1));
-    String formattedTomorrow =
-        '${tomorrow.year}-${tomorrow.month.toString().padLeft(2, '0')}-${tomorrow.day.toString().padLeft(2, '0')}';
-    await getAllMatches(date: formattedToday, datePref: 't');
-    await getAllMatches(date: formattedTomorrow, datePref: 'to');
-    await getAllMatches(date: formattedYesterday, datePref: 'y');
-    emit(HomeGetAllMatchesDataSuccessState());
+    List<List<MatchData>> temp = [];
+    temp.addAll([
+      europeOne,
+      europeTwo,
+      europeThree,
+      englandOne,
+      englandTwo,
+      englandThree,
+      spainOne,
+      spainTwo,
+      germanyOne,
+      germanyTwo,
+      italyOne,
+      italyTwo,
+      franceOne,
+      franceTwo,
+      franceThree,
+    ]);
+    if (date == today) {
+      todayMatches = temp;
+    } else if (date == tomorrow) {
+      tomorrowMatches = temp;
+    } else if (date == yesterday) {
+      yesterdayMatches = temp;
+    } else if (date == towDaysBefore) {
+      towDaysBeforeMatches = temp;
+    }
   }
 }

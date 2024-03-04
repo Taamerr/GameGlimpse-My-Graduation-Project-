@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:gp_app/features/home/presentation/views/widgets/edit_profile.dart';
+import '../../features/home/presentation/views/widgets/edit_profile.dart';
 
 import '../../features/home/presentation/views/home_layout.dart';
 import '../../features/on_boarding/presentation/views/on_boarding_view.dart';

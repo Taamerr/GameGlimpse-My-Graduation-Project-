@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gp_app/core/constants/colors.dart';
-import 'package:gp_app/core/utils/icons/icon_broken.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/utils/icons/icon_broken.dart';
+import '../../view_model/home_cubit/home_cubit.dart';
 
 class CustomMatchesAppBar extends StatelessWidget {
   const CustomMatchesAppBar({super.key});
@@ -19,12 +21,23 @@ class CustomMatchesAppBar extends StatelessWidget {
         ),
         const Spacer(),
         IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              IconBroken.Notification,
-              color: TAppColors.kWhite,
-              size: 28.0,
-            )),
+          onPressed: () {
+            HomeCubit.get(context).getAllMatches();
+          },
+          icon: const Icon(
+            FontAwesomeIcons.rotate,
+            color: TAppColors.kWhite,
+            size: 24.0,
+          ),
+        ),
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            IconBroken.Notification,
+            color: TAppColors.kWhite,
+            size: 28.0,
+          ),
+        ),
       ],
     );
   }

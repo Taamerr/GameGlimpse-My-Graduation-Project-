@@ -1,21 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:gp_app/core/constants/colors.dart';
-import 'package:gp_app/core/utils/icons/icon_broken.dart';
-import 'package:gp_app/features/home/data/models/matches_model/matches_model.dart';
-import 'package:gp_app/features/home/presentation/views/widgets/custom_match_card.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/constants/constants.dart';
+import '../../../../../core/utils/icons/icon_broken.dart';
+import '../../../data/models/fixtures_model/match_data.dart';
+import 'custom_match_card.dart';
 
 class CustomLeagueMatches extends StatelessWidget {
   const CustomLeagueMatches({
     super.key,
-    required this.matchesModel,
+    required this.matchModelList,
   });
-  final MatchesModel matchesModel;
+  final List<MatchData> matchModelList;
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+    return Column(
       children: [
         Container(
           height: 55,
@@ -23,8 +22,11 @@ class CustomLeagueMatches extends StatelessWidget {
           child: Row(
             children: [
               CachedNetworkImage(
-                imageUrl:
-                    matchesModel.fixturesModel.response!.first.league!.logo!,
+                imageUrl: matchModelList.first.league!.imagePath!,
+                color: matchModelList.first.league!.id == 8 ||
+                        matchModelList.first.league!.id == 2
+                    ? TAppColors.kWhite
+                    : null,
                 errorWidget: (context, url, error) => const Icon(
                   Icons.error,
                   color: Colors.white,
@@ -37,7 +39,7 @@ class CustomLeagueMatches extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    matchesModel.fixturesModel.response!.first.league!.name!,
+                    matchModelList.first.league!.name!,
                     style: const TextStyle(
                       color: TAppColors.kWhite,
                       fontWeight: FontWeight.w600,
@@ -45,7 +47,7 @@ class CustomLeagueMatches extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    matchesModel.fixturesModel.response!.first.league!.country!,
+                    Constants.countryNames[matchModelList.first.league!.id!]!,
                     style: const TextStyle(
                       color: Color(0xffAAAAAA),
                       fontWeight: FontWeight.w400,
@@ -73,9 +75,9 @@ class CustomLeagueMatches extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) => CustomMatchCard(
-            response: matchesModel.fixturesModel.response![index],
+            matchModel: matchModelList[index],
           ),
-          itemCount: matchesModel.fixturesModel.response!.length,
+          itemCount: matchModelList.length,
         ),
         const SizedBox(
           height: 10.0,

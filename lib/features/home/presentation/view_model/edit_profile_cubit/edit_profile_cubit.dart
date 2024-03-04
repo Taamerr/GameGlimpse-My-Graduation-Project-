@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_app/core/constants/constants.dart';
-import 'package:gp_app/features/auth/data/models/user_model.dart';
-import 'package:gp_app/features/home/data/repos/edit_profile_repo/edit_profile_repo.dart';
+import '../../../../../core/constants/constants.dart';
+import '../../../../auth/data/models/user_model.dart';
+import '../../../data/repos/edit_profile_repo/edit_profile_repo.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 

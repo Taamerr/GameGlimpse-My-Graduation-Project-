@@ -1,4 +1,4 @@
-import 'package:gp_app/core/constants/constants.dart';
+import '../../../../core/constants/constants.dart';
 
 class UserModel {
   final String name;

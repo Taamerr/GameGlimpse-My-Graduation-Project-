@@ -2,8 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_app/features/home/data/repos/home_repo/home_repo_impl.dart';
-import 'package:gp_app/features/home/presentation/view_model/home_cubit/home_cubit.dart';
+import 'features/home/data/repos/home_repo/home_repo_impl.dart';
+import 'features/home/presentation/view_model/home_cubit/home_cubit.dart';
 import 'core/utils/cache_helper.dart';
 
 import 'core/constants/colors.dart';
@@ -38,7 +38,9 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeCubit(
         ServiceLocator.getIt.get<HomeRepoImpl>(),
-      )..getThreeDaysMatches(),
+      )
+        ..getDate()
+        ..getAllMatches(),
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerConfig: AppRouter.router,
