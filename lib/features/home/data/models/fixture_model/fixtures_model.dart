@@ -5,7 +5,7 @@ import 'response.dart';
 class FixturesModel {
   String? fixtureModelGet;
   Parameters? parameters;
-  List<dynamic>? errors;
+  dynamic errors;
   num? results;
   Paging? paging;
   List<Response>? response;
@@ -24,7 +24,7 @@ class FixturesModel {
         parameters: json['parameters'] == null
             ? null
             : Parameters.fromJson(json['parameters'] as Map<String, dynamic>),
-        errors: json['errors'] as List<dynamic>?,
+        errors: json['errors'],
         results: json['results'] as num?,
         paging: json['paging'] == null
             ? null

@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeCubit(
         ServiceLocator.getIt.get<HomeRepoImpl>(),
-      ),
+      )..getThreeDaysMatches(),
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerConfig: AppRouter.router,

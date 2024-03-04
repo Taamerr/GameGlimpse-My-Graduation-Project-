@@ -57,7 +57,7 @@ class EditProfileRepoImpl implements EditProfileRepo {
         bio: bio,
         image: image,
       );
-      var result = await FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('users')
           .doc(uId)
           .update(userModel.toJson());

@@ -26,7 +26,7 @@ class HomeRepoImpl implements HomeRepo {
     required String rapidApiKey,
   }) async {
     try {
-      var data = await apiService.get(
+      var result = await apiService.get(
         endPoint: 'fixtures',
         headers: {
           'x-rapidapi-host': 'v3.football.api-sports.io',
@@ -36,10 +36,11 @@ class HomeRepoImpl implements HomeRepo {
           'league': league,
           'season': season,
           'date': date,
+          'timezone': 'Africa/Cairo',
+          'status':'NS-PST-FT-HT-TBD',
         },
       );
-      FixturesModel fixtureModel = FixturesModel.fromJson(data);
-      print(fixtureModel.response!.first.teams!.home!.name);
+      FixturesModel fixtureModel = FixturesModel.fromJson(result);
       return right(fixtureModel);
     } catch (e) {
       if (e is DioException) {
@@ -56,7 +57,7 @@ class HomeRepoImpl implements HomeRepo {
     required String rapidApiKey,
   }) async {
     try {
-      var data = await apiService.get(
+      var result = await apiService.get(
         endPoint: 'standings',
         headers: {
           'x-rapidapi-host': 'v3.football.api-sports.io',
@@ -67,7 +68,7 @@ class HomeRepoImpl implements HomeRepo {
           'season': season,
         },
       );
-      StandingsModel standingsModel = StandingsModel.fromJson(data);
+      StandingsModel standingsModel = StandingsModel.fromJson(result);
       return right(standingsModel);
     } catch (e) {
       print(e.toString());

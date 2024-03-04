@@ -26,3 +26,21 @@ final class HomeSignOutFailureState extends HomeState {
 
   HomeSignOutFailureState({required this.errMessage});
 }
+
+final class HomeGetMatchesLoadingState extends HomeState {}
+
+final class HomeGetMatchesSuccessState extends HomeState {}
+
+final class HomeGetMatchesFailureState extends HomeState {
+  final String errMessage;
+
+  HomeGetMatchesFailureState({required this.errMessage});
+}
+
+final class HomeGetAllLeaguesMatchesLoadingState extends HomeState {}
+
+final class HomeGetAllLeaguesMatchesSuccessState extends HomeState {}
+
+final class HomeGetAllMatchesDataLoadingState extends HomeState {}
+
+final class HomeGetAllMatchesDataSuccessState extends HomeState {}
