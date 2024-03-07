@@ -26,10 +26,10 @@ class MatchesView extends StatelessWidget {
           child: DefaultTabController(
             length: 4,
             initialIndex: 1,
-            child: NestedScrollView(
-              headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            child: CustomScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              slivers: [
                 SliverToBoxAdapter(
-                  //headerSilverBuilder only accepts slivers
                   child: Column(
                     children: [
                       const CustomMatchesAppBar(),
@@ -72,29 +72,32 @@ class MatchesView extends StatelessWidget {
                     ],
                   ),
                 ),
+                SliverFillRemaining(
+                  hasScrollBody: true,
+                  child: state is HomeGetMatchesLoadingState
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: TAppColors.kBlue,
+                          ),
+                        )
+                      : TabBarView(
+                          children: [
+                            LiveScoreWidgetTree(
+                              matches: cubit.tomorrowMatches,
+                            ),
+                            LiveScoreWidgetTree(
+                              matches: cubit.todayMatches,
+                            ),
+                            LiveScoreWidgetTree(
+                              matches: cubit.yesterdayMatches,
+                            ),
+                            LiveScoreWidgetTree(
+                              matches: cubit.towDaysBeforeMatches,
+                            ),
+                          ],
+                        ),
+                )
               ],
-              body: state is HomeGetMatchesLoadingState
-                  ? const Center(
-                      child: CircularProgressIndicator(
-                        color: TAppColors.kBlue,
-                      ),
-                    )
-                  : TabBarView(
-                      children: [
-                        LiveScoreWidgetTree(
-                          matches: cubit.tomorrowMatches,
-                        ),
-                        LiveScoreWidgetTree(
-                          matches: cubit.todayMatches,
-                        ),
-                        LiveScoreWidgetTree(
-                          matches: cubit.yesterdayMatches,
-                        ),
-                        LiveScoreWidgetTree(
-                          matches: cubit.towDaysBeforeMatches,
-                        ),
-                      ],
-                    ),
             ),
           ),
         );
@@ -103,7 +106,6 @@ class MatchesView extends StatelessWidget {
   }
 }
 
-//liveScoreWidgetTree(cubit: cubit)
 class LiveScoreWidgetTree extends StatelessWidget {
   const LiveScoreWidgetTree({
     super.key,
@@ -115,7 +117,6 @@ class LiveScoreWidgetTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-      shrinkWrap: true,
       physics: const AlwaysScrollableScrollPhysics(),
       slivers: <Widget>[
         const SliverToBoxAdapter(

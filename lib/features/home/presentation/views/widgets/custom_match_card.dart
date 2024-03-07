@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../../core/utils/app_router.dart';
+import 'package:intl/intl.dart';
+
 import '../../../../../core/constants/colors.dart';
 import '../../../data/models/fixtures_model/match_data.dart';
-import 'package:intl/intl.dart';
 
 class CustomMatchCard extends StatelessWidget {
   const CustomMatchCard({
@@ -63,7 +66,12 @@ class CustomMatchCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          GoRouter.of(context).push(
+            AppRouter.kMatchDetails,
+            extra: matchModel,
+          );
+        },
         child: Row(
           children: [
             Expanded(

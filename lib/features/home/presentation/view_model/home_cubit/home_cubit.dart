@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../../../core/utils/icons/icon_broken.dart';
-import '../../../data/models/fixtures_model/match_data.dart';
+import '../../../data/models/league_standing_model/league_standing_model.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../core/utils/icons/custom_icons.dart';
+import '../../../../../core/utils/icons/icon_broken.dart';
+import '../../../data/models/fixtures_model/match_data.dart';
 import '../../../data/repos/home_repo/home_repo.dart';
 import '../../views/matches_view.dart';
 import '../../views/profile_view.dart';
@@ -65,6 +66,7 @@ class HomeCubit extends Cubit<HomeState> {
     result.fold((failure) {
       emit(HomeSignOutFailureState(errMessage: failure));
     }, (_) {
+      currentIndex = 0;
       emit(HomeSignOutSuccessState());
     });
   }
@@ -87,7 +89,7 @@ class HomeCubit extends Cubit<HomeState> {
         "${tempYesterday.year.toString().padLeft(4, '0')}-${tempYesterday.month.toString().padLeft(2, '0')}-${tempYesterday.day.toString().padLeft(2, '0')}";
     towDaysBefore =
         "${tempTwoDaysBefore.year.toString().padLeft(4, '0')}-${tempTwoDaysBefore.month.toString().padLeft(2, '0')}-${tempTwoDaysBefore.day.toString().padLeft(2, '0')}";
-    tabBarDate = DateFormat('MMMM d').format(tempTwoDaysBefore);
+    tabBarDate = DateFormat.MMMd().format(tempTwoDaysBefore);
   }
 
   List<List<MatchData>> todayMatches = [];
@@ -215,5 +217,40 @@ class HomeCubit extends Cubit<HomeState> {
     } else if (date == towDaysBefore) {
       towDaysBeforeMatches = temp;
     }
+  }
+
+  List<LeagueStandingModel> standings = [];
+  List<int> leaguesId = [
+    8,
+    564,
+    384,
+    82,
+    301,
+  ];
+  Future<void> getLeagueStanding({
+    required int leagueId,
+  }) async {
+    emit(HomeGetLeaguesStandingLoadingState());
+    var result = await homeRepo.fetchLeagueStanding(
+      leagueId: leagueId,
+    );
+    result.fold((failure) {
+      print('failure = ${failure.errMessage}');
+      emit(HomeGetLeaguesStandingFailureState(errMessage: failure.errMessage));
+    }, (leagueStandingModel) {
+      standings.add(leagueStandingModel);
+      emit(HomeGetLeaguesStandingSuccessState());
+    });
+  }
+
+
+  Future<void> getAllStandings() async {
+    emit(HomeGetAllLeaguesStandingLoadingState());
+    for (int i = 0; i < leaguesId.length; i++) {
+      await getLeagueStanding(
+        leagueId: leaguesId[i],
+      );
+    }
+    emit(HomeGetAllLeaguesStandingSuccessState());
   }
 }

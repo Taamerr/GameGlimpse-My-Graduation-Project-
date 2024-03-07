@@ -8,5 +8,6 @@ abstract class TAppAssets {
   static const googleIcon = 'assets/images/google_icon.png';
   static const facebookIcon = 'assets/images/facebook_icon.png';
   static const incognitoIcon = 'assets/images/incognito.png';
+  static const lineupsBackground = 'assets/images/background.jpg';
   static const profileBackground = 'assets/images/profile_background.jpg';
 }

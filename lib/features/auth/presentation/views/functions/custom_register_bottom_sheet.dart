@@ -50,7 +50,8 @@ Future<dynamic> customRegisterShowBottomSheet({
                   state is AuthLoginGoogleSuccessState) {
                 Navigator.pop(context);
                 GoRouter.of(context).pushReplacement(AppRouter.kHomeLayout);
-              } else if (state is AuthRegisterFailureState) {
+              } else if (state is AuthRegisterFailureState ||
+                  state is AuthLoginGoogleFailureState) {
                 Navigator.pop(context);
               }
             },

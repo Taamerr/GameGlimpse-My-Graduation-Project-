@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../../../../../core/constants/colors.dart';
 import '../../../../../core/utils/icons/icon_broken.dart';
 import '../../view_model/home_cubit/home_cubit.dart';
@@ -21,8 +22,9 @@ class CustomMatchesAppBar extends StatelessWidget {
         ),
         const Spacer(),
         IconButton(
-          onPressed: () {
-            HomeCubit.get(context).getAllMatches();
+          onPressed: () async {
+            HomeCubit.get(context).getDate();
+            await HomeCubit.get(context).getAllMatches();
           },
           icon: const Icon(
             FontAwesomeIcons.rotate,

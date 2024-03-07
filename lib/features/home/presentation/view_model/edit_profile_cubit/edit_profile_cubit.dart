@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:meta/meta.dart';
+
 import '../../../../../core/constants/constants.dart';
 import '../../../../auth/data/models/user_model.dart';
 import '../../../data/repos/edit_profile_repo/edit_profile_repo.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:meta/meta.dart';
 
 part 'edit_profile_state.dart';
 

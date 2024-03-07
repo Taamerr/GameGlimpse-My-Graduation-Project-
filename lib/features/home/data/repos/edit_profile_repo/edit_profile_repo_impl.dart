@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+
 import '../../../../auth/data/models/user_model.dart';
 import 'edit_profile_repo.dart';
-import 'package:image_picker/image_picker.dart';
 
 class EditProfileRepoImpl implements EditProfileRepo {
   @override

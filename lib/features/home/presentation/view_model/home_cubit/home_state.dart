@@ -37,10 +37,16 @@ final class HomeGetMatchesFailureState extends HomeState {
   HomeGetMatchesFailureState({required this.errMessage});
 }
 
-final class HomeGetAllLeaguesMatchesLoadingState extends HomeState {}
+final class HomeGetLeaguesStandingLoadingState extends HomeState {}
 
-final class HomeGetAllLeaguesMatchesSuccessState extends HomeState {}
+final class HomeGetLeaguesStandingSuccessState extends HomeState {}
 
-final class HomeGetAllMatchesDataLoadingState extends HomeState {}
+final class HomeGetLeaguesStandingFailureState extends HomeState {
+  final String errMessage;
 
-final class HomeGetAllMatchesDataSuccessState extends HomeState {}
+  HomeGetLeaguesStandingFailureState({required this.errMessage});
+}
+
+final class HomeGetAllLeaguesStandingLoadingState extends HomeState {}
+
+final class HomeGetAllLeaguesStandingSuccessState extends HomeState {}

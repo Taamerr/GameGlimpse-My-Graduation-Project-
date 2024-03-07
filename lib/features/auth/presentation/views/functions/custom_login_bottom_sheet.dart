@@ -51,7 +51,8 @@ Future<dynamic> customLoginShowBottomSheet({
                   state is AuthLoginGoogleSuccessState) {
                 Navigator.pop(context);
                 GoRouter.of(context).pushReplacement(AppRouter.kHomeLayout);
-              } else if (state is AuthLoginFailureState) {
+              } else if (state is AuthLoginFailureState ||
+                  state is AuthLoginGoogleFailureState) {
                 Navigator.pop(context);
               }
             },

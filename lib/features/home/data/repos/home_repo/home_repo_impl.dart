@@ -10,6 +10,7 @@ import 'package:gp_app/core/utils/api_services.dart';
 import 'package:gp_app/core/utils/cache_helper.dart';
 import 'package:gp_app/features/auth/data/models/user_model.dart';
 import 'package:gp_app/features/home/data/models/fixtures_model/fixtures_model.dart';
+import 'package:gp_app/features/home/data/models/league_standing_model/league_standing_model.dart';
 import 'package:gp_app/features/home/data/repos/home_repo/home_repo.dart';
 
 class HomeRepoImpl implements HomeRepo {
@@ -25,8 +26,7 @@ class HomeRepoImpl implements HomeRepo {
   }) async {
     try {
       var result = await apiService.get(
-        endPoint:
-            'football/fixtures/between/$startDate/$endDate',
+        endPoint: 'football/fixtures/between/$startDate/$endDate',
         headers: {
           'authorization': Constants.apiKey,
         },
@@ -55,6 +55,7 @@ class HomeRepoImpl implements HomeRepo {
       await googleSignIn.signOut();
       CacheHelper.removeData(key: 'uId');
       CacheHelper.removeData(key: 'inco');
+      Constants.userModel = null;
       return right(null);
     } catch (e) {
       print('Error when sign out: ${e.toString()}');
@@ -76,6 +77,34 @@ class HomeRepoImpl implements HomeRepo {
     } catch (e) {
       print('Error when get user data : ${e.toString()}');
       return left('Error when get user data : ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<Either<Failure, LeagueStandingModel>> fetchLeagueStanding({
+    required int leagueId,
+  }) async {
+    try {
+      var result = await apiService.get(
+        endPoint: 'football/standings/live/leagues/$leagueId',
+        headers: {
+          'authorization': Constants.apiKey,
+        },
+        queryParameters: {
+          'include':
+              'league:name,image_path;participant:name,short_code,image_path;details.type:name;',
+          'timezone': 'Africa/Cairo',
+          'per_page': 50,
+        },
+      );
+      LeagueStandingModel leagueStandingModel =
+          LeagueStandingModel.fromJson(result);
+      return right(leagueStandingModel);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      }
+      return left(ServerFailure(e.toString()));
     }
   }
 }
