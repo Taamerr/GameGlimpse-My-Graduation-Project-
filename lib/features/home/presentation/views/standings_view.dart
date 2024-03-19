@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/constants/colors.dart';
 import '../view_model/home_cubit/home_cubit.dart';
-import 'widgets/custom_standing_item.dart';
-import 'widgets/custom_standing_league_header.dart';
-import 'widgets/standing_header_first_row.dart';
+import 'widgets/standing/custom_standing_item.dart';
+import 'widgets/standing/custom_standing_league_header.dart';
+import 'widgets/standing/standing_header_first_row.dart';
 
 class StandingsView extends StatelessWidget {
   const StandingsView({super.key});

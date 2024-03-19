@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../data/models/league_standing_model/datum.dart';
+import '../../../../data/models/league_standing_model/datum.dart';
 
 class StandingItem extends StatelessWidget {
   const StandingItem({

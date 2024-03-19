@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../core/constants/assets.dart';
-import '../../../../../core/constants/colors.dart';
-import '../../../../../core/constants/constants.dart';
-import '../../../../../core/utils/app_router.dart';
-import '../../../../../core/widgets/custom_button.dart';
-import '../../view_model/home_cubit/home_cubit.dart';
+import '../../../../../../core/constants/assets.dart';
+import '../../../../../../core/constants/colors.dart';
+import '../../../../../../core/constants/constants.dart';
+import '../../../../../../core/utils/app_router.dart';
+import '../../../../../../core/widgets/custom_button.dart';
+import '../../../view_model/home_cubit/home_cubit.dart';
 
 class UserProfileView extends StatelessWidget {
   const UserProfileView({

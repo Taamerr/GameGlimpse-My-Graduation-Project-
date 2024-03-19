@@ -57,7 +57,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
             ShakeEffect(
               delay: Duration(
                 seconds: 1,
-                milliseconds: 200,
+                milliseconds: 400,
               ),
             ),
           ],
@@ -77,6 +77,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
           effects: const [
             FadeEffect(
               duration: Duration(
+                seconds: 1,
                 milliseconds: 400,
               ),
             ),
@@ -98,7 +99,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
 
   void navigateToNextView() {
     Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 3),
       () {
         if (CacheHelper.getData(key: 'uId') == null &&
             CacheHelper.getData(key: 'inco') == null) {

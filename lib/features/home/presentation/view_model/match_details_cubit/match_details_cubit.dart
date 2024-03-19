@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta/meta.dart';
+
 import '../../../data/models/match_stat_model/formation.dart';
 import '../../../data/models/match_stat_model/lineup.dart';
 import '../../../data/models/match_stat_model/statistic.dart';
 import '../../../data/repos/match_details_repo/match_details_repo.dart';
-import 'package:meta/meta.dart';
 
 part 'match_details_state.dart';
 

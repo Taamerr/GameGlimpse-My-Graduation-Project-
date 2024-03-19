@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/colors.dart';
 import '../../data/models/fixtures_model/match_data.dart';
 import '../view_model/home_cubit/home_cubit.dart';
-import 'widgets/custom_league_matches.dart';
-import 'widgets/custom_matches_app_bar.dart';
+import 'widgets/match/custom_league_matches.dart';
+import 'widgets/match/custom_matches_app_bar.dart';
 
 class MatchesView extends StatelessWidget {
   const MatchesView({super.key});

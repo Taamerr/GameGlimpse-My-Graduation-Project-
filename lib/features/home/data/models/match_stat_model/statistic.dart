@@ -1,5 +1,4 @@
 import 'stat_data.dart';
-
 import 'type.dart';
 
 class Statistic {

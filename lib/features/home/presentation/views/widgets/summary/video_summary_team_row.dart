@@ -1,38 +1,39 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/constants/colors.dart';
-import '../../../data/models/fixtures_model/match_data.dart';
+import '../../../../../../core/constants/colors.dart';
+import '../../../../data/models/match_doc_model/video_model.dart';
 
-class MatchDetailsBodyUpperPart extends StatelessWidget {
-  const MatchDetailsBodyUpperPart({
+class VideoSummaryTeamsRow extends StatelessWidget {
+  const VideoSummaryTeamsRow({
     super.key,
-    required this.matchData,
+    required this.videoModel,
   });
-  final MatchData matchData;
+  final VideoModel videoModel;
   @override
   Widget build(BuildContext context) {
     String homeName = '';
     String awayName = '';
-    if (matchData.participants!.first.meta!.location == 'home') {
-      homeName = matchData.participants!.first.name!;
-      awayName = matchData.participants!.last.name!;
-    } else if (matchData.participants!.first.meta!.location == 'away') {
-      awayName = matchData.participants!.first.name!;
-      homeName = matchData.participants!.last.name!;
+    if (videoModel.videoMatchData.participants!.first.meta!.location ==
+        'home') {
+      homeName = videoModel.videoMatchData.participants!.first.name!;
+      awayName = videoModel.videoMatchData.participants!.last.name!;
+    } else if (videoModel.videoMatchData.participants!.first.meta!.location ==
+        'away') {
+      awayName = videoModel.videoMatchData.participants!.first.name!;
+      homeName = videoModel.videoMatchData.participants!.last.name!;
     }
     int goalHome = 0;
     int goalAway = 0;
-    for (var score in matchData.scores!) {
+    for (var score in videoModel.videoMatchData.scores!) {
       if (score.description == 'CURRENT' &&
-          score.score!.participant == 'home') {
-        goalHome = score.score!.goals!;
+          score.scoreData!.participant == 'home') {
+        goalHome = score.scoreData!.goals!;
       } else if (score.description == 'CURRENT' &&
-          score.score!.participant == 'away') {
-        goalAway = score.score!.goals!;
+          score.scoreData!.participant == 'away') {
+        goalAway = score.scoreData!.goals!;
       }
     }
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.25,
+    return Expanded(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -45,10 +46,13 @@ class MatchDetailsBodyUpperPart extends StatelessWidget {
                   child: CachedNetworkImage(
                     width: 54,
                     height: 54,
-                    imageUrl:
-                        matchData.participants!.first.meta!.location == 'home'
-                            ? matchData.participants!.first.imagePath!
-                            : matchData.participants!.last.imagePath!,
+                    imageUrl: videoModel.videoMatchData.participants!.first
+                                .meta!.location ==
+                            'home'
+                        ? videoModel
+                            .videoMatchData.participants!.first.imagePath!
+                        : videoModel
+                            .videoMatchData.participants!.last.imagePath!,
                     errorWidget: (context, url, error) => const Icon(
                       Icons.error,
                       color: Colors.white,
@@ -91,7 +95,7 @@ class MatchDetailsBodyUpperPart extends StatelessWidget {
                 height: 8.0,
               ),
               Text(
-                matchData.state!.shortName!,
+                videoModel.videoMatchData.state!.shortName!,
                 style: const TextStyle(
                   color: TAppColors.kWhite,
                   fontWeight: FontWeight.w600,
@@ -112,10 +116,13 @@ class MatchDetailsBodyUpperPart extends StatelessWidget {
                   child: CachedNetworkImage(
                     width: 54,
                     height: 54,
-                    imageUrl:
-                        matchData.participants!.first.meta!.location == 'away'
-                            ? matchData.participants!.first.imagePath!
-                            : matchData.participants!.last.imagePath!,
+                    imageUrl: videoModel.videoMatchData.participants!.first
+                                .meta!.location ==
+                            'away'
+                        ? videoModel
+                            .videoMatchData.participants!.first.imagePath!
+                        : videoModel
+                            .videoMatchData.participants!.last.imagePath!,
                     errorWidget: (context, url, error) => const Icon(
                       Icons.error,
                       color: Colors.white,

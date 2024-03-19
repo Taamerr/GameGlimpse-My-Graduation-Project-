@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/constants/colors.dart';
-import '../../../data/models/fixtures_model/match_data.dart';
-import '../../view_model/match_details_cubit/match_details_cubit.dart';
+import '../../../../../../core/constants/colors.dart';
+import '../../../../data/models/fixtures_model/match_data.dart';
+import '../../../view_model/match_details_cubit/match_details_cubit.dart';
 import 'custom_match_detail_app_bar.dart';
 import 'lineups_widgets.dart';
 import 'match_details_body_upper_part.dart';

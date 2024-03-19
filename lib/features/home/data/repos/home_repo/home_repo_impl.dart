@@ -35,6 +35,7 @@ class HomeRepoImpl implements HomeRepo {
               'league:name,image_path;state:short_name;participants:name,short_code,image_path;scores;',
           'timezone': 'Africa/Cairo',
           'per_page': perPage,
+          'filter': 'scoreTypes:1525',
         },
       );
       FixturesModel fixturesModel = FixturesModel.fromJson(result);

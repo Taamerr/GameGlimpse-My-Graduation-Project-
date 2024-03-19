@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'widgets/incognito_view.dart';
-import 'widgets/user_profile_view.dart';
+import '../../../../core/constants/constants.dart';
 
-import '../../../../core/utils/cache_helper.dart';
+import 'widgets/profile/incognito_view.dart';
+import 'widgets/profile/user_profile_view.dart';
 
 class ProfileView extends StatelessWidget {
-  ProfileView({super.key});
-  final condition = CacheHelper.getData(key: 'uId');
+  const ProfileView({super.key});
   @override
   Widget build(BuildContext context) {
-    return condition != null ? const UserProfileView() : const IncognitoView();
+    return Constants.userModel != null
+        ? const UserProfileView()
+        : const IncognitoView();
   }
 }

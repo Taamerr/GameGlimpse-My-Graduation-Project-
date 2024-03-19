@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/constants/colors.dart';
-import '../../../data/models/league_standing_model/league_standing_model.dart';
+import '../../../../../../core/constants/colors.dart';
+import '../../../../data/models/league_standing_model/league_standing_model.dart';
 import 'custom_standing_item.dart';
 import 'league_full_standing_app_bar.dart';
 import 'standing_header_first_row.dart';

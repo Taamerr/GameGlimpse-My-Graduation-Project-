@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/constants/colors.dart';
-import '../../view_model/match_details_cubit/match_details_cubit.dart';
+
+import '../../../../../../core/constants/colors.dart';
+import '../../../view_model/match_details_cubit/match_details_cubit.dart';
 
 class Statistics extends StatelessWidget {
   const Statistics({super.key});

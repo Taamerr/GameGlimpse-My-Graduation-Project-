@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
 import '../../features/home/data/models/fixtures_model/match_data.dart';
 import '../../features/home/data/models/league_standing_model/league_standing_model.dart';
-import '../../features/home/presentation/views/match_details_view.dart';
-import '../../features/home/presentation/views/widgets/league_full_standing_view.dart';
+import '../../features/home/presentation/views/widgets/match/match_details_view.dart';
+import '../../features/home/presentation/views/widgets/standing/league_full_standing_view.dart';
 
 import '../../features/home/presentation/views/home_layout.dart';
-import '../../features/home/presentation/views/widgets/edit_profile.dart';
+import '../../features/home/presentation/views/widgets/profile/edit_profile.dart';
 import '../../features/on_boarding/presentation/views/on_boarding_view.dart';
 import '../../features/splash/presentation/views/splash_view.dart';
 
