@@ -53,7 +53,7 @@ class HomeCubit extends Cubit<HomeState> {
     const MatchesView(),
     const StandingsView(),
     const VideosSummaryView(),
-    ProfileView(),
+    const ProfileView(),
   ];
 
   Future<void> getUserData({required String uId}) async {
