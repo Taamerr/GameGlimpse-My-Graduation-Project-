@@ -2,10 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'features/home/data/repos/video_summary_repo/video_summ_repo_impl.dart';
-import 'features/home/presentation/view_model/video_summary_cubit/video_summary_cubit.dart';
-import 'features/home/data/repos/home_repo/home_repo_impl.dart';
-import 'features/home/presentation/view_model/home_cubit/home_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/constants/colors.dart';
 import 'core/themes/dark_theme.dart';
@@ -14,6 +11,10 @@ import 'core/utils/app_router.dart';
 import 'core/utils/bloc_observer.dart';
 import 'core/utils/cache_helper.dart';
 import 'core/utils/service_locator.dart';
+import 'features/home/data/repos/home_repo/home_repo_impl.dart';
+import 'features/home/data/repos/video_summary_repo/video_summ_repo_impl.dart';
+import 'features/home/presentation/view_model/home_cubit/home_cubit.dart';
+import 'features/home/presentation/view_model/video_summary_cubit/video_summary_cubit.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -34,32 +35,38 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => HomeCubit(
-            ServiceLocator.getIt.get<HomeRepoImpl>(),
-          )
-            ..getDate()
-            ..getAllMatches()
-            ..getAllStandings(),
-        ),
-        BlocProvider(
-          create: (context) => VideoSummaryCubit(
-            ServiceLocator.getIt.get<VideoSummaryRepoImpl>(),
-          )..getAllMatchDocuments(),
-        ),
-      ],
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        routerConfig: AppRouter.router,
-        themeMode: ThemeMode.system,
-        theme: TLightTheme.lightTheme,
-        darkTheme: TDarkTheme.darkTheme,
-      ),
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, child) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => HomeCubit(
+                ServiceLocator.getIt.get<HomeRepoImpl>(),
+              )
+                ..getDate()
+                ..getAllMatches()
+                ..getAllStandings(),
+            ),
+            BlocProvider(
+              create: (context) => VideoSummaryCubit(
+                ServiceLocator.getIt.get<VideoSummaryRepoImpl>(),
+              )..getAllMatchDocuments(),
+            ),
+          ],
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            routerConfig: AppRouter.router,
+            themeMode: ThemeMode.dark,
+            theme: TLightTheme.lightTheme,
+            darkTheme: TDarkTheme.darkTheme,
+          ),
+        );
+      },
     );
   }
 }
