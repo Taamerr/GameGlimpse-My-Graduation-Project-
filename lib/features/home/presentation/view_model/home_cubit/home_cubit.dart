@@ -56,7 +56,7 @@ class HomeCubit extends Cubit<HomeState> {
     const ProfileView(),
   ];
 
-  Future<void> getUserData({required String uId}) async {
+ /* Future<void> getUserData({required String uId}) async {
     emit(HomeGetUserDataLoadingState());
     var result = await homeRepo.getUserData(uId: uId);
     result.fold((failure) {
@@ -64,7 +64,7 @@ class HomeCubit extends Cubit<HomeState> {
     }, (_) {
       emit(HomeGetUserDataSuccessState());
     });
-  }
+  }*/
 
   Future<void> signOut() async {
     emit(HomeSignOutLoadingState());

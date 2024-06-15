@@ -20,13 +20,21 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   Future<void> getProfileImage() async {
     emit(EditProfilePickImageLoadingState());
     var result = await profileRepo.getProfileImage(picker: picker);
-    result.fold((failure) {
-      emit(EditProfilePickImageFailureState(errMessage: failure));
-    }, (file) {
-      profileImage = file;
-      uploadProfileImage(profileImage: profileImage!);
-      emit(EditProfilePickImageSuccessState());
-    });
+    result.fold(
+      (failure) {
+        emit(EditProfilePickImageFailureState(errMessage: failure));
+      },
+      (file) {
+        profileImage = file;
+        if (profileImage != null) {
+          uploadProfileImage(profileImage: profileImage!);
+          emit(EditProfilePickImageSuccessState());
+        } else {
+          EditProfilePickImageFailureState(
+              errMessage: 'Profile image equal null');
+        }
+      },
+    );
   }
 
   String? imageUrl;

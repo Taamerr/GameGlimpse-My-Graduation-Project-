@@ -17,10 +17,10 @@ class HomeLayout extends StatelessWidget {
         },
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
-          if (CacheHelper.getData(key: 'uId') != null &&
+          /*if (CacheHelper.getData(key: 'uId') != null &&
               Constants.userModel == null) {
             cubit.getUserData(uId: CacheHelper.getData(key: 'uId'));
-          }
+          }*/
           return Scaffold(
             body: cubit.screens[cubit.currentIndex],
             bottomNavigationBar: Theme(

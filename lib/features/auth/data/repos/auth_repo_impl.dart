@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 import '../../../../core/constants/constants.dart';
 import '../../../../core/utils/cache_helper.dart';
-
 import '../models/user_model.dart';
 import 'auth_repo.dart';
 
@@ -16,16 +16,21 @@ class AuthRepoImpl implements AuthRepo {
     required String name,
   }) async {
     try {
-      var result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      userCreate(
-        name: name,
-        email: email,
-        uId: result.user!.uid,
-      );
-      return right(result);
+      User? user = userCredential.user;
+      if (!user!.emailVerified) {
+        await user.sendEmailVerification();
+        userCreate(
+          name: name,
+          email: user.email!,
+          uId: user.uid,
+        );
+      }
+      return right(userCredential);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return left('The password provided is too weak.');
@@ -47,12 +52,19 @@ class AuthRepoImpl implements AuthRepo {
     required String password,
   }) async {
     try {
-      var result = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      CacheHelper.saveData(key: 'uId', value: result.user!.uid);
-      return right(result);
+      User? user = userCredential.user;
+      if (user!.emailVerified) {
+        CacheHelper.saveData(key: 'uId', value: user.uid);
+        getUserData(uId: user.uid);
+        return right(userCredential);
+      } else {
+        return left('Email is not verified');
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return left('No user found for that email.');
@@ -98,6 +110,7 @@ class AuthRepoImpl implements AuthRepo {
           uId: user.uid,
           image: user.photoURL!,
         );
+        getUserData(uId: user.uid);
       }
       return right(null);
     } catch (e) {
@@ -124,9 +137,30 @@ class AuthRepoImpl implements AuthRepo {
           .collection('users')
           .doc(uId)
           .set(user.toJson());
-      CacheHelper.saveData(key: 'uId', value: uId);
     } on Exception catch (e) {
       print('Error when create user: ${e.toString()}');
     }
+  }
+
+  @override
+  Future<Either<String, void>> getUserData({required String uId}) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uId)
+          .get()
+          .then((value) {
+        Constants.userModel = UserModel.fromJson(json: value.data()!);
+      });
+      return right(null);
+    } catch (e) {
+      print('Error when get user data : ${e.toString()}');
+      return left('Error when get user data : ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<void> forgetPassword({required String email}) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 }

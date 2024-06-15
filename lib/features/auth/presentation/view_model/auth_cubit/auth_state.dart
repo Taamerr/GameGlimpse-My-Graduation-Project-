@@ -40,3 +40,13 @@ final class AuthIncognitoUserLoadingState extends AuthState {}
 final class AuthIncognitoUserSuccessState extends AuthState {}
 
 final class AuthChangePasswordIcon extends AuthState {}
+
+final class AuthForgetPasswordLoadingState extends AuthState {}
+
+final class AuthForgetPasswordSuccessState extends AuthState {}
+
+final class AuthForgetPasswordFailureState extends AuthState {
+  final String errMessage;
+
+  AuthForgetPasswordFailureState(this.errMessage);
+}

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
 import '../../../../../../core/constants/colors.dart';
 import '../../../../data/models/fixtures_model/match_data.dart';
 

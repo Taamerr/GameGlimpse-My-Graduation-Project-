@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../../core/constants/colors.dart';
 import '../../../view_model/video_summary_cubit/video_summary_cubit.dart';
 import 'video_summary_item.dart';

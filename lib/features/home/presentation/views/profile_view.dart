@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/constants.dart';
 
+import '../../../../core/constants/constants.dart';
 import 'widgets/profile/incognito_view.dart';
 import 'widgets/profile/user_profile_view.dart';
 

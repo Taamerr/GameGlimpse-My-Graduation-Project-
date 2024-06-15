@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../../core/utils/functions/custom_alert_dialog.dart';
+import '../../../../../core/utils/functions/custom_snack_bar.dart';
 
 import '../../../../../core/constants/assets.dart';
 import '../../../../../core/constants/colors.dart';
@@ -47,19 +49,58 @@ Future<dynamic> customRegisterShowBottomSheet({
           ),
           child: BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
-              if (state is AuthRegisterSuccessState ||
-                  state is AuthLoginGoogleSuccessState) {
-                Navigator.pop(context);
-                GoRouter.of(context).pushReplacement(AppRouter.kHomeLayout);
-              } else if (state is AuthRegisterFailureState ||
-                  state is AuthLoginGoogleFailureState) {
-                Navigator.pop(context);
+              switch (state) {
+                case AuthLoginGoogleSuccessState():
+                  {
+                    Navigator.pop(context);
+                    showSnackBar(
+                      message: 'Login Successfully',
+                      context: context,
+                    );
+                    GoRouter.of(context).pushReplacement(AppRouter.kHomeLayout);
+                  }
+                  break;
+                case AuthRegisterSuccessState():
+                  {
+                    Navigator.pop(context);
+                    showMyDialog(
+                      context: context,
+                      title: 'Verify your email',
+                      message: 'Please verify your email!',
+                      buttonText: 'OK',
+                    );
+                  }
+                  break;
+                case AuthRegisterFailureState():
+                  {
+                    Navigator.pop(context);
+                    showSnackBar(
+                      message: state.errMessage,
+                      context: context,
+                    );
+                  }
+                  break;
+                case AuthLoginGoogleFailureState():
+                  {
+                    Navigator.pop(context);
+                    showSnackBar(
+                      message: state.errMessage,
+                      context: context,
+                    );
+                  }
+                  break;
+                default:
+                  {
+                    
+                  }
+                  break;
               }
             },
             builder: (context, state) {
               var cubit = AuthCubit.get(context);
               return IgnorePointer(
-                ignoring: state is AuthRegisterLoadingState,
+                ignoring: state is AuthRegisterLoadingState ||
+                    state is AuthLoginGoogleLoadingState,
                 child: Form(
                   key: registerFormKey,
                   child: Column(
@@ -234,16 +275,6 @@ Future<dynamic> customRegisterShowBottomSheet({
                             },
                             icon: const Icon(
                               FontAwesomeIcons.google,
-                              color: TAppColors.kGrey2,
-                              size: 32,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              //TODO: Facebook Login
-                            },
-                            icon: const Icon(
-                              FontAwesomeIcons.facebook,
                               color: TAppColors.kGrey2,
                               size: 32,
                             ),

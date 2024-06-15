@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/cache_helper.dart';
-import '../../../../../core/utils/functions/custom_snack_bar.dart';
 import '../../../data/repos/auth_repo.dart';
 
 part 'auth_state.dart';
@@ -12,15 +11,15 @@ class AuthCubit extends Cubit<AuthState> {
   static AuthCubit get(context) => BlocProvider.of(context);
   final BuildContext context;
   final AuthRepo authRepo;
-  IconData passwordIcon = Icons.visibility_off;
+  IconData passwordIcon = Icons.visibility;
 
   bool isHide = true;
   void changePasswordIcon() {
     isHide = !isHide;
     if (isHide == true) {
-      passwordIcon = Icons.visibility_off;
-    } else {
       passwordIcon = Icons.visibility;
+    } else {
+      passwordIcon = Icons.visibility_off;
     }
     emit(AuthChangePasswordIcon());
   }
@@ -39,19 +38,14 @@ class AuthCubit extends Cubit<AuthState> {
       password: password,
       name: name,
     );
-    result.fold((failure) {
-      emit(AuthRegisterFailureState(failure));
-      showSnackBar(
-        message: failure,
-        context: context,
-      );
-    }, (userCredential) {
-      emit(AuthRegisterSuccessState());
-      showSnackBar(
-        message: 'Register Successfully',
-        context: context,
-      );
-    });
+    result.fold(
+      (failure) {
+        emit(AuthRegisterFailureState(failure));
+      },
+      (userCredential) async {
+        emit(AuthRegisterSuccessState());
+      },
+    );
   }
 
   Future<void> signInWithEmailAndPassword({
@@ -65,16 +59,8 @@ class AuthCubit extends Cubit<AuthState> {
     );
     result.fold((failure) {
       emit(AuthLoginFailureState(failure));
-      showSnackBar(
-        message: failure,
-        context: context,
-      );
     }, (userCredential) {
       emit(AuthLoginSuccessState());
-      showSnackBar(
-        message: 'Login Successfully',
-        context: context,
-      );
     });
   }
 
@@ -83,16 +69,8 @@ class AuthCubit extends Cubit<AuthState> {
     var result = await authRepo.signInWithGoogle();
     result.fold((failure) {
       emit(AuthLoginGoogleFailureState(failure));
-      showSnackBar(
-        message: failure,
-        context: context,
-      );
     }, (_) {
       emit(AuthLoginGoogleSuccessState());
-      showSnackBar(
-        message: 'Login Successfully',
-        context: context,
-      );
     });
   }
 
@@ -100,5 +78,19 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthIncognitoUserLoadingState());
     CacheHelper.saveData(key: 'inco', value: true);
     emit(AuthIncognitoUserSuccessState());
+  }
+
+  Future<void> forgetPassword({required String email}) async {
+    emit(AuthForgetPasswordLoadingState());
+    try {
+      if (email.isNotEmpty) {
+        await authRepo.forgetPassword(email: email);
+        emit(AuthForgetPasswordSuccessState());
+      } else {
+        emit(AuthForgetPasswordFailureState('Please Enter email first...'));
+      }
+    } catch (e) {
+      emit(AuthForgetPasswordFailureState(e.toString()));
+    }
   }
 }

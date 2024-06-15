@@ -15,5 +15,4 @@ abstract class HomeRepo {
   });
 
   Future<Either<String, void>> signOut();
-  Future<Either<String, void>> getUserData({required String uId});
 }

@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../../core/utils/functions/custom_alert_dialog.dart';
+import '../../../../../core/utils/functions/custom_snack_bar.dart';
 
 import '../../../../../core/constants/assets.dart';
 import '../../../../../core/constants/colors.dart';
@@ -47,13 +49,60 @@ Future<dynamic> customLoginShowBottomSheet({
           ),
           child: BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
-              if (state is AuthLoginSuccessState ||
-                  state is AuthLoginGoogleSuccessState) {
-                Navigator.pop(context);
-                GoRouter.of(context).pushReplacement(AppRouter.kHomeLayout);
-              } else if (state is AuthLoginFailureState ||
-                  state is AuthLoginGoogleFailureState) {
-                Navigator.pop(context);
+              switch (state) {
+                case AuthLoginSuccessState() || AuthLoginGoogleSuccessState():
+                  {
+                    Navigator.pop(context);
+                    showSnackBar(
+                      message: 'Login Successfully',
+                      context: context,
+                    );
+                    GoRouter.of(context).pushReplacement(AppRouter.kHomeLayout);
+                  }
+                  break;
+                case AuthLoginFailureState():
+                  {
+                    Navigator.pop(context);
+                    showSnackBar(
+                      message: state.errMessage,
+                      context: context,
+                    );
+                  }
+                  break;
+                case AuthLoginGoogleFailureState():
+                  {
+                    Navigator.pop(context);
+                    showSnackBar(
+                      message: state.errMessage,
+                      context: context,
+                    );
+                  }
+                  break;
+                case AuthForgetPasswordSuccessState():
+                  {
+                    showMyDialog(
+                      context: context,
+                      title: 'Success',
+                      message: 'Check your email...',
+                      buttonText: 'OK',
+                    );
+                  }
+                  break;
+                case AuthForgetPasswordFailureState():
+                  {
+                    showMyDialog(
+                      context: context,
+                      title: 'Error!',
+                      message: state.errMessage,
+                      buttonText: 'OK',
+                    );
+                  }
+                  break;
+                default:
+                  {
+                    
+                  }
+                  break;
               }
             },
             builder: (context, state) {
@@ -156,7 +205,7 @@ Future<dynamic> customLoginShowBottomSheet({
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                //TODO: forgot password
+                                cubit.forgetPassword(email: cubit.email);
                               },
                           ),
                         ),
@@ -237,16 +286,6 @@ Future<dynamic> customLoginShowBottomSheet({
                             },
                             icon: const Icon(
                               FontAwesomeIcons.google,
-                              color: TAppColors.kGrey2,
-                              size: 32,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              //TODO: sign in with facebook
-                            },
-                            icon: const Icon(
-                              FontAwesomeIcons.facebook,
                               color: TAppColors.kGrey2,
                               size: 32,
                             ),
