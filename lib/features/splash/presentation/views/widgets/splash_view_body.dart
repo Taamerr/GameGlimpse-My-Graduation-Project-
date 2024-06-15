@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/assets.dart';
@@ -30,7 +31,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
       children: [
         const Spacer(),
         CircleAvatar(
-          radius: width / 3.5,
+          radius: (width / 3).r,
           backgroundColor: Colors.blue[300],
           child: Container(
             decoration: BoxDecoration(
@@ -38,7 +39,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
               shape: BoxShape.circle,
               border: Border.all(
                 color: TAppColors.kBlue,
-                width: 2.0,
+                width: 2.0.w,
               ),
               image: const DecorationImage(
                 image: AssetImage(
@@ -49,8 +50,8 @@ class _SplashViewBodyState extends State<SplashViewBody> {
             ),
           ),
         ),
-        const SizedBox(
-          height: 6,
+        SizedBox(
+          height: 6.h,
         ),
         Animate(
           effects: const [
@@ -61,17 +62,17 @@ class _SplashViewBodyState extends State<SplashViewBody> {
               ),
             ),
           ],
-          child: const Text(
+          child: Text(
             'GameGlimpse',
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 36,
+              fontSize: 36.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        const SizedBox(
-          height: 6,
+        SizedBox(
+          height: 6.h,
         ),
         Animate(
           effects: const [
