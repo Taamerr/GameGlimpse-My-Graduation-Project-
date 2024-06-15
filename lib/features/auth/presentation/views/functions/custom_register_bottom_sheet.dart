@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
@@ -24,10 +25,10 @@ Future<dynamic> customRegisterShowBottomSheet({
     useSafeArea: true,
     isScrollControlled: true,
     backgroundColor: TAppColors.kBlack3,
-    shape: const RoundedRectangleBorder(
+    shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(45),
-        topRight: Radius.circular(45),
+        topLeft: Radius.circular(45.r),
+        topRight: Radius.circular(45.r),
       ),
     ),
     context: context,
@@ -40,8 +41,8 @@ Future<dynamic> customRegisterShowBottomSheet({
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           padding: EdgeInsets.only(
-            left: 24.0,
-            right: 24.0,
+            left: 24.0.w,
+            right: 24.0.w,
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
           child: BlocConsumer<AuthCubit, AuthState>(
@@ -64,14 +65,14 @@ Future<dynamic> customRegisterShowBottomSheet({
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const SizedBox(
-                        height: 18,
+                      SizedBox(
+                        height: 18.h,
                       ),
                       Container(
-                        width: 66,
-                        height: 5,
+                        width: 66.w,
+                        height: 5.h,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(50.r),
                         ),
                         child: const Align(
                           alignment: Alignment.topCenter,
@@ -81,9 +82,9 @@ Future<dynamic> customRegisterShowBottomSheet({
                           ),
                         ),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(
-                          top: 28,
+                          top: 28.h,
                         ),
                         child: Align(
                           alignment: Alignment.centerLeft,
@@ -92,13 +93,13 @@ Future<dynamic> customRegisterShowBottomSheet({
                             style: TextStyle(
                               color: TAppColors.kWhite,
                               fontWeight: FontWeight.w600,
-                              fontSize: 28.0,
+                              fontSize: 28.0.sp,
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 32,
+                      SizedBox(
+                        height: 32.h,
                       ),
                       CustomTextFormField(
                         hintText: 'Name',
@@ -114,8 +115,8 @@ Future<dynamic> customRegisterShowBottomSheet({
                           cubit.name = input;
                         },
                       ),
-                      const SizedBox(
-                        height: 24,
+                      SizedBox(
+                        height: 24.h,
                       ),
                       CustomTextFormField(
                         hintText: 'Email',
@@ -133,8 +134,8 @@ Future<dynamic> customRegisterShowBottomSheet({
                           cubit.email = input;
                         },
                       ),
-                      const SizedBox(
-                        height: 24,
+                      SizedBox(
+                        height: 24.h,
                       ),
                       CustomTextFormField(
                         hintText: 'Password',
@@ -143,7 +144,7 @@ Future<dynamic> customRegisterShowBottomSheet({
                         prefixIcon: const Icon(Icons.lock_outline_rounded),
                         suffixIcon: IconButton(
                           onPressed: () {
-                            cubit.changePasswordIcon(cubit.isHide);
+                            cubit.changePasswordIcon();
                           },
                           icon: Icon(cubit.passwordIcon),
                         ),
@@ -157,8 +158,8 @@ Future<dynamic> customRegisterShowBottomSheet({
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 42,
+                      SizedBox(
+                        height: 42.h,
                       ),
                       ConditionalBuilder(
                         condition: state is AuthRegisterLoadingState,
@@ -166,10 +167,10 @@ Future<dynamic> customRegisterShowBottomSheet({
                           backgroundColor: TAppColors.kBlue,
                           textColor: TAppColors.kWhite,
                           text: 'Sign Up',
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w600,
-                          width: MediaQuery.of(context).size.width,
-                          height: 58,
+                          width: (MediaQuery.of(context).size.width).w,
+                          height: 58.h,
                           onPressed: () async {
                             if (registerFormKey.currentState!.validate()) {
                               await cubit.createUserWithEmailAndPassword(
@@ -182,10 +183,10 @@ Future<dynamic> customRegisterShowBottomSheet({
                         builder: Container(
                           decoration: BoxDecoration(
                             color: TAppColors.kBlue,
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(16.r),
                           ),
-                          height: 58,
-                          width: MediaQuery.of(context).size.width,
+                          height: 58.h,
+                          width: (MediaQuery.of(context).size.width).w,
                           child: const Center(
                             child: CircularProgressIndicator(
                               color: TAppColors.kWhite,
@@ -193,8 +194,8 @@ Future<dynamic> customRegisterShowBottomSheet({
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 15.0,
+                      SizedBox(
+                        height: 15.0.h,
                       ),
                       const Row(
                         children: [
@@ -221,8 +222,8 @@ Future<dynamic> customRegisterShowBottomSheet({
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 10.0,
+                      SizedBox(
+                        height: 10.0.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -238,7 +239,9 @@ Future<dynamic> customRegisterShowBottomSheet({
                             ),
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              //TODO: Facebook Login
+                            },
                             icon: const Icon(
                               FontAwesomeIcons.facebook,
                               color: TAppColors.kGrey2,
@@ -251,18 +254,18 @@ Future<dynamic> customRegisterShowBottomSheet({
                               GoRouter.of(context)
                                   .pushReplacement(AppRouter.kHomeLayout);
                             },
-                            icon: const Image(
-                              image: AssetImage(
+                            icon: Image(
+                              image: const AssetImage(
                                 TAppAssets.incognitoIcon,
                               ),
                               fit: BoxFit.fill,
-                              height: 36,
+                              height: 36.h,
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 18.0,
+                      SizedBox(
+                        height: 18.0.h,
                       ),
                       RichText(
                         text: TextSpan(
@@ -292,8 +295,8 @@ Future<dynamic> customRegisterShowBottomSheet({
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 15,
+                      SizedBox(
+                        height: 15.h,
                       ),
                     ],
                   ),

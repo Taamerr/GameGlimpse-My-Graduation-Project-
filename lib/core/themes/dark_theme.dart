@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/colors.dart';
@@ -18,12 +19,12 @@ abstract class TDarkTheme {
     inputDecorationTheme: InputDecorationTheme(
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(
-          16.0,
+          16.0.r,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(
-          16.0,
+          16.0.r,
         ),
       ),
       errorBorder: OutlineInputBorder(
@@ -31,7 +32,7 @@ abstract class TDarkTheme {
           color: Colors.red,
         ),
         borderRadius: BorderRadius.circular(
-          16.0,
+          16.0.r,
         ),
       ),
     ),

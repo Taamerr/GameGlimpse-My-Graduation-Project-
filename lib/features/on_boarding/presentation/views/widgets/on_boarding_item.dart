@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/constants/colors.dart';
 import '../../../data/models/on_boarding_model.dart';
@@ -17,18 +18,18 @@ class OnBoardingItem extends StatelessWidget {
       shrinkWrap: true,
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.6,
-          height: MediaQuery.of(context).size.height * 0.6,
+          width: (MediaQuery.of(context).size.width * 0.6).w,
+          height: (MediaQuery.of(context).size.height * 0.65).h,
           child: Stack(
             children: [
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: 340,
+                  width: (MediaQuery.of(context).size.width * 0.6).w,
+                  height: 340.h,
                   decoration: BoxDecoration(
                     color: TAppColors.kBlack3,
-                    borderRadius: BorderRadius.circular(60),
+                    borderRadius: BorderRadius.circular(60.r),
                   ),
                 ),
               ),
@@ -44,13 +45,13 @@ class OnBoardingItem extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(
-          height: 5.0,
+        SizedBox(
+          height: 5.0.h,
         ),
         Text(
           onBoardingModel.title,
-          style: const TextStyle(
-            fontSize: 24.0,
+          style: TextStyle(
+            fontSize: 24.0.sp,
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,

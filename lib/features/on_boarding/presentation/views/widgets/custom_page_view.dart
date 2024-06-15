@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../../core/constants/assets.dart';
@@ -27,7 +28,7 @@ class CustomPageView extends StatelessWidget {
       title: 'Follow every moment of the sport',
     ),
   ];
-  static var boardingController = PageController();
+  static PageController boardingController = PageController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -48,11 +49,11 @@ class CustomPageView extends StatelessWidget {
             SmoothPageIndicator(
               controller: boardingController,
               count: onBoardingItems.length,
-              effect: const ExpandingDotsEffect(
-                dotColor: Color(0xff67686D),
+              effect: ExpandingDotsEffect(
+                dotColor: const Color(0xff67686D),
                 activeDotColor: TAppColors.kWhite,
-                dotHeight: 10,
-                dotWidth: 10,
+                dotHeight: 10.h,
+                dotWidth: 10.w,
                 expansionFactor: 4,
                 spacing: 5.0,
               ),

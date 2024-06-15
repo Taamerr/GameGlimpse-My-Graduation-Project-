@@ -33,11 +33,12 @@ class AuthRepoImpl implements AuthRepo {
         return left('The account already exists for that email.');
       } else if (e.code == 'invalid-email') {
         return left('The email address is not valid.');
+      } else {
+        return left('Unknown FirebaseAuth Exception. please try again.');
       }
     } catch (e) {
       return left('oops an error occurred. please try again.');
     }
-    return left('zzzzzzzzzzzzzzzzzz');
   }
 
   @override
@@ -63,11 +64,12 @@ class AuthRepoImpl implements AuthRepo {
         return left(
           'No user found for that email. Or wrong password provided for that user.',
         );
+      } else {
+        return left('Unknown FirebaseAuth Exception. please try again.');
       }
     } catch (e) {
       return left('oops an error occurred. please try again.');
     }
-    return left('zzzzzzzzzzzzzzzzzz');
   }
 
   @override
@@ -99,7 +101,6 @@ class AuthRepoImpl implements AuthRepo {
       }
       return right(null);
     } catch (e) {
-      print('Error when sign in with google: ${e.toString()}');
       return left('oops an error occurred. please try again.');
     }
   }
