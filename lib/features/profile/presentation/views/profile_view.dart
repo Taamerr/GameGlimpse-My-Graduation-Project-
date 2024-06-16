@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gp_app/features/profile/presentation/views/widgets/incognito_view.dart';
+import 'package:gp_app/features/profile/presentation/views/widgets/user_profile_view.dart';
+
+import '../../../../core/constants/constants.dart';
 import '../../../../core/utils/cache_helper.dart';
 import '../../../../core/utils/service_locator.dart';
 import '../../data/repos/profile_repo/profile_repo_impl.dart';
 import '../view_model/profile_cubit/profile_cubit.dart';
-import 'widgets/user_profile_view.dart';
-
-import '../../../../core/constants/constants.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -15,15 +16,16 @@ class ProfileView extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           ProfileCubit(ServiceLocator.getIt.get<ProfileRepoImpl>()),
-      child: BlocConsumer<ProfileCubit, ProfileState>(
-        listener: (context, state) {},
+      child: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
           var cubit = ProfileCubit.get(context);
-          if (Constants.userModel == null) {
+          if (Constants.userModel != null) {
+            cubit.targetScreen = const UserProfileView();
+          } else if (CacheHelper.getData(key: 'inco') == null) {
             var cubit = ProfileCubit.get(context);
             cubit.checkUser(uId: CacheHelper.getData(key: 'uId'));
-          } else {
-            cubit.targetScreen = const UserProfileView();
+          } else if (CacheHelper.getData(key: 'inco') != null) {
+            cubit.targetScreen = const IncognitoView();
           }
           return cubit.targetScreen;
         },

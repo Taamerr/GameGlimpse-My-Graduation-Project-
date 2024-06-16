@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import '../../view_model/profile_cubit/profile_cubit.dart';
 
 import '../../../../../core/constants/assets.dart';
 import '../../../../../core/constants/colors.dart';
 import '../../../../../core/utils/app_router.dart';
 import '../../../../../core/widgets/custom_button.dart';
-import '../../../../home/presentation/view_model/home_cubit/home_cubit.dart';
+import '../../view_model/profile_cubit/profile_cubit.dart';
 
 class IncognitoView extends StatelessWidget {
   const IncognitoView({
@@ -25,32 +25,32 @@ class IncognitoView extends StatelessWidget {
       builder: (context, state) {
         var cubit = ProfileCubit.get(context);
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 28),
+          padding: EdgeInsets.symmetric(horizontal: 28.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Image(
                 image: const AssetImage(TAppAssets.incognitoIcon),
-                height: MediaQuery.of(context).size.width * 0.4,
-                width: MediaQuery.of(context).size.width * 0.4,
+                height: (MediaQuery.of(context).size.width * 0.4).w,
+                width: (MediaQuery.of(context).size.width * 0.4).w,
               ),
-              const Text(
+              Text(
                 'Please login first',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 24.0,
+                  fontSize: 24.0.sp,
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: 15.h,
               ),
               CustomButton(
                 backgroundColor: TAppColors.kBlue,
                 textColor: TAppColors.kWhite,
                 text: 'Login',
-                fontSize: 18,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
                 onPressed: () async {
                   await cubit.signOut();

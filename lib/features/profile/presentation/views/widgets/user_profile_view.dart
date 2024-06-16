@@ -1,14 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import '../../view_model/profile_cubit/profile_cubit.dart';
 
 import '../../../../../core/constants/assets.dart';
 import '../../../../../core/constants/colors.dart';
 import '../../../../../core/constants/constants.dart';
 import '../../../../../core/utils/app_router.dart';
 import '../../../../../core/widgets/custom_button.dart';
+import '../../view_model/profile_cubit/profile_cubit.dart';
 
 class UserProfileView extends StatelessWidget {
   const UserProfileView({
@@ -26,21 +27,21 @@ class UserProfileView extends StatelessWidget {
       builder: (context, state) {
         var cubit = ProfileCubit.get(context);
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 28),
+          padding: EdgeInsets.symmetric(horizontal: 28.w),
           child: Column(
             children: [
               SizedBox(
-                height: 180,
+                height: 180.h,
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
                     Align(
                       alignment: Alignment.topCenter,
                       child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 140,
+                        width: (MediaQuery.of(context).size.width).w,
+                        height: 140.h,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                           image: const DecorationImage(
                             image: AssetImage(TAppAssets.profileBackground),
                             fit: BoxFit.cover,
@@ -49,11 +50,11 @@ class UserProfileView extends StatelessWidget {
                       ),
                     ),
                     CircleAvatar(
-                      radius: MediaQuery.of(context).size.width * 0.147,
+                      radius: (MediaQuery.of(context).size.width * 0.2).r,
                       backgroundColor: TAppColors.kScaffoldColor,
                       child: CachedNetworkImage(
-                        width: MediaQuery.of(context).size.width * 0.14 * 2,
-                        height: MediaQuery.of(context).size.width * 0.14 * 2,
+                        width: (MediaQuery.of(context).size.width * 0.305).w,
+                        height: (MediaQuery.of(context).size.width * 0.305).w,
                         imageUrl: Constants.userModel!.image,
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
@@ -73,31 +74,31 @@ class UserProfileView extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 24.0,
+              SizedBox(
+                height: 24.0.h,
               ),
               Text(
                 Constants.userModel!.name,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 24.0,
+                  fontSize: 24.0.sp,
                 ),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: 10.h,
               ),
               Text(
                 Constants.userModel!.bio,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 16.0,
+                  fontSize: 16.0.sp,
                   color: TAppColors.kGrey1,
                 ),
               ),
-              const SizedBox(
-                height: 36,
+              SizedBox(
+                height: 36.h,
               ),
               CustomButton(
                 backgroundColor: TAppColors.kBlue,
@@ -107,12 +108,12 @@ class UserProfileView extends StatelessWidget {
                 onPressed: () async {
                   GoRouter.of(context).push(AppRouter.kEditProfile);
                 },
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
-                height: 48,
+                height: 48.h,
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
               CustomButton(
                 backgroundColor: TAppColors.kBlue,
@@ -122,9 +123,9 @@ class UserProfileView extends StatelessWidget {
                 onPressed: () async {
                   await cubit.signOut();
                 },
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
-                height: 48,
+                height: 48.h,
               ),
             ],
           ),
