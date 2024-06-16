@@ -50,3 +50,13 @@ final class AuthForgetPasswordFailureState extends AuthState {
 
   AuthForgetPasswordFailureState(this.errMessage);
 }
+
+final class AuthGetUserDataLoadingState extends AuthState {}
+
+final class AuthGetUserDataSuccessState extends AuthState {}
+
+final class AuthGetUserDataFailureState extends AuthState {
+  final String errMessage;
+
+  AuthGetUserDataFailureState(this.errMessage);
+}

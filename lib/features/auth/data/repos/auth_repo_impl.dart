@@ -59,7 +59,6 @@ class AuthRepoImpl implements AuthRepo {
       );
       User? user = userCredential.user;
       if (user!.emailVerified) {
-        CacheHelper.saveData(key: 'uId', value: user.uid);
         getUserData(uId: user.uid);
         return right(userCredential);
       } else {
@@ -103,7 +102,6 @@ class AuthRepoImpl implements AuthRepo {
       await FirebaseAuth.instance.signInWithCredential(credential);
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        CacheHelper.saveData(key: 'uId', value: user.uid);
         userCreate(
           name: user.displayName!,
           email: user.email!,
@@ -151,6 +149,7 @@ class AuthRepoImpl implements AuthRepo {
           .get()
           .then((value) {
         Constants.userModel = UserModel.fromJson(json: value.data()!);
+        CacheHelper.saveData(key: 'uId', value: uId);
       });
       return right(null);
     } catch (e) {

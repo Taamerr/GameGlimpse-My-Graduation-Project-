@@ -55,14 +55,13 @@ class HomeRepoImpl implements HomeRepo {
       CacheHelper.removeData(key: 'uId');
       CacheHelper.removeData(key: 'inco');
       Constants.userModel = null;
+      print('Delete done');
       return right(null);
     } catch (e) {
       print('Error when sign out: ${e.toString()}');
       return left('Error when sign out: ${e.toString()}');
     }
   }
-
-  
 
   @override
   Future<Either<Failure, LeagueStandingModel>> fetchLeagueStanding({

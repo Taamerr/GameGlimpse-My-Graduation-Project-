@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gp_app/core/constants/constants.dart';
+import 'package:gp_app/core/utils/service_locator.dart';
+import 'package:gp_app/features/auth/data/repos/auth_repo_impl.dart';
+import 'package:gp_app/features/home/data/repos/home_repo/home_repo_impl.dart';
 
-import '../../../../core/constants/constants.dart';
 import '../../../../core/utils/cache_helper.dart';
 import '../view_model/home_cubit/home_cubit.dart';
 
@@ -10,19 +13,23 @@ class HomeLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return BlocProvider(
+      create: (context) => HomeCubit(
+        ServiceLocator.getIt.get<HomeRepoImpl>(),
+      )
+        ..getDate()
+        ..getAllMatches()
+        ..getAllStandings(),
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
           // TODO: implement listener
         },
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
-          /*if (CacheHelper.getData(key: 'uId') != null &&
-              Constants.userModel == null) {
-            cubit.getUserData(uId: CacheHelper.getData(key: 'uId'));
-          }*/
           return Scaffold(
-            body: cubit.screens[cubit.currentIndex],
+            body: SafeArea(
+              child: cubit.screens[cubit.currentIndex],
+            ),
             bottomNavigationBar: Theme(
               data: Theme.of(context).copyWith(
                 splashColor: Colors.transparent,

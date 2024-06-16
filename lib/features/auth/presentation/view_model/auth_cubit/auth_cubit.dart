@@ -93,4 +93,14 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthForgetPasswordFailureState(e.toString()));
     }
   }
+
+  Future<void> getUserData({required String uId}) async {
+    emit(AuthGetUserDataLoadingState());
+    var result = await authRepo.getUserData(uId: uId);
+    result.fold((failure) {
+      emit(AuthGetUserDataFailureState(failure));
+    }, (_) {
+      emit(AuthGetUserDataSuccessState());
+    });
+  }
 }
