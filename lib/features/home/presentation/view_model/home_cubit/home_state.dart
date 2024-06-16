@@ -17,16 +17,6 @@ final class HomeGetUserDataFailureState extends HomeState {
   HomeGetUserDataFailureState({required this.errMessage});
 }
 
-final class HomeSignOutLoadingState extends HomeState {}
-
-final class HomeSignOutSuccessState extends HomeState {}
-
-final class HomeSignOutFailureState extends HomeState {
-  final String errMessage;
-
-  HomeSignOutFailureState({required this.errMessage});
-}
-
 final class HomeGetMatchesLoadingState extends HomeState {}
 
 final class HomeGetMatchesSuccessState extends HomeState {}

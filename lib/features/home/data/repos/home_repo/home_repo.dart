@@ -13,6 +13,4 @@ abstract class HomeRepo {
   Future<Either<Failure, LeagueStandingModel>> fetchLeagueStanding({
     required int leagueId,
   });
-
-  Future<Either<String, void>> signOut();
 }

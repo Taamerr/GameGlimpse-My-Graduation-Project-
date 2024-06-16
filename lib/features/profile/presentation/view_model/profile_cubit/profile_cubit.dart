@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_app/core/constants/colors.dart';
-import 'package:gp_app/core/constants/constants.dart';
-import 'package:gp_app/features/auth/data/repos/auth_repo_impl.dart';
-import 'package:gp_app/features/home/presentation/views/widgets/profile/incognito_view.dart';
-import 'package:gp_app/features/home/presentation/views/widgets/profile/user_profile_view.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/constants/constants.dart';
+import '../../../../auth/data/repos/auth_repo_impl.dart';
+import '../../../data/repos/profile_repo/profile_repo.dart';
+import '../../views/widgets/incognito_view.dart';
+import '../../views/widgets/user_profile_view.dart';
 
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit() : super(ProfileInitial());
+  ProfileCubit(this.profileRepo) : super(ProfileInitial());
   static ProfileCubit get(context) => BlocProvider.of(context);
-
+  final ProfileRepo profileRepo;
   Widget targetScreen = const Center(
     child: CircularProgressIndicator(
       color: TAppColors.kBlue,
@@ -30,5 +31,15 @@ class ProfileCubit extends Cubit<ProfileState> {
       targetScreen = const IncognitoView();
     }
     emit(ProfileCheckUserFinishState());
+  }
+
+  Future<void> signOut() async {
+    emit(ProfileSignOutLoadingState());
+    var result = await profileRepo.signOut();
+    result.fold((failure) {
+      emit(ProfileSignOutFailureState(errMessage: failure));
+    }, (_) {
+      emit(ProfileSignOutSuccessState());
+    });
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../../core/constants/colors.dart';
-import '../../../../../../core/utils/icons/icon_broken.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/utils/icons/icon_broken.dart';
 
 class EditProfileAppBar extends StatelessWidget {
   const EditProfileAppBar({super.key});

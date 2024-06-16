@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_app/core/constants/constants.dart';
-import 'package:gp_app/core/utils/service_locator.dart';
-import 'package:gp_app/features/auth/data/repos/auth_repo_impl.dart';
-import 'package:gp_app/features/home/data/repos/home_repo/home_repo_impl.dart';
+import '../../../../core/constants/constants.dart';
+import '../../../../core/utils/service_locator.dart';
+import '../../../auth/data/repos/auth_repo_impl.dart';
+import '../../data/repos/home_repo/home_repo_impl.dart';
 
 import '../../../../core/utils/cache_helper.dart';
 import '../view_model/home_cubit/home_cubit.dart';

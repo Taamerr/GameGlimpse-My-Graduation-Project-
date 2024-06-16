@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_app/core/utils/cache_helper.dart';
-import 'package:gp_app/features/home/presentation/view_model/profile_cubit/profile_cubit.dart';
-import 'package:gp_app/features/home/presentation/views/widgets/profile/user_profile_view.dart';
+import '../../../../core/utils/cache_helper.dart';
+import '../../../../core/utils/service_locator.dart';
+import '../../data/repos/profile_repo/profile_repo_impl.dart';
+import '../view_model/profile_cubit/profile_cubit.dart';
+import 'widgets/user_profile_view.dart';
 
 import '../../../../core/constants/constants.dart';
 
@@ -11,7 +13,8 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProfileCubit(),
+      create: (context) =>
+          ProfileCubit(ServiceLocator.getIt.get<ProfileRepoImpl>()),
       child: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {},
         builder: (context, state) {

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../view_model/profile_cubit/profile_cubit.dart';
 
-import '../../../../../../core/constants/assets.dart';
-import '../../../../../../core/constants/colors.dart';
-import '../../../../../../core/utils/app_router.dart';
-import '../../../../../../core/widgets/custom_button.dart';
-import '../../../view_model/home_cubit/home_cubit.dart';
+import '../../../../../core/constants/assets.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/utils/app_router.dart';
+import '../../../../../core/widgets/custom_button.dart';
+import '../../../../home/presentation/view_model/home_cubit/home_cubit.dart';
 
 class IncognitoView extends StatelessWidget {
   const IncognitoView({
@@ -15,14 +16,14 @@ class IncognitoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
+    return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {
-        if (state is HomeSignOutSuccessState) {
+        if (state is ProfileSignOutSuccessState) {
           GoRouter.of(context).pushReplacement(AppRouter.kOnBoarding);
         }
       },
       builder: (context, state) {
-        var cubit = HomeCubit.get(context);
+        var cubit = ProfileCubit.get(context);
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 28),
           child: Column(

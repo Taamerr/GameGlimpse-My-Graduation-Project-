@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../../../../core/constants/assets.dart';
-import '../../../../../../core/constants/colors.dart';
-import '../../../../../../core/constants/constants.dart';
-import '../../../../../../core/utils/icons/icon_broken.dart';
-import '../../../../../../core/widgets/custom_button.dart';
-import '../../../../../../core/widgets/custom_text_form_field.dart';
-import '../../../view_model/edit_profile_cubit/edit_profile_cubit.dart';
+import '../../../../../core/constants/assets.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/constants/constants.dart';
+import '../../../../../core/utils/icons/icon_broken.dart';
+import '../../../../../core/widgets/custom_button.dart';
+import '../../../../../core/widgets/custom_text_form_field.dart';
+import '../../view_model/edit_profile_cubit/edit_profile_cubit.dart';
 import 'edit_profile_app_bar.dart';
 
 class EditProfileBody extends StatelessWidget {

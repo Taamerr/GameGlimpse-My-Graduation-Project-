@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gp_app/features/auth/data/repos/auth_repo_impl.dart';
-import 'package:gp_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
+import 'features/auth/data/repos/auth_repo_impl.dart';
+import 'features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
 
 import 'core/constants/colors.dart';
 import 'core/themes/dark_theme.dart';

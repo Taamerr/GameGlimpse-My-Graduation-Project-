@@ -3,9 +3,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gp_app/core/utils/service_locator.dart';
-import 'package:gp_app/features/auth/data/repos/auth_repo_impl.dart';
-import 'package:gp_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
+import '../../../../../core/utils/service_locator.dart';
+import '../../../../auth/data/repos/auth_repo_impl.dart';
+import '../../../../auth/presentation/view_model/auth_cubit/auth_cubit.dart';
 
 import '../../../../../core/constants/assets.dart';
 import '../../../../../core/constants/colors.dart';

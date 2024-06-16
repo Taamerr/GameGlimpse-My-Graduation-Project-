@@ -9,7 +9,7 @@ import '../../../data/models/fixtures_model/match_data.dart';
 import '../../../data/models/league_standing_model/league_standing_model.dart';
 import '../../../data/repos/home_repo/home_repo.dart';
 import '../../views/matches_view.dart';
-import '../../views/profile_view.dart';
+import '../../../../profile/presentation/views/profile_view.dart';
 import '../../views/standings_view.dart';
 import '../../views/videos_summary_view.dart';
 
@@ -66,16 +66,7 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }*/
 
-  Future<void> signOut() async {
-    emit(HomeSignOutLoadingState());
-    var result = await homeRepo.signOut();
-    result.fold((failure) {
-      emit(HomeSignOutFailureState(errMessage: failure));
-    }, (_) {
-      currentIndex = 0;
-      emit(HomeSignOutSuccessState());
-    });
-  }
+  
 
   String tabBarDate = '';
   String today = '';

@@ -2,12 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../../core/constants/assets.dart';
-import '../../../../../../core/constants/colors.dart';
-import '../../../../../../core/constants/constants.dart';
-import '../../../../../../core/utils/app_router.dart';
-import '../../../../../../core/widgets/custom_button.dart';
-import '../../../view_model/home_cubit/home_cubit.dart';
+import '../../view_model/profile_cubit/profile_cubit.dart';
+
+import '../../../../../core/constants/assets.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/constants/constants.dart';
+import '../../../../../core/utils/app_router.dart';
+import '../../../../../core/widgets/custom_button.dart';
 
 class UserProfileView extends StatelessWidget {
   const UserProfileView({
@@ -16,14 +17,14 @@ class UserProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
+    return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {
-        if (state is HomeSignOutSuccessState) {
+        if (state is ProfileSignOutSuccessState) {
           GoRouter.of(context).pushReplacement(AppRouter.kOnBoarding);
         }
       },
       builder: (context, state) {
-        var cubit = HomeCubit.get(context);
+        var cubit = ProfileCubit.get(context);
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 28),
           child: Column(
@@ -104,10 +105,7 @@ class UserProfileView extends StatelessWidget {
                 text: 'Edit Profile',
                 width: MediaQuery.of(context).size.width,
                 onPressed: () async {
-                  GoRouter.of(context).push(AppRouter.kEditProfile).then(
-                        (value) =>
-                            cubit.changeBottomNavIndex(cubit.currentIndex),
-                      );
+                  GoRouter.of(context).push(AppRouter.kEditProfile);
                 },
                 fontSize: 16,
                 fontWeight: FontWeight.w600,

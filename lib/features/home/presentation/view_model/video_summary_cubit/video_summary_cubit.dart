@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta/meta.dart';
+
 import '../../../data/models/match_doc_model/match_doc_model.dart';
 import '../../../data/models/match_doc_model/video_model.dart';
 import '../../../data/models/video_match_data_model/video_match_data_model.dart';
 import '../../../data/repos/video_summary_repo/video_summ_repo.dart';
-import 'package:meta/meta.dart';
 
 part 'video_summary_state.dart';
 
