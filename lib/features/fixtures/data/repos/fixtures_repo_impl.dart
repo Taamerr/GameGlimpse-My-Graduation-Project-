@@ -1,41 +1,41 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:gp_app/core/constants/constants.dart';
 import 'package:gp_app/core/error/failures.dart';
 import 'package:gp_app/core/utils/api_services.dart';
 import 'package:gp_app/features/fixtures/data/models/fixtures_model/fixtures_model.dart';
-import 'package:gp_app/features/home/data/models/league_standing_model/league_standing_model.dart';
-import 'package:gp_app/features/home/data/repos/home_repo/home_repo.dart';
+import 'package:gp_app/features/fixtures/data/repos/fixtures_repo.dart';
 
-class HomeRepoImpl implements HomeRepo {
-  HomeRepoImpl({
+class FixturesRepoImpl implements FixturesRepo {
+  FixturesRepoImpl({
     required this.apiService,
   });
   ApiService apiService;
-  
-
 
   @override
-  Future<Either<Failure, LeagueStandingModel>> fetchLeagueStanding({
-    required int leagueId,
+  Future<Either<Failure, FixturesModel>> fetchFixuresMatches({
+    required int perPage,
+    required String startDate,
+    required String endDate,
+    String pageNumber = '1',
   }) async {
     try {
       var result = await apiService.get(
-        endPoint: 'football/standings/live/leagues/$leagueId',
+        endPoint: 'football/fixtures/between/$startDate/$endDate',
         headers: {
           'authorization': Constants.apiKey,
         },
         queryParameters: {
           'include':
-              'league:name,image_path;participant:name,short_code,image_path;details.type:name;',
+              'league:name,image_path;state:short_name;participants:name,short_code,image_path;scores;',
           'timezone': 'Africa/Cairo',
-          'per_page': 50,
+          'per_page': perPage,
+          'page': pageNumber,
+          'filter': 'scoreTypes:1525',
         },
       );
-      LeagueStandingModel leagueStandingModel =
-          LeagueStandingModel.fromJson(result);
-      return right(leagueStandingModel);
+      FixturesModel fixturesModel = FixturesModel.fromJson(result);
+      return right(fixturesModel);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));

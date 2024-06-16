@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/fixtures_model/match_data.dart';
-import '../custom_league_header.dart';
+import '../../../data/models/fixtures_model/match_data.dart';
+import '../../../../home/presentation/views/widgets/custom_league_header.dart';
 import 'custom_match_card.dart';
 
 class CustomLeagueMatches extends StatelessWidget {

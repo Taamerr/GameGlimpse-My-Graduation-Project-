@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gp_app/features/fixtures/data/repos/fixtures_repo_impl.dart';
 import '../../features/profile/data/repos/profile_repo/profile_repo_impl.dart';
 
 import '../../features/auth/data/repos/auth_repo_impl.dart';
@@ -17,6 +18,8 @@ abstract class ServiceLocator {
     getIt.registerSingleton<ProfileRepoImpl>(ProfileRepoImpl());
     getIt.registerSingleton<HomeRepoImpl>(
         HomeRepoImpl(apiService: getIt.get<ApiService>()));
+        getIt.registerSingleton<FixturesRepoImpl>(
+        FixturesRepoImpl(apiService: getIt.get<ApiService>()));
     getIt.registerSingleton<VideoSummaryRepoImpl>(
         VideoSummaryRepoImpl(apiService: getIt.get<ApiService>()));
     getIt.registerSingleton<MatchDetailsRepoImpl>(

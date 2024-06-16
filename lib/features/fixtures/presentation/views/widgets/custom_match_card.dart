@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../../core/constants/colors.dart';
-import '../../../../../../core/utils/app_router.dart';
-import '../../../../data/models/fixtures_model/match_data.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/utils/app_router.dart';
+import '../../../data/models/fixtures_model/match_data.dart';
 
 class CustomMatchCard extends StatelessWidget {
   const CustomMatchCard({
