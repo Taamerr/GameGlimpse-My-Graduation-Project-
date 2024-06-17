@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../../data/models/league_standing_model/datum.dart';
 
 class StandingItem extends StatelessWidget {
@@ -12,7 +14,7 @@ class StandingItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: EdgeInsets.symmetric(vertical: 12.h),
       child: Row(
         children: [
           Expanded(
@@ -20,28 +22,28 @@ class StandingItem extends StatelessWidget {
               children: [
                 Text(
                   '${teamData.position!}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 14.0,
+                    fontSize: 14.0.sp,
                   ),
                 ),
-                const SizedBox(
-                  width: 12,
+                SizedBox(
+                  width: 12.w,
                 ),
                 CachedNetworkImage(
-                  height: 36.0,
-                  width: 36.0,
+                  height: 36.0.w,
+                  width: 36.0.w,
                   imageUrl: teamData.participant!.imagePath!,
                   errorWidget: (context, url, error) => const Icon(
                     Icons.error,
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
+                SizedBox(
+                  width: 10.w,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.21,
+                  width: (MediaQuery.of(context).size.width * 0.21).w,
                   child: Text(
                     teamData.participant!.name!,
                     maxLines: 2,
@@ -57,51 +59,51 @@ class StandingItem extends StatelessWidget {
               children: [
                 Text(
                   '${teamData.details![0].value}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 14.0,
+                    fontSize: 14.0.sp,
                   ),
                 ),
                 Text(
                   '${teamData.details![1].value}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 14.0,
+                    fontSize: 14.0.sp,
                   ),
                 ),
                 Text(
                   '${teamData.details![2].value}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 14.0,
+                    fontSize: 14.0.sp,
                   ),
                 ),
                 Text(
                   '${teamData.details![3].value}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 14.0,
+                    fontSize: 14.0.sp,
                   ),
                 ),
                 Text(
                   '${teamData.details![4].value}/${teamData.details![5].value}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 14.0,
+                    fontSize: 14.0.sp,
                   ),
                 ),
                 Text(
                   '${teamData.details![18].value!}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 14.0,
+                    fontSize: 14.0.sp,
                   ),
                 ),
                 Text(
                   '${teamData.details![21].value!}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 14.0,
+                    fontSize: 14.0.sp,
                   ),
                 ),
               ],

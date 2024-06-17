@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import '../../../../core/constants/constants.dart';
-import '../../../../core/error/failures.dart';
-import '../../../../core/utils/api_services.dart';
-import '../models/fixtures_model/fixtures_model.dart';
+import '../../../../../core/constants/constants.dart';
+import '../../../../../core/error/failures.dart';
+import '../../../../../core/utils/api_services.dart';
+import '../../models/fixtures_model/fixtures_model.dart';
 import 'fixtures_repo.dart';
 
 class FixturesRepoImpl implements FixturesRepo {

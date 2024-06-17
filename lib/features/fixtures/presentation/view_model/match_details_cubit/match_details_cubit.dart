@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 import '../../../data/models/match_stat_model/formation.dart';
 import '../../../data/models/match_stat_model/lineup.dart';
 import '../../../data/models/match_stat_model/statistic.dart';
-import '../../../../home/data/repos/match_details_repo/match_details_repo.dart';
+import '../../../data/repos/match_details_repo/match_details_repo.dart';
 
 part 'match_details_state.dart';
 

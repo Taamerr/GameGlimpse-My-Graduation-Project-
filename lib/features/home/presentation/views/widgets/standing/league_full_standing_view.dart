@@ -8,9 +8,9 @@ class LeagueFullStandingView extends StatelessWidget {
   final LeagueStandingModel model;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: LeagueFullStandingViewBody(
+    return Scaffold(
+      body: SafeArea(
+        child: LeagueFullStandingViewBody(
           model: model,
         ),
       ),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gp_app/features/standings/presentation/view_model/cubit/standings_cubit.dart';
 
 import '../../../../core/constants/colors.dart';
-import '../view_model/home_cubit/home_cubit.dart';
-import 'widgets/standing/custom_standing_item.dart';
-import 'widgets/standing/custom_standing_league_header.dart';
-import 'widgets/standing/standing_header_first_row.dart';
+import '../../../home/presentation/views/widgets/standing/custom_standing_item.dart';
+import '../../../home/presentation/views/widgets/standing/custom_standing_league_header.dart';
+import '../../../home/presentation/views/widgets/standing/standing_header_first_row.dart';
 
 class StandingsView extends StatelessWidget {
   const StandingsView({super.key});
@@ -13,17 +14,17 @@ class StandingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 16,
-        right: 16,
-        top: 18,
+      padding:  EdgeInsets.only(
+        left: 16.w,
+        right: 16.w,
+        top: 18.h,
       ),
-      child: BlocConsumer<HomeCubit, HomeState>(
+      child: BlocConsumer<StandingsCubit, StandingsState>(
         listener: (context, state) {
           // TODO: implement listener
         },
         builder: (context, state) {
-          var cubit = HomeCubit.get(context);
+          var cubit = StandingsCubit.get(context);
           int outerBuilder;
           return cubit.standings.length < 5
               ? const Center(
@@ -40,8 +41,8 @@ class StandingsView extends StatelessWidget {
                         StandingLeagueHeader(
                           leagueStandingModel: cubit.standings[index],
                         ),
-                        const SizedBox(
-                          height: 18.0,
+                         SizedBox(
+                          height: 18.0.h,
                         ),
                         Container(
                           decoration: BoxDecoration(

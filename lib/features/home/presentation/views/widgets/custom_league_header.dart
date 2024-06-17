@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/constants/colors.dart';
 import '../../../../../core/constants/constants.dart';
@@ -30,26 +31,26 @@ class CustomLeagueHeader extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        const SizedBox(
-          width: 12,
+         SizedBox(
+          width: 12.w,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               leagueName,
-              style: const TextStyle(
+              style:  TextStyle(
                 color: TAppColors.kWhite,
                 fontWeight: FontWeight.w600,
-                fontSize: 16.0,
+                fontSize: 16.0.sp,
               ),
             ),
             Text(
               Constants.countryNames[leagueId]!,
-              style: const TextStyle(
+              style:  TextStyle(
                 color: Color(0xffAAAAAA),
                 fontWeight: FontWeight.w400,
-                fontSize: 12.0,
+                fontSize: 12.0.sp,
               ),
             ),
           ],
@@ -57,10 +58,10 @@ class CustomLeagueHeader extends StatelessWidget {
         const Spacer(),
         IconButton(
           onPressed: iconPressed,
-          icon: const Icon(
+          icon:  Icon(
             IconBroken.Arrow___Right_2,
             color: TAppColors.kWhite,
-            size: 28.0,
+            size: 28.0.r,
           ),
         )
       ],

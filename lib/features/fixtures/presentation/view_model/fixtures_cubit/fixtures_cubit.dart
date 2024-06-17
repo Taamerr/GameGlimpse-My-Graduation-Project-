@@ -6,7 +6,7 @@ import '../../../data/models/date_model/date_model.dart';
 import '../../../data/models/fixtures_model/fixtures_model.dart';
 import '../../../data/models/fixtures_model/match_data.dart';
 import '../../../data/models/leagues_matches_model/leagues_matches_model.dart';
-import '../../../data/repos/fixtures_repo.dart';
+import '../../../data/repos/fixtures_repo/fixtures_repo.dart';
 import '../../views/widgets/livecore_league_widget_tree.dart';
 import '../../views/widgets/no_matches_today.dart';
 

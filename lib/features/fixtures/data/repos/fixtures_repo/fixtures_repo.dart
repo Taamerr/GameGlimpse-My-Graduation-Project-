@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/error/failures.dart';
-import '../models/fixtures_model/fixtures_model.dart';
+import '../../../../../core/error/failures.dart';
+import '../../models/fixtures_model/fixtures_model.dart';
 
 abstract class FixturesRepo {
   Future<Either<Failure, FixturesModel>> fetchFixuresMatches({

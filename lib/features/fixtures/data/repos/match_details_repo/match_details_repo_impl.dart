@@ -5,7 +5,7 @@ import 'package:gp_app/core/constants/constants.dart';
 import 'package:gp_app/core/error/failures.dart';
 import 'package:gp_app/core/utils/api_services.dart';
 import 'package:gp_app/features/fixtures/data/models/match_stat_model/match_stat_model.dart';
-import 'package:gp_app/features/home/data/repos/match_details_repo/match_details_repo.dart';
+import 'package:gp_app/features/fixtures/data/repos/match_details_repo/match_details_repo.dart';
 
 class MatchDetailsRepoImpl implements MatchDetailsRepo {
   MatchDetailsRepoImpl({

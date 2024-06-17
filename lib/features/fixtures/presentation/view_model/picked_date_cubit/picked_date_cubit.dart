@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp_app/features/fixtures/data/models/fixtures_model/fixtures_model.dart';
 import 'package:gp_app/features/fixtures/data/models/fixtures_model/match_data.dart';
-import 'package:gp_app/features/fixtures/data/repos/fixtures_repo.dart';
+import 'package:gp_app/features/fixtures/data/repos/fixtures_repo/fixtures_repo.dart';
 import 'package:meta/meta.dart';
 
 part 'picked_date_state.dart';
