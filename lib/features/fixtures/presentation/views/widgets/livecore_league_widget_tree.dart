@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gp_app/features/fixtures/data/models/fixtures_model/match_data.dart';
-import 'package:gp_app/features/fixtures/presentation/views/widgets/custom_league_matches.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../data/models/fixtures_model/match_data.dart';
+import 'custom_league_matches.dart';
 
 class LiveScoreLeagueWidgetTree extends StatelessWidget {
   const LiveScoreLeagueWidgetTree({
@@ -15,9 +16,9 @@ class LiveScoreLeagueWidgetTree extends StatelessWidget {
     return CustomScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       slivers: <Widget>[
-        const SliverToBoxAdapter(
+         SliverToBoxAdapter(
           child: SizedBox(
-            height: 20,
+            height: 20.h,
           ),
         ),
         SliverList(

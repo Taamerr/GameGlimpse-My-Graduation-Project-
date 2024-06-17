@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_app/features/fixtures/data/repos/fixtures_repo_impl.dart';
-import 'package:gp_app/features/fixtures/presentation/view_model/fixtures_cubit/fixtures_cubit.dart';
+import '../../../fixtures/data/repos/fixtures_repo_impl.dart';
+import '../../../fixtures/presentation/view_model/fixtures_cubit/fixtures_cubit.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/utils/service_locator.dart';
 import '../../../auth/data/repos/auth_repo_impl.dart';

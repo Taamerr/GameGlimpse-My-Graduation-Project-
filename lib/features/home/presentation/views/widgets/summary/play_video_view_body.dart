@@ -1,7 +1,8 @@
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
-import 'play_video_view_app_bar.dart';
 import 'package:video_player/video_player.dart';
+
+import 'play_video_view_app_bar.dart';
 
 class PlayVideoViewBody extends StatefulWidget {
   const PlayVideoViewBody({

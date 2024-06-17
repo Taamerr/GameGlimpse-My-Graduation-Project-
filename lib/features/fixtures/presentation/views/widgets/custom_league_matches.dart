@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../data/models/fixtures_model/match_data.dart';
 import '../../../../home/presentation/views/widgets/custom_league_header.dart';
@@ -15,7 +16,7 @@ class CustomLeagueMatches extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 55,
+          height: 55.h,
           decoration: const BoxDecoration(),
           child: CustomLeagueHeader(
             imageUrl: matchModelList.first.league!.imagePath!,
@@ -24,8 +25,8 @@ class CustomLeagueMatches extends StatelessWidget {
             iconPressed: () {},
           ),
         ),
-        const SizedBox(
-          height: 14.0,
+         SizedBox(
+          height: 14.0.h,
         ),
         ListView.builder(
           shrinkWrap: true,
@@ -35,8 +36,8 @@ class CustomLeagueMatches extends StatelessWidget {
           ),
           itemCount: matchModelList.length,
         ),
-        const SizedBox(
-          height: 10.0,
+         SizedBox(
+          height: 10.0.h,
         ),
       ],
     );

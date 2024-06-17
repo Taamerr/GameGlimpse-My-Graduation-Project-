@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_app/features/fixtures/presentation/view_model/fixtures_cubit/fixtures_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../view_model/fixtures_cubit/fixtures_cubit.dart';
 
 import '../../../../core/constants/colors.dart';
 import 'widgets/custom_matches_app_bar.dart';
@@ -16,10 +17,10 @@ class MatchesView extends StatelessWidget {
       builder: (context, state) {
         var cubit = FixturesCubit.get(context);
         return Padding(
-          padding: const EdgeInsets.only(
-            left: 12.0,
-            right: 12.0,
-            top: 12.0,
+          padding: EdgeInsets.only(
+            left: 12.0.w,
+            right: 12.0.w,
+            top: 12.0.h,
           ),
           child: DefaultTabController(
             length: cubit.tabs.length,
@@ -35,10 +36,9 @@ class MatchesView extends StatelessWidget {
                         tabAlignment: TabAlignment.start,
                         padding: EdgeInsets.zero,
                         indicatorPadding: EdgeInsets.zero,
-                        labelPadding:
-                            const EdgeInsets.symmetric(horizontal: 10.0),
-                        labelStyle: const TextStyle(
-                          fontSize: 16.0,
+                        labelPadding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                        labelStyle: TextStyle(
+                          fontSize: 14.0.sp,
                         ),
                         isScrollable: true,
                         dividerColor: Colors.transparent,

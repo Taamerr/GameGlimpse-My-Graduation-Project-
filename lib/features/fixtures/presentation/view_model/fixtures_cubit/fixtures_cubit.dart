@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_app/features/fixtures/data/models/date_model/date_model.dart';
-import 'package:gp_app/features/fixtures/data/models/fixtures_model/fixtures_model.dart';
-import 'package:gp_app/features/fixtures/data/models/fixtures_model/match_data.dart';
-import 'package:gp_app/features/fixtures/data/models/leagues_matches_model/leagues_matches_model.dart';
-import 'package:gp_app/features/fixtures/data/repos/fixtures_repo.dart';
-import 'package:gp_app/features/fixtures/presentation/views/widgets/livecore_league_widget_tree.dart';
+import '../../../data/models/date_model/date_model.dart';
+import '../../../data/models/fixtures_model/fixtures_model.dart';
+import '../../../data/models/fixtures_model/match_data.dart';
+import '../../../data/models/leagues_matches_model/leagues_matches_model.dart';
+import '../../../data/repos/fixtures_repo.dart';
+import '../../views/widgets/livecore_league_widget_tree.dart';
+import '../../views/widgets/no_matches_today.dart';
 import 'package:intl/intl.dart';
 
 part 'fixtures_state.dart';
@@ -17,8 +18,9 @@ class FixturesCubit extends Cubit<FixturesState> {
   final FixturesRepo fixturesRepo;
   static FixturesCubit get(context) => BlocProvider.of(context);
 
-  void initialize() async {
+  Future<void> initialize() async {
     getDate();
+    initializeClassifyLeagueList();
     generateTabs();
     await getAllMatches();
   }
@@ -71,13 +73,13 @@ class FixturesCubit extends Cubit<FixturesState> {
 
   List<LeaguesMatchesModel> classifyLeagueMatches = [];
   FixturesModel? fixtures;
-  Future<void> getAllMatches() async {
+  Future<void> getAllMatches({String page = '1'}) async {
     emit(FixturesGetMatchesLoadingState());
-    classifyLeagueMatches = [];
     var result = await fixturesRepo.fetchFixuresMatches(
       startDate: '2024-05-13',
       endDate: '2024-05-22',
       perPage: 50,
+      pageNumber: page,
     );
     result.fold((failure) {
       print('failure = ${failure.errMessage}');
@@ -88,8 +90,14 @@ class FixturesCubit extends Cubit<FixturesState> {
         for (int i = 0; i < dates.length; i++) {
           classifyLeague(
             date: tempDates[i],
+            index: i,
           );
         }
+      }
+      if (fixturesModel.pagination!.hasMore == true) {
+        String nextPage =
+            (fixturesModel.pagination!.currentPage! + 1).toString();
+        getAllMatches(page: nextPage);
       }
       generateTabsScreens();
       emit(FixturesGetMatchesSuccessState());
@@ -98,6 +106,7 @@ class FixturesCubit extends Cubit<FixturesState> {
 
   void classifyLeague({
     required String date,
+    required int index,
   }) {
     List<List<MatchData>> allLeaguesMatchesList = [];
     List<MatchData> matchesToRemove = [];
@@ -128,18 +137,20 @@ class FixturesCubit extends Cubit<FixturesState> {
     for (var match in matchesToRemove) {
       fixtures!.data!.remove(match);
     }
-    classifyLeagueMatches.add(LeaguesMatchesModel(
-        allLeaguesMatches: allLeaguesMatchesList, date: date));
+    Set<List<MatchData>> allUniqueLeagues = allLeaguesMatchesList.toSet();
+    allUniqueLeagues.addAll(classifyLeagueMatches[index].allLeaguesMatches);
+    allLeaguesMatchesList = combineLeagues(allUniqueLeagues.toList());
+    classifyLeagueMatches[index].allLeaguesMatches = allLeaguesMatchesList;
   }
 
   List<Widget> tabs = [];
   void generateTabs() {
     tabs = [];
-    for (int i = dates.length - 1; i >= 0; i--) {
+    for (int i = tempDates.length - 1; i >= 0; i--) {
       tabs.add(
         Tab(
           child: Text(
-            dates[i].previewName,
+            tempDates[i],
           ),
         ),
       );
@@ -150,11 +161,41 @@ class FixturesCubit extends Cubit<FixturesState> {
   void generateTabsScreens() {
     tabsScreens = [];
     for (int i = dates.length - 1; i >= 0; i--) {
-      tabsScreens.add(
-        LiveScoreLeagueWidgetTree(
-          matches: classifyLeagueMatches[i].allLeaguesMatches,
-        ),
-      );
+      if (classifyLeagueMatches[i].allLeaguesMatches.isNotEmpty) {
+        tabsScreens.add(
+          LiveScoreLeagueWidgetTree(
+            matches: classifyLeagueMatches[i].allLeaguesMatches,
+          ),
+        );
+      } else {
+        tabsScreens.add(
+          const NoMatchesToday(),
+        );
+      }
+    }
+  }
+
+  List<List<MatchData>> combineLeagues(
+      List<List<MatchData>> allLeaguesMatchesList) {
+    Map<int, List<MatchData>> leagueMatchesMap = {};
+    for (var leagueMatches in allLeaguesMatchesList) {
+      for (var match in leagueMatches) {
+        if (leagueMatchesMap.containsKey(match.leagueId)) {
+          leagueMatchesMap[match.leagueId]!.add(match);
+        } else {
+          leagueMatchesMap[match.leagueId!] = [match];
+        }
+      }
+    }
+    return leagueMatchesMap.values.toList();
+  }
+
+  void initializeClassifyLeagueList() {
+    classifyLeagueMatches = [];
+    for (int i = 0; i < dates.length; i++) {
+      LeaguesMatchesModel leaguesMatchesModel = LeaguesMatchesModel(
+          date: dates[i].previewName, allLeaguesMatches: []);
+      classifyLeagueMatches.add(leaguesMatchesModel);
     }
   }
 }

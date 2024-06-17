@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
@@ -64,7 +65,7 @@ class CustomMatchCard extends StatelessWidget {
       }
     }
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: EdgeInsets.only(bottom: 8.0.h),
       child: GestureDetector(
         onTap: () {
           GoRouter.of(context).push(
@@ -77,40 +78,40 @@ class CustomMatchCard extends StatelessWidget {
             Expanded(
               flex: 5,
               child: Container(
-                height: 70,
-                decoration: const BoxDecoration(
-                  color: Color(0xff2B2B3D),
+                height: 70.h,
+                decoration: BoxDecoration(
+                  color: const Color(0xff2B2B3D),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    bottomLeft: Radius.circular(16),
+                    topLeft: Radius.circular(16.r),
+                    bottomLeft: Radius.circular(16.r),
                   ),
                 ),
                 child: Row(
                   children: [
-                    const SizedBox(
-                      width: 5.0,
+                    SizedBox(
+                      width: 5.0.w,
                     ),
                     Expanded(
                       child: Text(
                         homeName,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: TAppColors.kWhite,
                           fontWeight: FontWeight.w600,
-                          fontSize: 12.0,
+                          fontSize: 12.0.sp,
                         ),
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    const SizedBox(
-                      width: 5.0,
+                    SizedBox(
+                      width: 5.0.w,
                     ),
                     Row(
                       children: [
                         CachedNetworkImage(
-                          height: 36.0,
-                          width: 36.0,
+                          height: 32.0.w,
+                          width: 32.0.w,
                           imageUrl:
                               matchModel.participants!.first.meta!.location ==
                                       'home'
@@ -121,36 +122,36 @@ class CustomMatchCard extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(
-                          width: 15.0,
+                        SizedBox(
+                          width: 15.0.w,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               time,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: TAppColors.kGrey1,
                                 fontWeight: FontWeight.w500,
-                                fontSize: 12.0,
+                                fontSize: 12.0.sp,
                               ),
                             ),
                             Text(
                               amPm,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: TAppColors.kGrey1,
                                 fontWeight: FontWeight.w500,
-                                fontSize: 10.0,
+                                fontSize: 10.0.sp,
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          width: 15.0,
+                        SizedBox(
+                          width: 15.0.w,
                         ),
                         CachedNetworkImage(
-                          height: 36.0,
-                          width: 36.0,
+                          height: 32.0.w,
+                          width: 32.0.w,
                           imageUrl:
                               matchModel.participants!.first.meta!.location ==
                                       'away'
@@ -163,24 +164,24 @@ class CustomMatchCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      width: 5.0,
+                    SizedBox(
+                      width: 5.0.w,
                     ),
                     Expanded(
                       child: Text(
                         awayName,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: TAppColors.kWhite,
                           fontWeight: FontWeight.w600,
-                          fontSize: 12.0,
+                          fontSize: 12.0.sp,
                         ),
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    const SizedBox(
-                      width: 5.0,
+                    SizedBox(
+                      width: 5.0.w,
                     ),
                   ],
                 ),
@@ -188,12 +189,12 @@ class CustomMatchCard extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                height: 70,
-                decoration: const BoxDecoration(
-                  color: Color(0xff222232),
+                height: 70.h,
+                decoration: BoxDecoration(
+                  color: const Color(0xff222232),
                   borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
+                    topRight: Radius.circular(16.r),
+                    bottomRight: Radius.circular(16.r),
                   ),
                 ),
                 child: Column(
@@ -201,10 +202,10 @@ class CustomMatchCard extends StatelessWidget {
                   children: [
                     Text(
                       '$goalHome - $goalAway',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: TAppColors.kWhite,
                         fontWeight: FontWeight.w600,
-                        fontSize: 14.0,
+                        fontSize: 14.0.sp,
                       ),
                     ),
                     const Divider(
@@ -214,10 +215,10 @@ class CustomMatchCard extends StatelessWidget {
                     ),
                     Text(
                       matchModel.state!.shortName!,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: TAppColors.kWhite,
                         fontWeight: FontWeight.w600,
-                        fontSize: 14.0,
+                        fontSize: 14.0.sp,
                       ),
                     ),
                   ],

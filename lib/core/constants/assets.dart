@@ -10,4 +10,5 @@ abstract class TAppAssets {
   static const incognitoIcon = 'assets/images/incognito.png';
   static const lineupsBackground = 'assets/images/background.jpg';
   static const profileBackground = 'assets/images/profile_background.jpg';
+  static const noMatchesToday = 'assets/images/no_matches_icon.png';
 }

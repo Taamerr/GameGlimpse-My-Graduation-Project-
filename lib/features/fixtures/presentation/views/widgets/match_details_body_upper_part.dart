@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/constants/colors.dart';
 import '../../../data/models/fixtures_model/match_data.dart';
@@ -33,7 +34,7 @@ class MatchDetailsBodyUpperPart extends StatelessWidget {
       }
     }
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.25,
+      height: (MediaQuery.of(context).size.height * 0.25).h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -42,10 +43,10 @@ class MatchDetailsBodyUpperPart extends StatelessWidget {
               children: [
                 CircleAvatar(
                   backgroundColor: const Color(0xff222232),
-                  radius: 50,
+                  radius: 50.r,
                   child: CachedNetworkImage(
-                    width: 54,
-                    height: 54,
+                    width: 56.w,
+                    height: 56.w,
                     imageUrl:
                         matchData.participants!.first.meta!.location == 'home'
                             ? matchData.participants!.first.imagePath!
@@ -56,17 +57,17 @@ class MatchDetailsBodyUpperPart extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 12,
+                SizedBox(
+                  height: 12.h,
                 ),
                 Text(
                   homeName,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: TAppColors.kWhite,
                     fontWeight: FontWeight.w600,
-                    fontSize: 14.0,
+                    fontSize: 14.0.sp,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -80,23 +81,23 @@ class MatchDetailsBodyUpperPart extends StatelessWidget {
                 children: [
                   Text(
                     '$goalHome - $goalAway',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: TAppColors.kWhite,
                       fontWeight: FontWeight.w600,
-                      fontSize: 32.0,
+                      fontSize: 32.0.sp,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 8.0,
+              SizedBox(
+                height: 8.0.h,
               ),
               Text(
                 matchData.state!.shortName!,
-                style: const TextStyle(
+                style: TextStyle(
                   color: TAppColors.kWhite,
                   fontWeight: FontWeight.w600,
-                  fontSize: 18.0,
+                  fontSize: 18.0.sp,
                 ),
               ),
               const Spacer(
@@ -109,10 +110,10 @@ class MatchDetailsBodyUpperPart extends StatelessWidget {
               children: [
                 CircleAvatar(
                   backgroundColor: const Color(0xff222232),
-                  radius: 50,
+                  radius: 50.r,
                   child: CachedNetworkImage(
-                    width: 54,
-                    height: 54,
+                    width: 56.w,
+                    height: 56.w,
                     imageUrl:
                         matchData.participants!.first.meta!.location == 'away'
                             ? matchData.participants!.first.imagePath!
@@ -123,17 +124,17 @@ class MatchDetailsBodyUpperPart extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 12,
+                SizedBox(
+                  height: 12.h,
                 ),
                 Text(
                   awayName,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: TAppColors.kWhite,
                     fontWeight: FontWeight.w600,
-                    fontSize: 14.0,
+                    fontSize: 14.0.sp,
                   ),
                   textAlign: TextAlign.center,
                 ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../../../core/constants/colors.dart';
 import '../../../data/models/fixtures_model/match_data.dart';
 import '../../view_model/match_details_cubit/match_details_cubit.dart';
@@ -19,13 +21,13 @@ class MatchDetailsViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 12.0,
-        right: 12.0,
-        top: 12.0,
+      padding: EdgeInsets.only(
+        left: 12.0.w,
+        right: 12.0.w,
+        top: 12.0.h,
       ),
       child: DefaultTabController(
-        length: 3,
+        length: 2,
         initialIndex: 0,
         child: CustomScrollView(
           physics: const NeverScrollableScrollPhysics(),
@@ -36,18 +38,21 @@ class MatchDetailsViewBody extends StatelessWidget {
                   CustomMatchDetailsAppBar(
                     leagueName: matchData.league!.name!,
                   ),
-                  const SizedBox(
-                    height: 32,
+                  SizedBox(
+                    height: 32.h,
                   ),
                   MatchDetailsBodyUpperPart(
                     matchData: matchData,
                   ),
-                  const TabBar(
+                  TabBar(
                     padding: EdgeInsets.zero,
                     isScrollable: false,
                     indicatorPadding: EdgeInsets.zero,
                     labelPadding: EdgeInsets.zero,
                     dividerHeight: 0,
+                    labelStyle: TextStyle(
+                      fontSize: 16.0.sp,
+                    ),
                     dividerColor: TAppColors.kScaffoldColor,
                     labelColor: TAppColors.kWhite,
                     indicatorColor: TAppColors.kBlue,
@@ -55,7 +60,7 @@ class MatchDetailsViewBody extends StatelessWidget {
                     enableFeedback: true,
                     splashBorderRadius: BorderRadius.zero,
                     indicatorSize: TabBarIndicatorSize.label,
-                    tabs: [
+                    tabs: const [
                       Tab(
                         child: Text(
                           'Statistics',
@@ -64,11 +69,6 @@ class MatchDetailsViewBody extends StatelessWidget {
                       Tab(
                         child: Text(
                           'Lineups',
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          'Match summary',
                         ),
                       ),
                     ],
@@ -85,36 +85,24 @@ class MatchDetailsViewBody extends StatelessWidget {
                     children: [
                       cubit.statistics.isNotEmpty
                           ? const Statistics()
-                          : const Center(
+                          : Center(
                               child: Text(
                                 'The match has not started yet',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18.0,
+                                  fontSize: 18.0.sp,
                                   color: TAppColors.kWhite,
                                 ),
                               ),
                             ),
                       cubit.statistics.isNotEmpty
                           ? const LineUps()
-                          : const Center(
+                          : Center(
                               child: Text(
                                 'The match has not started yet',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18.0,
-                                  color: TAppColors.kWhite,
-                                ),
-                              ),
-                            ),
-                      cubit.statistics.isNotEmpty
-                          ? const SizedBox()
-                          : const Center(
-                              child: Text(
-                                'The match has not started yet',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.0,
+                                  fontSize: 18.0.sp,
                                   color: TAppColors.kWhite,
                                 ),
                               ),

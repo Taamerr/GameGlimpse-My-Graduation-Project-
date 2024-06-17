@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gp_app/features/fixtures/data/repos/fixtures_repo_impl.dart';
+import '../../features/fixtures/data/repos/fixtures_repo_impl.dart';
 import '../../features/profile/data/repos/profile_repo/profile_repo_impl.dart';
 
 import '../../features/auth/data/repos/auth_repo_impl.dart';

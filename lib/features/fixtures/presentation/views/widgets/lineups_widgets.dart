@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../../../core/constants/assets.dart';
 import '../../../../../core/constants/colors.dart';
 import '../../view_model/match_details_cubit/match_details_cubit.dart';
@@ -19,7 +21,7 @@ class LineUps extends StatelessWidget {
         return state is MatchDetailsGetMatchStatsLoadingState
             ? Center(
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.45,
+                  height: (MediaQuery.of(context).size.height * 0.45).h,
                   child: const Center(
                     child: CircularProgressIndicator(
                       color: TAppColors.kBlue,
@@ -30,11 +32,11 @@ class LineUps extends StatelessWidget {
             : ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  const SizedBox(
-                    height: 16,
+                  SizedBox(
+                    height: 16.h,
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: (MediaQuery.of(context).size.width).w,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(TAppAssets.lineupsBackground),
@@ -47,8 +49,8 @@ class LineUps extends StatelessWidget {
                           imageUrl: cubit.teamALineup[0].player!.imagePath!,
                           name: cubit.teamALineup[0].player!.displayName!,
                         ),
-                        const SizedBox(
-                          height: 12,
+                        SizedBox(
+                          height: 12.h,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -71,8 +73,8 @@ class LineUps extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 12,
+                        SizedBox(
+                          height: 12.h,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -108,21 +110,6 @@ class LineUps extends StatelessWidget {
                           imageUrl: cubit.teamALineup[10].player!.imagePath!,
                           name: cubit.teamALineup[10].player!.displayName!,
                         ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(TAppAssets.lineupsBackground),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    child: Column(
-                      children: [
                         LineupsPlayerImage(
                           imageUrl: cubit.teamBLineup[10].player!.imagePath!,
                           name: cubit.teamBLineup[10].player!.displayName!,
@@ -144,8 +131,8 @@ class LineUps extends StatelessWidget {
                           imageUrl: cubit.teamBLineup[6].player!.imagePath!,
                           name: cubit.teamBLineup[6].player!.displayName!,
                         ),
-                        const SizedBox(
-                          height: 12,
+                        SizedBox(
+                          height: 12.h,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -160,8 +147,8 @@ class LineUps extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 12,
+                        SizedBox(
+                          height: 12.h,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -184,8 +171,8 @@ class LineUps extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 12.0,
+                        SizedBox(
+                          height: 12.0.h,
                         ),
                         LineupsPlayerImage(
                           imageUrl: cubit.teamBLineup[0].player!.imagePath!,
@@ -217,10 +204,11 @@ class LineupsPlayerImage extends StatelessWidget {
         CachedNetworkImage(
           imageUrl: imageUrl,
           imageBuilder: (context, imageProvider) => Container(
-            width: 60.0,
-            height: 60.0,
+            width: 60.0.w,
+            height: 60.0.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
+              color: TAppColors.kWhite,
               image: DecorationImage(
                 image: imageProvider,
                 fit: BoxFit.cover,
@@ -233,12 +221,12 @@ class LineupsPlayerImage extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: 60,
+          width: 60.w,
           child: Text(
             name,
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.w400,
-              fontSize: 12.0,
+              fontSize: 12.0.sp,
               color: TAppColors.kWhite,
             ),
             maxLines: 2,

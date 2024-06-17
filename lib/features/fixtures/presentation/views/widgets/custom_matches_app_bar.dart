@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gp_app/features/fixtures/presentation/view_model/fixtures_cubit/fixtures_cubit.dart';
+import '../../view_model/fixtures_cubit/fixtures_cubit.dart';
 
 import '../../../../../core/constants/colors.dart';
 import '../../../../../core/utils/icons/icon_broken.dart';
@@ -19,32 +20,31 @@ class CustomMatchesAppBar extends StatelessWidget {
         var cubit = FixturesCubit.get(context);
         return Row(
           children: [
-            const Text(
+            Text(
               'LiveScore',
               style: TextStyle(
                 color: TAppColors.kWhite,
                 fontWeight: FontWeight.w500,
-                fontSize: 24.0,
+                fontSize: 26.0.sp,
               ),
             ),
             const Spacer(),
             IconButton(
-              onPressed: () async{
-                cubit.getDate();
-                await cubit.getAllMatches();
+              onPressed: () async {
+                await cubit.initialize();
               },
-              icon: const Icon(
+              icon: Icon(
                 FontAwesomeIcons.rotate,
                 color: TAppColors.kWhite,
-                size: 24.0,
+                size: 24.0.r,
               ),
             ),
             IconButton(
               onPressed: () {},
-              icon: const Icon(
+              icon: Icon(
                 IconBroken.Notification,
                 color: TAppColors.kWhite,
-                size: 28.0,
+                size: 28.0.r,
               ),
             ),
           ],
