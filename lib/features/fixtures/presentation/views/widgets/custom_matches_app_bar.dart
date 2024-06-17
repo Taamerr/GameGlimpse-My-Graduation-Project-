@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../view_model/fixtures_cubit/fixtures_cubit.dart';
+import 'package:gp_app/features/fixtures/presentation/views/picked_date_fixtures_view.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../core/constants/colors.dart';
 import '../../../../../core/utils/icons/icon_broken.dart';
+import '../../view_model/fixtures_cubit/fixtures_cubit.dart';
 
-class CustomMatchesAppBar extends StatelessWidget {
+class CustomMatchesAppBar extends StatefulWidget {
   const CustomMatchesAppBar({super.key});
 
+  @override
+  State<CustomMatchesAppBar> createState() => _CustomMatchesAppBarState();
+}
+
+class _CustomMatchesAppBarState extends State<CustomMatchesAppBar> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FixturesCubit, FixturesState>(
@@ -29,22 +35,61 @@ class CustomMatchesAppBar extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            IconButton(
-              onPressed: () async {
-                await cubit.initialize();
+            GestureDetector(
+              onTap: () async {
+                DateTime selectedDate = DateTime.now();
+                String todayDate = '';
+                String pickedDate = '';
+                final DateTime? picked = await showDatePicker(
+                  context: context,
+                  initialDate: selectedDate,
+                  firstDate: DateTime(
+                    selectedDate.year,
+                    selectedDate.month - 2,
+                    selectedDate.day,
+                  ),
+                  lastDate: DateTime(
+                    selectedDate.year,
+                    selectedDate.month + 1,
+                    selectedDate.day,
+                  ),
+                  builder: (context, child) => Theme(
+                    data: ThemeData.light().copyWith(
+                      colorScheme: const ColorScheme.dark(
+                        primary: TAppColors.kBlue,
+                        onPrimary: TAppColors.kWhite,
+                        onSurface: TAppColors.kGrey1,
+                        surface: TAppColors.kBlack3,
+                      ),
+                    ),
+                    child: child!,
+                  ),
+                );
+                if (picked != null) {
+                  todayDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+                  pickedDate = DateFormat('yyyy-MM-dd').format(picked);
+                  if (todayDate != pickedDate) {
+                    setState(() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PickedDateFixturesView(
+                            pickedDate: pickedDate,
+                          ),
+                        ),
+                      );
+                    });
+                  }
+                }
               },
-              icon: Icon(
-                FontAwesomeIcons.rotate,
-                color: TAppColors.kWhite,
-                size: 24.0.r,
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                IconBroken.Notification,
-                color: TAppColors.kWhite,
-                size: 28.0.r,
+              child: Text(
+                String.fromCharCode(IconBroken.Calendar.codePoint),
+                style: TextStyle(
+                  inherit: false,
+                  fontSize: 28.sp,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: IconBroken.Calendar.fontFamily,
+                ),
               ),
             ),
           ],

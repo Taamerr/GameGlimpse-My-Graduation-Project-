@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+
 import '../../../data/models/date_model/date_model.dart';
 import '../../../data/models/fixtures_model/fixtures_model.dart';
 import '../../../data/models/fixtures_model/match_data.dart';
@@ -7,7 +9,6 @@ import '../../../data/models/leagues_matches_model/leagues_matches_model.dart';
 import '../../../data/repos/fixtures_repo.dart';
 import '../../views/widgets/livecore_league_widget_tree.dart';
 import '../../views/widgets/no_matches_today.dart';
-import 'package:intl/intl.dart';
 
 part 'fixtures_state.dart';
 
@@ -58,26 +59,13 @@ class FixturesCubit extends Cubit<FixturesState> {
     emit(FixturesGenerateDateFinishState());
   }
 
-  List<String> tempDates = [
-    '2024-05-13',
-    '2024-05-14',
-    '2024-05-15',
-    '2024-05-16',
-    '2024-05-17',
-    '2024-05-18',
-    '2024-05-19',
-    '2024-05-20',
-    '2024-05-21',
-    '2024-05-22',
-  ];
-
   List<LeaguesMatchesModel> classifyLeagueMatches = [];
   FixturesModel? fixtures;
   Future<void> getAllMatches({String page = '1'}) async {
     emit(FixturesGetMatchesLoadingState());
     var result = await fixturesRepo.fetchFixuresMatches(
-      startDate: '2024-05-13',
-      endDate: '2024-05-22',
+      startDate: dates.first.date,
+      endDate: dates.last.date,
       perPage: 50,
       pageNumber: page,
     );
@@ -89,7 +77,7 @@ class FixturesCubit extends Cubit<FixturesState> {
         fixtures = fixturesModel;
         for (int i = 0; i < dates.length; i++) {
           classifyLeague(
-            date: tempDates[i],
+            date: dates[i].date,
             index: i,
           );
         }
@@ -146,11 +134,11 @@ class FixturesCubit extends Cubit<FixturesState> {
   List<Widget> tabs = [];
   void generateTabs() {
     tabs = [];
-    for (int i = tempDates.length - 1; i >= 0; i--) {
+    for (int i = dates.length - 1; i >= 0; i--) {
       tabs.add(
         Tab(
           child: Text(
-            tempDates[i],
+            dates[i].previewName,
           ),
         ),
       );

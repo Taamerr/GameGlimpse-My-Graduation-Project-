@@ -9,4 +9,10 @@ abstract class FixturesRepo {
     required String endDate,
     String? pageNumber,
   });
+
+  Future<Either<Failure, FixturesModel>> getFixuresDatePicked({
+    required int perPage,
+    required String pickedDate,
+    String? pageNumber,
+  });
 }

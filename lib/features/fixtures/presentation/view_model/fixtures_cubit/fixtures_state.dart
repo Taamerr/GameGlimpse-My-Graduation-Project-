@@ -18,3 +18,11 @@ final class FixturesGetMatchesFailureState extends FixturesState {
 final class FixturesGenerateDateLoadingState extends FixturesState {}
 
 final class FixturesGenerateDateFinishState extends FixturesState {}
+
+final class FixturesPickDateLoadingState extends FixturesState {}
+
+final class FixturesPickDateFinishState extends FixturesState {
+  final String pickedDate;
+
+  FixturesPickDateFinishState({required this.pickedDate});
+}

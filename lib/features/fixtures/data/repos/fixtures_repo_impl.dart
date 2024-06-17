@@ -43,4 +43,35 @@ class FixturesRepoImpl implements FixturesRepo {
       return left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, FixturesModel>> getFixuresDatePicked({
+    required int perPage,
+    required String pickedDate,
+    String? pageNumber = '1',
+  }) async {
+    try {
+      var result = await apiService.get(
+        endPoint: 'football/fixtures/date/$pickedDate',
+        headers: {
+          'authorization': Constants.apiKey,
+        },
+        queryParameters: {
+          'include':
+              'league:name,image_path;state:short_name;participants:name,short_code,image_path;scores;',
+          'timezone': 'Africa/Cairo',
+          'per_page': perPage,
+          'page': pageNumber,
+          'filter': 'scoreTypes:1525',
+        },
+      );
+      FixturesModel fixturesModel = FixturesModel.fromJson(result);
+      return right(fixturesModel);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
 }
