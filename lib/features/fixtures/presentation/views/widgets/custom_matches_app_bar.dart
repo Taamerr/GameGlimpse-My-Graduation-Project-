@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gp_app/features/fixtures/presentation/views/picked_date_fixtures_view.dart';
+import '../picked_date_fixtures_view.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../core/constants/colors.dart';

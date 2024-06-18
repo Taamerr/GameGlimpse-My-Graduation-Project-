@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gp_app/features/standings/presentation/view_model/cubit/standings_cubit.dart';
+import '../view_model/cubit/standings_cubit.dart';
 
 import '../../../../core/constants/colors.dart';
-import '../../../home/presentation/views/widgets/standing/custom_standing_item.dart';
-import '../../../home/presentation/views/widgets/standing/custom_standing_league_header.dart';
-import '../../../home/presentation/views/widgets/standing/standing_header_first_row.dart';
+import 'widgets/standing/custom_standing_item.dart';
+import 'widgets/standing/custom_standing_league_header.dart';
+import 'widgets/standing/standing_header_first_row.dart';
 
 class StandingsView extends StatelessWidget {
   const StandingsView({super.key});

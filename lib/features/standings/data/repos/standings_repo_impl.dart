@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:gp_app/core/constants/constants.dart';
-import 'package:gp_app/core/error/failures.dart';
-import 'package:gp_app/core/utils/api_services.dart';
-import 'package:gp_app/features/home/data/models/league_standing_model/league_standing_model.dart';
-import 'package:gp_app/features/standings/data/repos/standings_repo.dart';
+import '../../../../core/constants/constants.dart';
+import '../../../../core/error/failures.dart';
+import '../../../../core/utils/api_services.dart';
+import '../models/league_standing_model/league_standing_model.dart';
+import 'standings_repo.dart';
 
 class StandingsRepoImpl implements StandingsRepo {
   StandingsRepoImpl({

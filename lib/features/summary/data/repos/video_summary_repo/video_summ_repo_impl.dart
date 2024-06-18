@@ -5,9 +5,9 @@ import 'package:dio/dio.dart';
 import 'package:gp_app/core/constants/constants.dart';
 import 'package:gp_app/core/error/failures.dart';
 import 'package:gp_app/core/utils/api_services.dart';
-import 'package:gp_app/features/home/data/models/match_doc_model/match_doc_model.dart';
-import 'package:gp_app/features/home/data/models/video_match_data_model/video_match_data_model.dart';
-import 'package:gp_app/features/home/data/repos/video_summary_repo/video_summ_repo.dart';
+import 'package:gp_app/features/summary/data/models/match_doc_model/match_doc_model.dart';
+import 'package:gp_app/features/summary/data/models/video_match_data_model/video_match_data_model.dart';
+import 'package:gp_app/features/summary/data/repos/video_summary_repo/video_summ_repo.dart';
 
 class VideoSummaryRepoImpl implements VideoSummaryRepo {
   VideoSummaryRepoImpl({

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gp_app/core/constants/colors.dart';
-import 'package:gp_app/core/utils/icons/icon_broken.dart';
-import 'package:gp_app/features/fixtures/presentation/view_model/picked_date_cubit/picked_date_cubit.dart';
-import 'package:gp_app/features/fixtures/presentation/views/widgets/livecore_league_widget_tree.dart';
-import 'package:gp_app/features/fixtures/presentation/views/widgets/no_matches_today.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/utils/icons/icon_broken.dart';
+import '../../view_model/picked_date_cubit/picked_date_cubit.dart';
+import 'livecore_league_widget_tree.dart';
+import 'no_matches_today.dart';
 
 class PickedDateFixturesViewBody extends StatelessWidget {
   const PickedDateFixturesViewBody({super.key, required this.date});

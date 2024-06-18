@@ -11,8 +11,8 @@ import 'core/utils/app_router.dart';
 import 'core/utils/bloc_observer.dart';
 import 'core/utils/cache_helper.dart';
 import 'core/utils/service_locator.dart';
-import 'features/home/data/repos/video_summary_repo/video_summ_repo_impl.dart';
-import 'features/home/presentation/view_model/video_summary_cubit/video_summary_cubit.dart';
+import 'features/summary/data/repos/video_summary_repo/video_summ_repo_impl.dart';
+import 'features/summary/presentation/view_model/video_summary_cubit/video_summary_cubit.dart';
 import 'firebase_options.dart';
 
 void main() async {

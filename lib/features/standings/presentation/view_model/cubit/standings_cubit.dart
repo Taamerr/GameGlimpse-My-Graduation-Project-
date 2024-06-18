@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_app/features/home/data/models/league_standing_model/league_standing_model.dart';
-import 'package:gp_app/features/standings/data/repos/standings_repo.dart';
+import '../../../data/models/league_standing_model/league_standing_model.dart';
+import '../../../data/repos/standings_repo.dart';
 import 'package:meta/meta.dart';
 
 part 'standings_state.dart';

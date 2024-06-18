@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/constants/colors.dart';
-import '../../../../../core/constants/constants.dart';
-import '../../../../../core/utils/icons/icon_broken.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/constants.dart';
+import '../../../../core/utils/icons/icon_broken.dart';
 
 class CustomLeagueHeader extends StatelessWidget {
   const CustomLeagueHeader({
