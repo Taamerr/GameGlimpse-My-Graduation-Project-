@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/constants/colors.dart';
 import '../../../../data/models/match_doc_model/video_model.dart';
@@ -43,10 +44,10 @@ class VideoSummaryTeamsRow extends StatelessWidget {
               children: [
                 CircleAvatar(
                   backgroundColor: const Color(0xff222232),
-                  radius: 50,
+                  radius: 50.r,
                   child: CachedNetworkImage(
-                    width: 54,
-                    height: 54,
+                    width: 54.w,
+                    height: 54.w,
                     imageUrl: videoModel.videoMatchData.participants!.first
                                 .meta!.location ==
                             'home'
@@ -60,17 +61,17 @@ class VideoSummaryTeamsRow extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 12,
+                SizedBox(
+                  height: 8.h,
                 ),
                 Text(
                   homeName,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: TAppColors.kWhite,
                     fontWeight: FontWeight.w600,
-                    fontSize: 14.0,
+                    fontSize: 14.0.sp,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -84,23 +85,23 @@ class VideoSummaryTeamsRow extends StatelessWidget {
                 children: [
                   Text(
                     '$goalHome - $goalAway',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: TAppColors.kWhite,
                       fontWeight: FontWeight.w600,
-                      fontSize: 32.0,
+                      fontSize: 32.0.sp,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 8.0,
+              SizedBox(
+                height: 8.0.h,
               ),
               Text(
                 videoModel.videoMatchData.state!.shortName!,
-                style: const TextStyle(
+                style: TextStyle(
                   color: TAppColors.kWhite,
                   fontWeight: FontWeight.w600,
-                  fontSize: 18.0,
+                  fontSize: 18.0.sp,
                 ),
               ),
               const Spacer(
@@ -113,10 +114,10 @@ class VideoSummaryTeamsRow extends StatelessWidget {
               children: [
                 CircleAvatar(
                   backgroundColor: const Color(0xff222232),
-                  radius: 50,
+                  radius: 50.r,
                   child: CachedNetworkImage(
-                    width: 54,
-                    height: 54,
+                    width: 54.w,
+                    height: 54.w,
                     imageUrl: videoModel.videoMatchData.participants!.first
                                 .meta!.location ==
                             'away'
@@ -130,17 +131,17 @@ class VideoSummaryTeamsRow extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 12,
+                SizedBox(
+                  height: 8.h,
                 ),
                 Text(
                   awayName,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: TAppColors.kWhite,
                     fontWeight: FontWeight.w600,
-                    fontSize: 14.0,
+                    fontSize: 14.0.sp,
                   ),
                   textAlign: TextAlign.center,
                 ),

@@ -24,3 +24,5 @@ final class VideoSummaryGetAllMatchesFailureState extends VideoSummaryState {
 
   VideoSummaryGetAllMatchesFailureState({required this.errMessage});
 }
+
+final class VideoSummarySearchMatchesState extends VideoSummaryState {}

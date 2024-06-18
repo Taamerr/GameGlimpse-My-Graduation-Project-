@@ -7,9 +7,9 @@ class VideosSummaryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-      child: Scaffold(
-        body: VideosSummaryViewBody(),
+    return const Scaffold(
+      body: SafeArea(
+        child: VideosSummaryViewBody(),
       ),
     );
   }

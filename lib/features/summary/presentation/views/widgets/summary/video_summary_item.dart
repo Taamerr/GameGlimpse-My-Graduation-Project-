@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/constants/colors.dart';
 import '../../../../../../core/constants/constants.dart';
@@ -26,72 +27,79 @@ class VideoSummaryItem extends StatelessWidget {
           ),
         );
       },
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.33,
-        decoration: BoxDecoration(
-          color: const Color(0xff2B2B3D),
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12.0,
-          ),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 12,
+      child: Column(
+        children: [
+          Container(
+            height: (MediaQuery.of(context).size.height * 0.35).h,
+            decoration: BoxDecoration(
+              color: const Color(0xff2B2B3D),
+              borderRadius: BorderRadius.circular(16.0.r),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 12.0.w,
               ),
-              Row(
+              child: Column(
                 children: [
-                  CachedNetworkImage(
-                    width: 36,
-                    height: 36,
-                    imageUrl: videoModel.videoMatchData.league!.imagePath!,
-                    color: videoModel.videoMatchData.league!.id == 8 ||
-                            videoModel.videoMatchData.league!.id == 2
-                        ? TAppColors.kWhite
-                        : null,
-                    errorWidget: (context, url, error) => const Icon(
-                      Icons.error,
-                      color: Colors.white,
-                    ),
+                  SizedBox(
+                    height: 12.h,
                   ),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Text(
-                        videoModel.videoMatchData.league!.name!,
-                        style: const TextStyle(
-                          color: TAppColors.kWhite,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.0,
+                      CachedNetworkImage(
+                        width: 36.w,
+                        height: 36.w,
+                        imageUrl: videoModel.videoMatchData.league!.imagePath!,
+                        color: videoModel.videoMatchData.league!.id == 8 ||
+                                videoModel.videoMatchData.league!.id == 2
+                            ? TAppColors.kWhite
+                            : null,
+                        errorWidget: (context, url, error) => const Icon(
+                          Icons.error,
+                          color: Colors.white,
                         ),
                       ),
-                      Text(
-                        Constants.countryNames[
-                            videoModel.videoMatchData.league!.id]!,
-                        style: const TextStyle(
-                          color: Color(0xffAAAAAA),
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12.0,
-                        ),
+                      SizedBox(
+                        width: 12.w,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            videoModel.videoMatchData.league!.name!,
+                            style: TextStyle(
+                              color: TAppColors.kWhite,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.0.sp,
+                            ),
+                          ),
+                          Text(
+                            Constants.countryNames[
+                                videoModel.videoMatchData.league!.id]!,
+                            style: TextStyle(
+                              color: const Color(0xffAAAAAA),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12.0.sp,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 16.0.h,
+                  ),
+                  VideoSummaryTeamsRow(
+                    videoModel: videoModel,
+                  ),
                 ],
               ),
-              const SizedBox(
-                height: 18.0,
-              ),
-              VideoSummaryTeamsRow(
-                videoModel: videoModel,
-              ),
-            ],
+            ),
           ),
-        ),
+          SizedBox(
+            height: 24.0.h,
+          ),
+        ],
       ),
     );
   }

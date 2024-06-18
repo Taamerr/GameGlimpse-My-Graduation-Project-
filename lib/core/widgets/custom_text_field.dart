@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gp_app/core/constants/colors.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -8,28 +10,40 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.fillColor,
     this.hintTextColor,
+    this.textColor,
+    this.cursorColor,
+    this.onChanged,
+    this.onFieldSubmitted,
   });
   final String hintText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final Color? fillColor;
   final Color? hintTextColor;
+  final Color? textColor;
+  final Color? cursorColor;
+  final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: const TextStyle(
-        color: Colors.black,
+      style: TextStyle(
+        color: textColor,
       ),
-      cursorColor: Colors.black,
+      cursorColor: cursorColor,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(
-          vertical: 13,
+          vertical: 16,
           horizontal: 12.0,
         ),
+        border: InputBorder.none,
         hintText: hintText,
         hintStyle: TextStyle(
-          color: hintTextColor,
+          color: TAppColors.kGrey2,
+          fontWeight: FontWeight.w600,
+          fontSize: 14.sp,
+          overflow: TextOverflow.ellipsis,
         ),
         //labelText: 'Email Address',
         filled: true,
@@ -37,6 +51,8 @@ class CustomTextField extends StatelessWidget {
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
       ),
+      onChanged: onChanged,
+      onFieldSubmitted: onFieldSubmitted,
     );
   }
 }

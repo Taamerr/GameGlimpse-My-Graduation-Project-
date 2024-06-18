@@ -1,5 +1,6 @@
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player/video_player.dart';
 
 import 'play_video_view_app_bar.dart';
@@ -35,9 +36,9 @@ class _PlayVideoViewBodyState extends State<PlayVideoViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 12.0,
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.0.w,
+        vertical: 12.0.h,
       ),
       child: SizedBox(
         height: MediaQuery.of(context).size.height,

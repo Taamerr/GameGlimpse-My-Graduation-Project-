@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../standings/data/repos/standings_repo_impl.dart';
-import '../../../standings/presentation/view_model/cubit/standings_cubit.dart';
+import 'package:gp_app/features/summary/data/repos/video_summary_repo/video_summ_repo_impl.dart';
+import 'package:gp_app/features/summary/presentation/view_model/video_summary_cubit/video_summary_cubit.dart';
 
 import '../../../../core/utils/service_locator.dart';
 import '../../../fixtures/data/repos/fixtures_repo/fixtures_repo_impl.dart';
 import '../../../fixtures/presentation/view_model/fixtures_cubit/fixtures_cubit.dart';
+import '../../../standings/data/repos/standings_repo_impl.dart';
+import '../../../standings/presentation/view_model/cubit/standings_cubit.dart';
 import '../view_model/home_cubit/home_cubit.dart';
 
 class HomeLayout extends StatelessWidget {
@@ -16,8 +18,7 @@ class HomeLayout extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => HomeCubit(
-          ),
+          create: (context) => HomeCubit(),
         ),
         BlocProvider(
           create: (context) => FixturesCubit(
@@ -28,6 +29,11 @@ class HomeLayout extends StatelessWidget {
           create: (context) => StandingsCubit(
             ServiceLocator.getIt.get<StandingsRepoImpl>(),
           ),
+        ),
+        BlocProvider(
+          create: (context) => VideoSummaryCubit(
+            ServiceLocator.getIt.get<VideoSummaryRepoImpl>(),
+          )..getAllMatchDocuments(),
         ),
       ],
       child: BlocConsumer<HomeCubit, HomeState>(

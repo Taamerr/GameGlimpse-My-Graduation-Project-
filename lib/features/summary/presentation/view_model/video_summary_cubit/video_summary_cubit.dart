@@ -66,5 +66,24 @@ class VideoSummaryCubit extends Cubit<VideoSummaryState> {
         }
       }
     }
+    searchVideos = videoModelList;
+  }
+
+  List<VideoModel> searchVideos = [];
+  void searchVideo({required String searchText}) {
+    if (searchText.isEmpty) {
+      searchVideos = videoModelList.map((item) => item).toList();
+    } else {
+      String lowerCaseSearchText = searchText.toLowerCase();
+      searchVideos = videoModelList.where((item) {
+        if (item.matchDocModel.name != null) {
+          List<String> teams =
+              item.matchDocModel.name!.toLowerCase().split(" vs ");
+          return teams.any((team) => team.contains(lowerCaseSearchText));
+        }
+        return false;
+      }).toList();
+    }
+    emit(VideoSummarySearchMatchesState());
   }
 }

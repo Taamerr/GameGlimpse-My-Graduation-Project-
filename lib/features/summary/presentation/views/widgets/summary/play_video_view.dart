@@ -10,9 +10,9 @@ class PlayVideoView extends StatelessWidget {
   final String videoLink;
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-      child: Scaffold(
-        body: PlayVideoViewBody(
+    return Scaffold(
+      body: SafeArea(
+        child: PlayVideoViewBody(
           videoLink: videoLink,
         ),
       ),

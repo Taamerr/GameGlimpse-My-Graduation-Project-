@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../view_model/fixtures_cubit/fixtures_cubit.dart';
 
 import '../../../../core/constants/colors.dart';
+import '../view_model/fixtures_cubit/fixtures_cubit.dart';
 import 'widgets/custom_matches_app_bar.dart';
 
 class MatchesView extends StatelessWidget {
