@@ -18,7 +18,7 @@ class HomeLayout extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => HomeCubit(),
+          create: (context) => HomeCubit()..checkUser(),
         ),
         BlocProvider(
           create: (context) => FixturesCubit(

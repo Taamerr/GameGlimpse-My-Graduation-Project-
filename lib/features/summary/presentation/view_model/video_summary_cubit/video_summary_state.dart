@@ -26,3 +26,18 @@ final class VideoSummaryGetAllMatchesFailureState extends VideoSummaryState {
 }
 
 final class VideoSummarySearchMatchesState extends VideoSummaryState {}
+
+final class VideoSummaryGetFavoriteMatchesLoadingState
+    extends VideoSummaryState {}
+
+final class VideoSummaryGetFavoriteMatchesSuccessState
+    extends VideoSummaryState {}
+
+final class VideoSummaryGetFavoriteMatchesFailureState
+    extends VideoSummaryState {
+  final String errMessage;
+
+  VideoSummaryGetFavoriteMatchesFailureState({required this.errMessage});
+}
+
+final class VideoSummaryFilterFavoriteMatchesState extends VideoSummaryState {}

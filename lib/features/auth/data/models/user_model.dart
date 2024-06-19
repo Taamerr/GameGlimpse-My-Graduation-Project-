@@ -6,6 +6,7 @@ class UserModel {
   final String uId;
   final String bio;
   final String image;
+  final List<String> favVideos;
 
   UserModel({
     required this.name,
@@ -13,6 +14,7 @@ class UserModel {
     required this.uId,
     required this.bio,
     required this.image,
+    required this.favVideos,
   });
 
   factory UserModel.fromJson({required Map<String, dynamic> json}) {
@@ -22,6 +24,7 @@ class UserModel {
       uId: json['uId'],
       bio: json['bio'],
       image: json['image'] == '' ? Constants.defaultImage : json['image'],
+      favVideos: List<String>.from(json['favVideos']),
     );
   }
 
@@ -31,5 +34,6 @@ class UserModel {
         'uId': uId,
         'bio': bio,
         'image': image,
+        'favVideos': favVideos,
       };
 }

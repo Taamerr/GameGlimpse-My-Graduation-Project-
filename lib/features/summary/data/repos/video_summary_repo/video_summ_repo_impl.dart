@@ -60,4 +60,21 @@ class VideoSummaryRepoImpl implements VideoSummaryRepo {
       return left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> updateFavoriteMatchList({
+    required String uId,
+    required List<String> favVideoList,
+  }) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(uId).update({
+        'favVideos': favVideoList,
+      });
+      return right(null);
+    } catch (e) {
+      print('Error when adding favorite video: ${e.toString()}');
+      return left(
+          ServerFailure('Error when adding favorite video: ${e.toString()}'));
+    }
+  }
 }

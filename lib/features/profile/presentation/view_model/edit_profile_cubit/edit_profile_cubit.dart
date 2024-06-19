@@ -56,6 +56,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     required String bio,
     required String uId,
     required String email,
+    required List<String> favVideos,
   }) async {
     emit(EditProfileUpdateDataLoadingState());
     var result = await profileRepo.updateUserData(
@@ -64,6 +65,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       image: image,
       name: name,
       uId: uId,
+      favVideos: favVideos,
     );
     result.fold((failure) {
       emit(EditProfileUpdateDataFailureState(errMessage: failure));
@@ -74,6 +76,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         uId: uId,
         bio: bio,
         image: image,
+        favVideos: favVideos,
       );
       emit(EditProfileUpdateDataSuccessState());
     });

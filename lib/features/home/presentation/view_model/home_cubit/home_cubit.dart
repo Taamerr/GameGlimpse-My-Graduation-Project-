@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gp_app/core/constants/constants.dart';
+import 'package:gp_app/core/utils/cache_helper.dart';
+import 'package:gp_app/features/auth/data/repos/auth_repo_impl.dart';
 
 import '../../../../../core/utils/icons/custom_icons.dart';
 import '../../../../../core/utils/icons/icon_broken.dart';
@@ -51,4 +54,18 @@ class HomeCubit extends Cubit<HomeState> {
     const VideosSummaryView(),
     const ProfileView(),
   ];
+
+  void checkUser() async {
+    emit(HomeGetUserDataLoadingState());
+    String? uId = CacheHelper.getData(key: 'uId');
+    if (uId != null && Constants.userModel == null) {
+      AuthRepoImpl authRepoImpl = AuthRepoImpl();
+      var result = await authRepoImpl.getUserData(uId: uId);
+      result.fold((failure) {
+        emit(HomeGetUserDataFailureState(errMessage: failure));
+      }, (_) {
+        emit(HomeGetUserDataSuccessState());
+      });
+    }
+  }
 }

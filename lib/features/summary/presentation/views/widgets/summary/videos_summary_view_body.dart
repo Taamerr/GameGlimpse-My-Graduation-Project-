@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gp_app/core/constants/constants.dart';
 import 'package:gp_app/core/utils/icons/icon_broken.dart';
 import 'package:gp_app/core/widgets/custom_text_field.dart';
 
@@ -37,22 +38,50 @@ class VideosSummaryViewBody extends StatelessWidget {
                     SliverToBoxAdapter(
                       child: Column(
                         children: [
-                          CustomTextField(
-                            fillColor: const Color(0xff2B2B3D),
-                            hintText: 'Search',
-                            hintTextColor: TAppColors.kWhite,
-                            textColor: TAppColors.kGrey2,
-                            cursorColor: TAppColors.kGrey2,
-                            suffixIcon: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                IconBroken.Search,
-                                color: TAppColors.kGrey2,
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: Constants.userModel != null
+                                    ? (MediaQuery.of(context).size.width * 0.65)
+                                        .w
+                                    : (MediaQuery.of(context).size.width * 0.82)
+                                        .w,
+                                child: CustomTextField(
+                                  fillColor: const Color(0xff2B2B3D),
+                                  hintText: 'Search',
+                                  hintTextColor: TAppColors.kWhite,
+                                  textColor: TAppColors.kGrey2,
+                                  cursorColor: TAppColors.kGrey2,
+                                  suffixIcon: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      IconBroken.Search,
+                                      color: TAppColors.kGrey2,
+                                    ),
+                                  ),
+                                  onChanged: (value) {
+                                    cubit.searchVideo(searchText: value);
+                                  },
+                                ),
                               ),
-                            ),
-                            onChanged: (value) {
-                              cubit.searchVideo(searchText: value);
-                            },
+                              Constants.userModel != null
+                                  ? Row(
+                                      children: [
+                                        Checkbox(
+                                          value: cubit.isChecked,
+                                          onChanged: (newValue) {
+                                            cubit.showFavoriteMatches();
+                                          },
+                                          checkColor: TAppColors.kBlue,
+                                          activeColor: const Color(0xff2B2B3D),
+                                        ),
+                                        const Text(
+                                          'FAV',
+                                        ),
+                                      ],
+                                    )
+                                  : const SizedBox(),
+                            ],
                           ),
                           SizedBox(
                             height: 12.h,
@@ -65,15 +94,29 @@ class VideosSummaryViewBody extends StatelessWidget {
                             delegate: SliverChildBuilderDelegate(
                               (context, index) => VideoSummaryItem(
                                 videoModel: cubit.searchVideos[index],
+                                favList: cubit.favList,
                               ),
                               childCount: cubit.searchVideos.length,
                             ),
                           )
-                        : const SliverToBoxAdapter(
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                color: TAppColors.kBlue,
-                              ),
+                        : SliverToBoxAdapter(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: (MediaQuery.of(context).size.height *
+                                          0.35)
+                                      .h,
+                                ),
+                                Center(
+                                  child: Text(
+                                    'No Matches Found',
+                                    style: TextStyle(
+                                      fontSize: 24.0.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                   ],

@@ -49,6 +49,7 @@ class EditProfileRepoImpl implements EditProfileRepo {
     required String bio,
     required String uId,
     required String email,
+    required List<String> favVideos,
   }) async {
     try {
       UserModel userModel = UserModel(
@@ -57,6 +58,7 @@ class EditProfileRepoImpl implements EditProfileRepo {
         uId: uId,
         bio: bio,
         image: image,
+        favVideos: favVideos,
       );
       await FirebaseFirestore.instance
           .collection('users')

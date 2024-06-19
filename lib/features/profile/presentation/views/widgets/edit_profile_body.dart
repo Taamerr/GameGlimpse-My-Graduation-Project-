@@ -182,6 +182,7 @@ class EditProfileBody extends StatelessWidget {
                       bio: bioController.text,
                       uId: Constants.userModel!.uId,
                       email: Constants.userModel!.email,
+                      favVideos: Constants.userModel!.favVideos,
                     );
                   },
                 ),

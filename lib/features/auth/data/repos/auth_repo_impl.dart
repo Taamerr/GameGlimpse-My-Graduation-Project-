@@ -130,6 +130,7 @@ class AuthRepoImpl implements AuthRepo {
         uId: uId,
         bio: 'Bio...',
         image: image,
+        favVideos: List.empty(),
       );
       await FirebaseFirestore.instance
           .collection('users')

@@ -13,5 +13,6 @@ abstract class EditProfileRepo {
     required String bio,
     required String uId,
     required String email,
+    required List<String> favVideos,
   });
 }
