@@ -102,12 +102,17 @@ class AuthRepoImpl implements AuthRepo {
       await FirebaseAuth.instance.signInWithCredential(credential);
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        userCreate(
-          name: user.displayName!,
-          email: user.email!,
-          uId: user.uid,
-          image: user.photoURL!,
-        );
+        DocumentReference userRef =
+            FirebaseFirestore.instance.collection('users').doc(user.uid);
+        DocumentSnapshot userDoc = await userRef.get();
+        if (!userDoc.exists) {
+          userCreate(
+            name: user.displayName!,
+            email: user.email!,
+            uId: user.uid,
+            image: user.photoURL!,
+          );
+        }
         getUserData(uId: user.uid);
       }
       return right(null);

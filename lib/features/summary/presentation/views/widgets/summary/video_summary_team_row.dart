@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/constants/colors.dart';
-import '../../../../data/models/match_doc_model/video_model.dart';
+import '../../../../data/models/video_model.dart';
 
 class VideoSummaryTeamsRow extends StatelessWidget {
   const VideoSummaryTeamsRow({

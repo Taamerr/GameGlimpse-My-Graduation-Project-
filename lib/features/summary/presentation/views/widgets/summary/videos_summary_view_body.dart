@@ -40,12 +40,7 @@ class VideosSummaryViewBody extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              SizedBox(
-                                width: Constants.userModel != null
-                                    ? (MediaQuery.of(context).size.width * 0.65)
-                                        .w
-                                    : (MediaQuery.of(context).size.width * 0.82)
-                                        .w,
+                              Expanded(
                                 child: CustomTextField(
                                   fillColor: const Color(0xff2B2B3D),
                                   hintText: 'Search',

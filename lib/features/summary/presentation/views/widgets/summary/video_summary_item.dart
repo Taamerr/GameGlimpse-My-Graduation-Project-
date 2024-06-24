@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gp_app/core/utils/cache_helper.dart';
 import 'package:gp_app/features/summary/presentation/view_model/video_summary_cubit/video_summary_cubit.dart';
+import 'package:gp_app/features/summary/presentation/views/match_classes_view.dart';
 
 import '../../../../../../core/constants/colors.dart';
 import '../../../../../../core/constants/constants.dart';
-import '../../../../data/models/match_doc_model/video_model.dart';
-import 'play_video_view.dart';
+import '../../../../data/models/video_model.dart';
 import 'video_summary_team_row.dart';
 
 class VideoSummaryItem extends StatelessWidget {
@@ -28,8 +28,8 @@ class VideoSummaryItem extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PlayVideoView(
-                  videoLink: videoModel.matchDocModel.videoLink!,
+                builder: (context) => MatchClassesView(
+                  videoModel: videoModel,
                 ),
               ),
             );

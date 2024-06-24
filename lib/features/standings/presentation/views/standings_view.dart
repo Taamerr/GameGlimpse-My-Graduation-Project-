@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../view_model/cubit/standings_cubit.dart';
 
 import '../../../../core/constants/colors.dart';
+import '../view_model/cubit/standings_cubit.dart';
 import 'widgets/standing/custom_standing_item.dart';
 import 'widgets/standing/custom_standing_league_header.dart';
 import 'widgets/standing/standing_header_first_row.dart';
@@ -14,7 +14,7 @@ class StandingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(
+      padding: EdgeInsets.only(
         left: 16.w,
         right: 16.w,
         top: 18.h,
@@ -41,7 +41,7 @@ class StandingsView extends StatelessWidget {
                         StandingLeagueHeader(
                           leagueStandingModel: cubit.standings[index],
                         ),
-                         SizedBox(
+                        SizedBox(
                           height: 18.0.h,
                         ),
                         Container(

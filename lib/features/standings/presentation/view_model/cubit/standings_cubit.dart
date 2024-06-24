@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta/meta.dart';
+
 import '../../../data/models/league_standing_model/league_standing_model.dart';
 import '../../../data/repos/standings_repo.dart';
-import 'package:meta/meta.dart';
 
 part 'standings_state.dart';
 
@@ -22,64 +23,50 @@ class StandingsCubit extends Cubit<StandingsState> {
   ];
   List<int> seasonsId = [
     21646,
-    21818,
     21694,
+    21818,
     21795,
     21779,
   ];
-  Future<void> getLeagueStandingWithLeagueId({
-    required int leagueId,
-  }) async {
+  Future<void> getLeagueStandingWithLeagueId() async {
     emit(StandingsGetLeaguesStandingLoadingState());
     var result = await standingsRepo.fetchLeagueStandingWithLeagueId(
-      leagueId: leagueId,
+      leagueId: leaguesId,
+      leaguesStandingList: standings,
     );
     result.fold((failure) {
       print('failure = ${failure.errMessage}');
       emit(StandingsGetLeaguesStandingFailureState(
           errMessage: failure.errMessage));
     }, (leagueStandingModel) {
-      standings.add(leagueStandingModel);
+      standings = leagueStandingModel.map((item) => item).toList();
       emit(HStandingsGetLeaguesStandingSuccessState());
     });
   }
 
-  Future<void> getLeagueStandingWithSeasonId({
-    required int seasonId,
-  }) async {
+  Future<void> getLeagueStandingWithSeasonId() async {
     emit(StandingsGetLeaguesStandingLoadingState());
     var result = await standingsRepo.fetchLeagueStandingWithSeasonId(
-      seasonId: seasonId,
+      seasonId: seasonsId,
+      leaguesStandingList: standings,
     );
     result.fold((failure) {
       print('failure = ${failure.errMessage}');
       emit(StandingsGetLeaguesStandingFailureState(
           errMessage: failure.errMessage));
     }, (leagueStandingModel) {
-      standings.add(leagueStandingModel);
+      standings = leagueStandingModel.map((item) => item).toList();
       emit(HStandingsGetLeaguesStandingSuccessState());
     });
   }
 
   Future<void> getAllStandings() async {
     emit(StandingsGetAllLeaguesStandingLoadingState());
-    for (int i = 0; i < leaguesId.length; i++) {
-      await getLeagueStandingWithLeagueId(
-        leagueId: leaguesId[i],
-      );
+    await getLeagueStandingWithLeagueId();
+    if (standings.isEmpty) {
+      await getLeagueStandingWithSeasonId();
       if (standings.first.data == null) {
-        break;
-      }
-    }
-    if (standings.first.data == null) {
-      standings.clear();
-      for (int i = 0; i < seasonsId.length; i++) {
-        await getLeagueStandingWithSeasonId(
-          seasonId: seasonsId[i],
-        );
-        if (standings.first.data == null) {
-          break;
-        }
+        standings.clear();
       }
     }
     emit(StandingsGetAllLeaguesStandingSuccessState());

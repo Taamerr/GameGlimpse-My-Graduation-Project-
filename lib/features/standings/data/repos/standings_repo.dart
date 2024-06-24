@@ -3,10 +3,12 @@ import '../../../../core/error/failures.dart';
 import '../models/league_standing_model/league_standing_model.dart';
 
 abstract class StandingsRepo {
-  Future<Either<Failure, LeagueStandingModel>> fetchLeagueStandingWithLeagueId({
-    required int leagueId,
+  Future<Either<Failure, List<LeagueStandingModel>>> fetchLeagueStandingWithLeagueId({
+    required List<int> leagueId,
+    required List<LeagueStandingModel> leaguesStandingList,
   });
-  Future<Either<Failure, LeagueStandingModel>> fetchLeagueStandingWithSeasonId({
-    required int seasonId,
+  Future<Either<Failure, List<LeagueStandingModel>>> fetchLeagueStandingWithSeasonId({
+    required List<int> seasonId,
+    required List<LeagueStandingModel> leaguesStandingList,
   });
 }

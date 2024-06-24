@@ -11,16 +11,17 @@ class StandingsRepoImpl implements StandingsRepo {
     required this.apiService,
   });
   ApiService apiService;
-  
-
 
   @override
-  Future<Either<Failure, LeagueStandingModel>> fetchLeagueStandingWithLeagueId({
-    required int leagueId,
+  Future<Either<Failure, List<LeagueStandingModel>>>
+      fetchLeagueStandingWithLeagueId({
+    required List<int> leagueId,
+    required List<LeagueStandingModel> leaguesStandingList,
   }) async {
     try {
+      if (leagueId.isEmpty) return right(leaguesStandingList);
       var result = await apiService.get(
-        endPoint: 'football/standings/live/leagues/$leagueId',
+        endPoint: 'football/standings/live/leagues/${leagueId[0]}',
         headers: {
           'authorization': Constants.apiKey,
         },
@@ -33,7 +34,16 @@ class StandingsRepoImpl implements StandingsRepo {
       );
       LeagueStandingModel leagueStandingModel =
           LeagueStandingModel.fromJson(result);
-      return right(leagueStandingModel);
+      if (leagueStandingModel.data == null) {
+        return left(ServerFailure('No data found'));
+      }
+      leaguesStandingList.add(leagueStandingModel);
+      leagueId.removeAt(0);
+      await fetchLeagueStandingWithLeagueId(
+        leagueId: leagueId,
+        leaguesStandingList: leaguesStandingList,
+      );
+      return right(leaguesStandingList);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));
@@ -43,12 +53,15 @@ class StandingsRepoImpl implements StandingsRepo {
   }
 
   @override
-  Future<Either<Failure, LeagueStandingModel>> fetchLeagueStandingWithSeasonId({
-    required int seasonId,
+  Future<Either<Failure, List<LeagueStandingModel>>>
+      fetchLeagueStandingWithSeasonId({
+    required List<int> seasonId,
+    required List<LeagueStandingModel> leaguesStandingList,
   }) async {
     try {
+      if (seasonId.isEmpty) return right(leaguesStandingList);
       var result = await apiService.get(
-        endPoint: 'football/standings/seasons/$seasonId',
+        endPoint: 'football/standings/seasons/${seasonId[0]}',
         headers: {
           'authorization': Constants.apiKey,
         },
@@ -61,7 +74,16 @@ class StandingsRepoImpl implements StandingsRepo {
       );
       LeagueStandingModel leagueStandingModel =
           LeagueStandingModel.fromJson(result);
-      return right(leagueStandingModel);
+      if (leagueStandingModel.data == null) {
+        return left(ServerFailure('No data found'));
+      }
+      leaguesStandingList.add(leagueStandingModel);
+      seasonId.removeAt(0);
+      await fetchLeagueStandingWithSeasonId(
+        seasonId: seasonId,
+        leaguesStandingList: leaguesStandingList,
+      );
+      return right(leaguesStandingList);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));
