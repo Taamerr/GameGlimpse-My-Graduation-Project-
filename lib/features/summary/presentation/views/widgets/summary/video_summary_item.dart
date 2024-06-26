@@ -2,9 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gp_app/core/utils/cache_helper.dart';
-import 'package:gp_app/features/summary/presentation/view_model/video_summary_cubit/video_summary_cubit.dart';
-import 'package:gp_app/features/summary/presentation/views/match_classes_view.dart';
+import '../../../../../../core/utils/cache_helper.dart';
+import '../../../view_model/video_summary_cubit/video_summary_cubit.dart';
+import '../../match_classes_view.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../../core/constants/colors.dart';
 import '../../../../../../core/constants/constants.dart';
@@ -19,8 +20,11 @@ class VideoSummaryItem extends StatelessWidget {
   });
   final VideoModel videoModel;
   final List<String> favList;
+
   @override
   Widget build(BuildContext context) {
+    DateTime dateTime = DateTime.parse(videoModel.matchDocModel.date!);
+    String matchDate = DateFormat("dd MMM yyyy").format(dateTime);
     return Stack(
       children: [
         GestureDetector(
@@ -81,14 +85,30 @@ class VideoSummaryItem extends StatelessWidget {
                                   fontSize: 16.0.sp,
                                 ),
                               ),
-                              Text(
-                                Constants.countryNames[
-                                    videoModel.videoMatchData.league!.id]!,
-                                style: TextStyle(
-                                  color: const Color(0xffAAAAAA),
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.0.sp,
-                                ),
+                              Row(
+                                children: [
+                                  Text(
+                                    //here
+                                    Constants.countryNames[
+                                        videoModel.videoMatchData.league!.id]!,
+                                    style: TextStyle(
+                                      color: const Color(0xffAAAAAA),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12.0.sp,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10.0.w,
+                                  ),
+                                  Text(
+                                    matchDate,
+                                    style: TextStyle(
+                                      color: const Color(0xffAAAAAA),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 11.0.sp,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

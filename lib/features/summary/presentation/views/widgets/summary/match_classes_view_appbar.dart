@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gp_app/core/constants/colors.dart';
-import 'package:gp_app/core/utils/icons/icon_broken.dart';
+import '../../../../../../core/constants/colors.dart';
+import '../../../../../../core/utils/icons/icon_broken.dart';
 
 class MatchClassesViewAppBar extends StatelessWidget {
   const MatchClassesViewAppBar({super.key});

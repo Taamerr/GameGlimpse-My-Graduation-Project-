@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../picked_date_fixtures_view.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../core/constants/colors.dart';
 import '../../../../../core/utils/icons/icon_broken.dart';
 import '../../view_model/fixtures_cubit/fixtures_cubit.dart';
+import '../picked_date_fixtures_view.dart';
 
 class CustomMatchesAppBar extends StatefulWidget {
   const CustomMatchesAppBar({super.key});
@@ -23,7 +23,6 @@ class _CustomMatchesAppBarState extends State<CustomMatchesAppBar> {
         // TODO: implement listener
       },
       builder: (context, state) {
-        var cubit = FixturesCubit.get(context);
         return Row(
           children: [
             Text(

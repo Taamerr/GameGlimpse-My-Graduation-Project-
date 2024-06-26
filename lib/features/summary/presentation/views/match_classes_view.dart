@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gp_app/features/summary/data/models/video_model.dart';
-import 'package:gp_app/features/summary/presentation/views/widgets/summary/match_classes_view_body.dart';
+import '../../data/models/video_model.dart';
+import 'widgets/summary/match_classes_view_body.dart';
 
 class MatchClassesView extends StatelessWidget {
   const MatchClassesView({

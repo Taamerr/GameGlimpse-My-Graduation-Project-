@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gp_app/core/constants/assets.dart';
-import 'package:gp_app/core/constants/colors.dart';
-import 'package:gp_app/features/summary/data/models/video_model.dart';
-import 'package:gp_app/features/summary/presentation/views/widgets/summary/match_classes_view_appbar.dart';
-import 'package:gp_app/features/summary/presentation/views/widgets/summary/play_video_view.dart';
+import '../../../../../../core/constants/assets.dart';
+import '../../../../../../core/constants/colors.dart';
+import '../../../../data/models/video_model.dart';
+import 'match_classes_view_appbar.dart';
+import 'play_video_view.dart';
 
 class MatchClassesViewBody extends StatelessWidget {
   const MatchClassesViewBody({

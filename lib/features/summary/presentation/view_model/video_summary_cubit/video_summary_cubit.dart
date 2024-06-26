@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_app/core/constants/constants.dart';
+import '../../../../../core/constants/constants.dart';
 import 'package:meta/meta.dart';
 
 import '../../../data/models/match_doc_model/match_doc_model.dart';
@@ -53,12 +53,14 @@ class VideoSummaryCubit extends Cubit<VideoSummaryState> {
       emit(VideoSummaryGetDocSuccessState());
     });
   }
+  Set<int> matchesListSet = {};
 
   Future<void> getMatchesId() async {
+    matchesListSet = {};
     for (var matchDoc in matchDocModel) {
-      matchesList += '${matchDoc.matchId},';
+      matchesListSet.add(matchDoc.matchId!);
     }
-    matchesList = matchesList.substring(0, matchesList.length - 1);
+    matchesList = matchesListSet.toList().join(',');
   }
 
   Future<void> getAllMatchesVideoData() async {

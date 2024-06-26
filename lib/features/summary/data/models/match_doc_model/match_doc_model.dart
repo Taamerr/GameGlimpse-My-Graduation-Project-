@@ -3,6 +3,7 @@
 class MatchDocModel {
   final int? matchId;
   final String? name;
+  final String? date;
   final String? fullSummary;
   final String? goals;
   final String? redCards;
@@ -17,6 +18,7 @@ class MatchDocModel {
     this.redCards,
     this.shots,
     this.matchClasses,
+    this.date,
   });
 
   factory MatchDocModel.fromFirestore({
@@ -36,6 +38,7 @@ class MatchDocModel {
       shots: snapshot['shots'],
       redCards: snapshot['redCards'],
       matchClasses: classes,
+      date: snapshot['date']
     );
   }
 }

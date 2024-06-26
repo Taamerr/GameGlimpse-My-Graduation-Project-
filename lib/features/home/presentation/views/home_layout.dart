@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp_app/features/summary/data/repos/video_summary_repo/video_summ_repo_impl.dart';
-import 'package:gp_app/features/summary/presentation/view_model/video_summary_cubit/video_summary_cubit.dart';
+import '../../../summary/data/repos/video_summary_repo/video_summ_repo_impl.dart';
+import '../../../summary/presentation/view_model/video_summary_cubit/video_summary_cubit.dart';
 
 import '../../../../core/utils/service_locator.dart';
 import '../../../fixtures/data/repos/fixtures_repo/fixtures_repo_impl.dart';
