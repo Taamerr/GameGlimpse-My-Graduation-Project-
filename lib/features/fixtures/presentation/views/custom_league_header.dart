@@ -31,7 +31,7 @@ class CustomLeagueHeader extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-         SizedBox(
+        SizedBox(
           width: 12.w,
         ),
         Column(
@@ -39,7 +39,7 @@ class CustomLeagueHeader extends StatelessWidget {
           children: [
             Text(
               leagueName,
-              style:  TextStyle(
+              style: TextStyle(
                 color: TAppColors.kWhite,
                 fontWeight: FontWeight.w600,
                 fontSize: 16.0.sp,
@@ -47,8 +47,8 @@ class CustomLeagueHeader extends StatelessWidget {
             ),
             Text(
               Constants.countryNames[leagueId]!,
-              style:  TextStyle(
-                color: Color(0xffAAAAAA),
+              style: TextStyle(
+                color: const Color(0xffAAAAAA),
                 fontWeight: FontWeight.w400,
                 fontSize: 12.0.sp,
               ),
@@ -58,7 +58,7 @@ class CustomLeagueHeader extends StatelessWidget {
         const Spacer(),
         IconButton(
           onPressed: iconPressed,
-          icon:  Icon(
+          icon: Icon(
             IconBroken.Arrow___Right_2,
             color: TAppColors.kWhite,
             size: 28.0.r,

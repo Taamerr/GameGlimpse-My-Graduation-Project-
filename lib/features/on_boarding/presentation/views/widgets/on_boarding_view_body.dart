@@ -21,14 +21,13 @@ class OnBoardingViewBody extends StatelessWidget {
       padding: EdgeInsets.only(
         left: 40.0.w,
         right: 36.0.w,
+        bottom: 50.0.h,
+        top: 20.0.h,
       ),
       child: Column(
         children: [
           const Expanded(
             child: CustomPageView(),
-          ),
-          SizedBox(
-            height: 36.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,9 +67,6 @@ class OnBoardingViewBody extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-          SizedBox(
-            height: 50.0.h,
           ),
         ],
       ),

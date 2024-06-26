@@ -2,14 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../../core/utils/cache_helper.dart';
-import '../../../view_model/video_summary_cubit/video_summary_cubit.dart';
-import '../../match_classes_view.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../../core/constants/colors.dart';
 import '../../../../../../core/constants/constants.dart';
+import '../../../../../../core/utils/cache_helper.dart';
 import '../../../../data/models/video_model.dart';
+import '../../../view_model/video_summary_cubit/video_summary_cubit.dart';
+import '../../match_classes_view.dart';
 import 'video_summary_team_row.dart';
 
 class VideoSummaryItem extends StatelessWidget {
@@ -25,145 +25,147 @@ class VideoSummaryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime dateTime = DateTime.parse(videoModel.matchDocModel.date!);
     String matchDate = DateFormat("dd MMM yyyy").format(dateTime);
-    return Stack(
-      children: [
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MatchClassesView(
-                  videoModel: videoModel,
-                ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MatchClassesView(
+              videoModel: videoModel,
+            ),
+          ),
+        );
+      },
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: const Color(0xff2B2B3D),
+              borderRadius: BorderRadius.circular(16.0.r),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 12.0.w,
               ),
-            );
-          },
-          child: Column(
-            children: [
-              Container(
-                height: (MediaQuery.of(context).size.height * 0.35).h,
-                decoration: BoxDecoration(
-                  color: const Color(0xff2B2B3D),
-                  borderRadius: BorderRadius.circular(16.0.r),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12.0.w,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 12.h,
                   ),
-                  child: Column(
+                  Row(
                     children: [
-                      SizedBox(
-                        height: 12.h,
+                      CachedNetworkImage(
+                        width: 36.w,
+                        height: 36.w,
+                        imageUrl: videoModel.videoMatchData.league!.imagePath!,
+                        color: videoModel.videoMatchData.league!.id == 8 ||
+                                videoModel.videoMatchData.league!.id == 2
+                            ? TAppColors.kWhite
+                            : null,
+                        errorWidget: (context, url, error) => const Icon(
+                          Icons.error,
+                          color: Colors.white,
+                        ),
                       ),
-                      Row(
+                      SizedBox(
+                        width: 12.w,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CachedNetworkImage(
-                            width: 36.w,
-                            height: 36.w,
-                            imageUrl:
-                                videoModel.videoMatchData.league!.imagePath!,
-                            color: videoModel.videoMatchData.league!.id == 8 ||
-                                    videoModel.videoMatchData.league!.id == 2
-                                ? TAppColors.kWhite
-                                : null,
-                            errorWidget: (context, url, error) => const Icon(
-                              Icons.error,
-                              color: Colors.white,
+                          Text(
+                            videoModel.videoMatchData.league!.name!,
+                            style: TextStyle(
+                              color: TAppColors.kWhite,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.0.sp,
                             ),
                           ),
-                          SizedBox(
-                            width: 12.w,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
                             children: [
                               Text(
-                                videoModel.videoMatchData.league!.name!,
+                                //here
+                                Constants.countryNames[
+                                    videoModel.videoMatchData.league!.id]!,
                                 style: TextStyle(
-                                  color: TAppColors.kWhite,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16.0.sp,
+                                  color: const Color(0xffAAAAAA),
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12.0.sp,
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    //here
-                                    Constants.countryNames[
-                                        videoModel.videoMatchData.league!.id]!,
-                                    style: TextStyle(
-                                      color: const Color(0xffAAAAAA),
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12.0.sp,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10.0.w,
-                                  ),
-                                  Text(
-                                    matchDate,
-                                    style: TextStyle(
-                                      color: const Color(0xffAAAAAA),
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 11.0.sp,
-                                    ),
-                                  ),
-                                ],
+                              SizedBox(
+                                width: 10.0.w,
+                              ),
+                              Text(
+                                matchDate,
+                                style: TextStyle(
+                                  color: const Color(0xffAAAAAA),
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 11.0.sp,
+                                ),
                               ),
                             ],
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 16.0.h,
-                      ),
-                      VideoSummaryTeamsRow(
-                        videoModel: videoModel,
-                      ),
+                      const Spacer(),
+                      CacheHelper.getData(key: 'uId') != null &&
+                              Constants.userModel != null
+                          ? BlocConsumer<VideoSummaryCubit, VideoSummaryState>(
+                              listener: (context, state) {
+                                // TODO: implement listener
+                              },
+                              builder: (context, state) {
+                                var cubit = VideoSummaryCubit.get(context);
+                                return Align(
+                                  alignment: Alignment.topRight,
+                                  child: IconButton(
+                                    icon: Icon(
+                                      favList.contains(
+                                              (videoModel.matchDocModel.matchId)
+                                                  .toString())
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
+                                      color: favList.contains(
+                                              (videoModel.matchDocModel.matchId)
+                                                  .toString())
+                                          ? Colors.red
+                                          : TAppColors.kGrey2,
+                                      size: 32.0,
+                                    ),
+                                    onPressed: () {
+                                      cubit.updateFavoriteMatchList(
+                                        uId: CacheHelper.getData(key: 'uId'),
+                                        matchId:
+                                            (videoModel.matchDocModel.matchId)
+                                                .toString(),
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                            )
+                          : const SizedBox(),
                     ],
                   ),
-                ),
+                  SizedBox(
+                    height: 16.0.h,
+                  ),
+                  VideoSummaryTeamsRow(
+                    videoModel: videoModel,
+                  ),
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 24.0.h,
-              ),
-            ],
+            ),
           ),
-        ),
-        CacheHelper.getData(key: 'uId') != null && Constants.userModel != null
-            ? BlocConsumer<VideoSummaryCubit, VideoSummaryState>(
-                listener: (context, state) {
-                  // TODO: implement listener
-                },
-                builder: (context, state) {
-                  var cubit = VideoSummaryCubit.get(context);
-                  return Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      icon: Icon(
-                        favList.contains(
-                                (videoModel.matchDocModel.matchId).toString())
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: favList.contains(
-                                (videoModel.matchDocModel.matchId).toString())
-                            ? Colors.red
-                            : TAppColors.kGrey2,
-                        size: 32.0,
-                      ),
-                      onPressed: () {
-                        cubit.updateFavoriteMatchList(
-                          uId: CacheHelper.getData(key: 'uId'),
-                          matchId:
-                              (videoModel.matchDocModel.matchId).toString(),
-                        );
-                      },
-                    ),
-                  );
-                },
-              )
-            : const SizedBox(),
-      ],
+          SizedBox(
+            height: 24.0.h,
+          ),
+        ],
+      ),
     );
   }
 }

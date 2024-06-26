@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../../../../../core/constants/assets.dart';
 import '../../../../../core/constants/colors.dart';
 import '../../../../../core/constants/constants.dart';
@@ -17,7 +19,10 @@ class EditProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: 28.0.w,
+        vertical: 12.0.h,
+      ),
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: BlocConsumer<EditProfileCubit, EditProfileState>(
@@ -38,11 +43,11 @@ class EditProfileBody extends StatelessWidget {
                         color: TAppColors.kBlue,
                       )
                     : const SizedBox(),
-                const SizedBox(
-                  height: 24,
+                SizedBox(
+                  height: 24.h,
                 ),
                 SizedBox(
-                  height: 180,
+                  height: 180.h,
                   child: Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
@@ -50,7 +55,7 @@ class EditProfileBody extends StatelessWidget {
                         alignment: Alignment.topCenter,
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 140,
+                          height: 140.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             image: const DecorationImage(
@@ -64,16 +69,13 @@ class EditProfileBody extends StatelessWidget {
                         alignment: AlignmentDirectional.bottomEnd,
                         children: [
                           CircleAvatar(
-                            radius: MediaQuery.of(context).size.width * 0.147,
+                            radius: (MediaQuery.of(context).size.width * 0.2).r,
                             backgroundColor: TAppColors.kScaffoldColor,
                             child: cubit.profileImage == null
                                 ? CachedNetworkImage(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.14 *
-                                        2,
-                                    height: MediaQuery.of(context).size.width *
-                                        0.14 *
-                                        2,
+                                    width: (MediaQuery.of(context).size.width *
+                                            0.38)
+                                        .r,
                                     imageUrl: Constants.userModel!.image,
                                     imageBuilder: (context, imageProvider) =>
                                         Container(
@@ -91,12 +93,9 @@ class EditProfileBody extends StatelessWidget {
                                         const Icon(Icons.error),
                                   )
                                 : Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.14 *
-                                        2,
-                                    height: MediaQuery.of(context).size.width *
-                                        0.14 *
-                                        2,
+                                    width: (MediaQuery.of(context).size.width *
+                                            0.38)
+                                        .r,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
@@ -106,20 +105,23 @@ class EditProfileBody extends StatelessWidget {
                                     ),
                                   ),
                           ),
-                          CircleAvatar(
-                            radius: 20,
-                            backgroundColor: TAppColors.kBlack1,
+                          Positioned(
+                            right: 10.w,
                             child: CircleAvatar(
-                              radius: 18,
-                              backgroundColor: TAppColors.kBlue,
-                              child: IconButton(
-                                onPressed: () {
-                                  cubit.getProfileImage();
-                                },
-                                icon: const Icon(
-                                  IconBroken.Camera,
-                                  color: TAppColors.kWhite,
-                                  size: 18,
+                              radius: 20.r,
+                              backgroundColor: TAppColors.kBlack1,
+                              child: CircleAvatar(
+                                radius: 18.r,
+                                backgroundColor: TAppColors.kBlue,
+                                child: IconButton(
+                                  onPressed: () {
+                                    cubit.getProfileImage();
+                                  },
+                                  icon: Icon(
+                                    IconBroken.Camera,
+                                    color: TAppColors.kWhite,
+                                    size: 18.r,
+                                  ),
                                 ),
                               ),
                             ),
@@ -129,14 +131,14 @@ class EditProfileBody extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 45.0,
+                SizedBox(
+                  height: 45.0.h,
                 ),
                 CustomTextFormField(
                   hintText: 'Name',
-                  prefixIcon: const Icon(
+                  prefixIcon: Icon(
                     IconBroken.Profile,
-                    size: 28,
+                    size: 28.r,
                   ),
                   controller: nameController,
                   fillColor: TAppColors.kBlack1,
@@ -145,8 +147,8 @@ class EditProfileBody extends StatelessWidget {
                     nameController.text = data;
                   },
                 ),
-                const SizedBox(
-                  height: 15.0,
+                SizedBox(
+                  height: 15.0.h,
                 ),
                 CustomTextFormField(
                   hintText: 'Bio',
@@ -161,17 +163,17 @@ class EditProfileBody extends StatelessWidget {
                     bioController.text = data;
                   },
                 ),
-                const SizedBox(
-                  height: 35.0,
+                SizedBox(
+                  height: 35.0.h,
                 ),
                 CustomButton(
                   backgroundColor: TAppColors.kBlue,
                   textColor: TAppColors.kWhite,
                   text: 'Update',
                   width: MediaQuery.of(context).size.width,
-                  fontSize: 18.0,
+                  fontSize: 18.0.sp,
                   fontWeight: FontWeight.bold,
-                  height: 48,
+                  height: 48.h,
                   onPressed: () {
                     String image = cubit.imageUrl == null
                         ? Constants.userModel!.image

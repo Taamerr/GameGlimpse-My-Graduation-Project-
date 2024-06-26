@@ -35,121 +35,116 @@ class VideoSummaryTeamsRow extends StatelessWidget {
         goalAway = score.scoreData!.goals!;
       }
     }
-    return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                CircleAvatar(
-                  backgroundColor: const Color(0xff222232),
-                  radius: 50.r,
-                  child: CachedNetworkImage(
-                    width: 54.w,
-                    height: 54.w,
-                    imageUrl: videoModel.videoMatchData.participants!.first
-                                .meta!.location ==
-                            'home'
-                        ? videoModel
-                            .videoMatchData.participants!.first.imagePath!
-                        : videoModel
-                            .videoMatchData.participants!.last.imagePath!,
-                    errorWidget: (context, url, error) => const Icon(
-                      Icons.error,
-                      color: Colors.white,
-                    ),
-                  ),
+    return Row(
+      children: [
+        Column(
+          children: [
+            CircleAvatar(
+              backgroundColor: const Color(0xff222232),
+              radius: 50.r,
+              child: CachedNetworkImage(
+                width: 70.w,
+                imageUrl: videoModel.videoMatchData.participants!.first.meta!
+                            .location ==
+                        'home'
+                    ? videoModel.videoMatchData.participants!.first.imagePath!
+                    : videoModel.videoMatchData.participants!.last.imagePath!,
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: Colors.white,
                 ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                Text(
-                  homeName,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: TextStyle(
-                    color: TAppColors.kWhite,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14.0.sp,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+              ),
             ),
-          ),
-          Column(
-            children: [
-              const Spacer(),
-              Row(
-                children: [
-                  Text(
-                    '$goalHome - $goalAway',
-                    style: TextStyle(
-                      color: TAppColors.kWhite,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 32.0.sp,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 8.0.h,
-              ),
-              Text(
-                videoModel.videoMatchData.state!.shortName!,
+            SizedBox(
+              height: 8.h,
+            ),
+            SizedBox(
+              width: 100.w,
+              child: Text(
+                homeName,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
                 style: TextStyle(
                   color: TAppColors.kWhite,
                   fontWeight: FontWeight.w600,
-                  fontSize: 18.0.sp,
+                  fontSize: 14.0.sp,
                 ),
+                textAlign: TextAlign.center,
               ),
-              const Spacer(
-                flex: 2,
-              ),
-            ],
-          ),
-          Expanded(
-            child: Column(
+            ),
+          ],
+        ),
+        const Spacer(),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
               children: [
-                CircleAvatar(
-                  backgroundColor: const Color(0xff222232),
-                  radius: 50.r,
-                  child: CachedNetworkImage(
-                    width: 54.w,
-                    height: 54.w,
-                    imageUrl: videoModel.videoMatchData.participants!.first
-                                .meta!.location ==
-                            'away'
-                        ? videoModel
-                            .videoMatchData.participants!.first.imagePath!
-                        : videoModel
-                            .videoMatchData.participants!.last.imagePath!,
-                    errorWidget: (context, url, error) => const Icon(
-                      Icons.error,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
                 Text(
-                  awayName,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
+                  '$goalHome - $goalAway',
                   style: TextStyle(
                     color: TAppColors.kWhite,
                     fontWeight: FontWeight.w600,
-                    fontSize: 14.0.sp,
+                    fontSize: 32.0.sp,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ],
             ),
-          ),
-        ],
-      ),
+            SizedBox(
+              height: 8.0.h,
+            ),
+            Text(
+              videoModel.videoMatchData.state!.shortName!,
+              style: TextStyle(
+                color: TAppColors.kWhite,
+                fontWeight: FontWeight.w600,
+                fontSize: 18.0.sp,
+              ),
+            ),
+            SizedBox(
+              height: 12.0.h,
+            ),
+          ],
+        ),
+        const Spacer(),
+        Column(
+          children: [
+            CircleAvatar(
+              backgroundColor: const Color(0xff222232),
+              radius: 50.r,
+              child: CachedNetworkImage(
+                width: 70.w,
+                imageUrl: videoModel.videoMatchData.participants!.first.meta!
+                            .location ==
+                        'away'
+                    ? videoModel.videoMatchData.participants!.first.imagePath!
+                    : videoModel.videoMatchData.participants!.last.imagePath!,
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            SizedBox(
+              width: 100.w,
+              child: Text(
+                awayName,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: TextStyle(
+                  color: TAppColors.kWhite,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14.0.sp,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

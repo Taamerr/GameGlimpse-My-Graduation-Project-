@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/colors.dart';
@@ -15,19 +16,19 @@ class EditProfileAppBar extends StatelessWidget {
           onPressed: () {
             GoRouter.of(context).pop(context);
           },
-          icon: const Icon(
+          icon: Icon(
             IconBroken.Arrow___Left_2,
-            size: 32.0,
+            size: 32.0.r,
             color: TAppColors.kGrey1,
           ),
         ),
         const Spacer(
           flex: 2,
         ),
-        const Text(
+        Text(
           'Edit Profile',
           style: TextStyle(
-            fontSize: 24.0,
+            fontSize: 24.0.sp,
             fontWeight: FontWeight.bold,
           ),
         ),

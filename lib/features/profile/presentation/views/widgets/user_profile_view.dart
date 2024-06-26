@@ -53,8 +53,7 @@ class UserProfileView extends StatelessWidget {
                       radius: (MediaQuery.of(context).size.width * 0.2).r,
                       backgroundColor: TAppColors.kScaffoldColor,
                       child: CachedNetworkImage(
-                        width: (MediaQuery.of(context).size.width * 0.305).w,
-                        height: (MediaQuery.of(context).size.width * 0.305).w,
+                        width: (MediaQuery.of(context).size.width * 0.38).r,
                         imageUrl: Constants.userModel!.image,
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(

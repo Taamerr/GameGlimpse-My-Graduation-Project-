@@ -34,6 +34,7 @@ class CustomPageView extends StatelessWidget {
     return Column(
       children: [
         Expanded(
+          flex: 8,
           child: PageView.builder(
             physics: const BouncingScrollPhysics(),
             controller: boardingController,
@@ -59,6 +60,9 @@ class CustomPageView extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        const Spacer(
+          flex: 1,
         ),
       ],
     );

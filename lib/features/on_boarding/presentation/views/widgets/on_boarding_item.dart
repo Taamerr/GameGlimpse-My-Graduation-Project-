@@ -13,20 +13,17 @@ class OnBoardingItem extends StatelessWidget {
   final OnBoardingModel onBoardingModel;
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
+    return Column(
       children: [
         SizedBox(
-          width: (MediaQuery.of(context).size.width * 0.6).w,
-          height: (MediaQuery.of(context).size.height * 0.65).h,
+          height: (MediaQuery.of(context).size.height * 0.5).h,
           child: Stack(
             children: [
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   width: (MediaQuery.of(context).size.width * 0.6).w,
-                  height: 340.h,
+                  height: (MediaQuery.of(context).size.height * 0.38).h,
                   decoration: BoxDecoration(
                     color: TAppColors.kBlack3,
                     borderRadius: BorderRadius.circular(60.r),
@@ -34,19 +31,20 @@ class OnBoardingItem extends StatelessWidget {
                 ),
               ),
               Align(
-                alignment: Alignment.center,
+                alignment: Alignment.bottomCenter,
                 child: Image(
                   image: AssetImage(
                     onBoardingModel.image,
                   ),
                   fit: BoxFit.fill,
+                  height: (MediaQuery.of(context).size.height * 0.45).h,
                 ),
               ),
             ],
           ),
         ),
         SizedBox(
-          height: 5.0.h,
+          height: 10.0.h,
         ),
         Text(
           onBoardingModel.title,
